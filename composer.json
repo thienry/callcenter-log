@@ -1,0 +1,20 @@
+{
+  "name": "thienry/callcenter-log",
+  "description": "A app that allows user to view patient response log that was sent by mobile",
+  "authors": [
+    {
+      "name": "Thiago Moura",
+      "email": "thiago@jaymedafonte.com.br"
+    }
+  ],
+  "require": {
+    "slim/slim": "2.0",
+    "rain/raintpl": "3.0.0",
+    "phpmailer/phpmailer": "5.2.22"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fasor\\": "vendor\\fasor\\php-classes\\src"
+    }
+  }
+}
