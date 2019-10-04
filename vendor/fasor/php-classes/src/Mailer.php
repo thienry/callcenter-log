@@ -46,7 +46,7 @@ class Mailer {
         // 2 = client and server messages
         $this->mail->SMTPDebug = 0;
         //Ask for HTML-friendly debug output
-	      $this->mail->Debugoutput = 'html';
+	    $this->mail->Debugoutput = 'html';
         //Set the hostname of the mail server
         $this->mail->Host = 'smtp.gmail.com';
         // use

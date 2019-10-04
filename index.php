@@ -3,7 +3,7 @@
 session_start();
 require_once("vendor/autoload.php");
 
-use \Slim;
+use \Slim\Slim;
 use \Fasor\Page;
 
 $app = new Slim;
@@ -19,7 +19,10 @@ $app->notFound(function () use ($app) {
 });
 
 require_once("routes/app.php");
-require_once("routes/login.php");
-require_once("routes/users.php");
+
+/*
+ * require_once("routes/login.php");
+ * require_once("routes/users.php");
+*/
 
 $app->run();
