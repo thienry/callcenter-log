@@ -19,10 +19,10 @@ $app->notFound(function () use ($app) {
 });
 
 require_once("routes/app.php");
+require_once("routes/users.php");
 
 /*
  * require_once("routes/login.php");
- * require_once("routes/users.php");
 */
 
 $app->run();

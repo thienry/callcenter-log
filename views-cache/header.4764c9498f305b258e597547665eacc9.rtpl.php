@@ -13,6 +13,8 @@
       rel="stylesheet"
       href="/res/admin-lte/plugins/fontawesome-free/css/all.min.css"
     />
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/res/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/res/admin-lte/dist/css/adminlte.min.css" />
     <!-- Google Font: Source Sans Pro -->
