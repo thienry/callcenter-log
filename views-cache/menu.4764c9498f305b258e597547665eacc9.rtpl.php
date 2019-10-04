@@ -1,43 +1,40 @@
 <?php if(!class_exists('Rain\Tpl')){exit;}?>    <!-- Sidebar Menu -->
     <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <ul class="nav nav-pills nav-sidebar flex-column" role="menu" >
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        <li class="nav-item has-treeview menu-open">
-          <a href="#" class="nav-link active">
+        
+        <li class="nav-item">
+          <a href="/dashboard" class='nav-link <?php if( $isActiveDashboard === 1 ){ ?> active <?php } ?>'>
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
-              Starter Pages
-              <i class="right fas fa-angle-left"></i>
+              <?php echo htmlspecialchars( $dashboard, ENT_COMPAT, 'UTF-8', FALSE ); ?>
             </p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Active Page</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Inactive Page</p>
-              </a>
-            </li>
-          </ul>
         </li>
+           
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
+          <a href="/usuarios" class='nav-link <?php if( $isActiveUsers === 1 ){ ?> active <?php } ?>'>
+            <i class="nav-icon fas fa-users"></i>
             <p>
-              Simple Link
-              <span class="right badge badge-danger">New</span>
+              <?php echo htmlspecialchars( $users, ENT_COMPAT, 'UTF-8', FALSE ); ?>
             </p>
           </a>
         </li>
+                
+        <li class="nav-item">
+          <a href="/marcacoes" class='nav-link <?php if( $isActiveAppointment === 1 ){ ?> active <?php } ?>'>
+            <i class="nav-icon fas fa-calendar-check"></i>
+            <p>
+              <?php echo htmlspecialchars( $appointment, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+            </p>
+          </a>
+        </li>
+        
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->
 </aside>
+
