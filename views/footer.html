@@ -12,15 +12,23 @@
     <footer class="main-footer">
       <!-- To the right -->
       <div class="float-right d-none d-sm-inline">
-        Anything you want
+        Desenvolvido por Thiago Moura
       </div>
       <!-- Default to the left -->
-      <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        
+      <strong>Copyright &copy; <span class="year"></span> <a href="//fasortec.com.br" target="_blank">Fasortec</a>. Todos os direitos reservados.
     </footer>
   </div>
   <!-- ./wrapper -->
 
   <!-- REQUIRED SCRIPTS -->
+  <script>
+    const dateNow = new Date();
+    const fullYear = dateNow.getFullYear();
+    const year = document.querySelector(".year");
+
+    year.innerText = fullYear;
+  </script>
 
   <!-- jQuery -->
   <script src="/res/admin-lte/plugins/jquery/jquery.min.js"></script>
