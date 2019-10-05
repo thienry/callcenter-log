@@ -28,7 +28,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>150</h3>
+              <h3 class="counter">17</h3>
 
               <p>Marcações Confirmadas</p>
             </div>
@@ -42,7 +42,7 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3 class="counter">131</h3>
 
               <p>Marcações Sem Resposta</p>
             </div>
@@ -56,7 +56,7 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>44</h3>
+              <h3 class="counter">7</h3>
 
               <p>Marcações Desmarcadas</p>
             </div>
@@ -70,7 +70,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>65</h3>
+              <h3><span class="counter">151</span></h3>
 
               <p>Total de Marcações</p>
             </div>
@@ -82,6 +82,20 @@
         <!-- ./col -->
       </div>
       <!-- /.row -->
+      <!-- DONUT CHART -->
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Modelo Gráfico</h3>
+        </div>
+        <div class="card-body">
+          <canvas
+            id="donutChart"
+            style="height:230px; min-height:345px"
+          ></canvas>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
   </section>
 

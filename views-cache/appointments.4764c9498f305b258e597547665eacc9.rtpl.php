@@ -49,34 +49,6 @@
                     placeholder="Password"
                   />
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input
-                        type="file"
-                        class="custom-file-input"
-                        id="exampleInputFile"
-                      />
-                      <label class="custom-file-label" for="exampleInputFile"
-                        >Choose file</label
-                      >
-                    </div>
-                    <div class="input-group-append">
-                      <span class="input-group-text" id="">Upload</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1"
-                    >Check me out</label
-                  >
-                </div>
               </div>
               <!-- /.card-body -->
 
@@ -96,7 +68,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Responsive Hover Table</h3>
+              <h1 class="card-title">
+                <strong>Lista de Marcações</strong>
+              </h1>
 
               <div class="card-tools">
                 <div class="row no-print" style="width: 150px;">
@@ -116,61 +90,74 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Date</th>
+                    <th>Marcação</th>
+                    <th>Nome Paciente</th>
+                    <th>Tipo</th>
+                    <th>Médico</th>
+                    <th>Data</th>
+                    <th>Telefone</th>
                     <th>Status</th>
-                    <th>Reason</th>
+                    <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <?php $counter1=-1;  if( isset($logs) && ( is_array($logs) || $logs instanceof Traversable ) && sizeof($logs) ) foreach( $logs as $key1 => $value1 ){ $counter1++; ?>
                   <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
+                    <td><?php echo htmlspecialchars( $value1["id_marcacao"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $value1["nome_pac"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $value1["descricao"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $value1["Medico"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $value1["Data_hora"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
-                      Bacon ipsum dolor sit amet salami venison chicken flank
-                      fatback doner.
+                      <?php if( $value1["fone_celular"] == '' ){ ?>
+                        <span class="text-red">Sem Número Cadastrado</span> 
+                      <?php }else{ ?> 
+                        <?php echo htmlspecialchars( $value1["fone_celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?> 
+                      <?php } ?>
+                    </td>
+                    <td>
+                      <strong>
+                        <?php if( $value1["Confirmacao"] == '' ){ ?> Sem Resposta
+                        <?php }elseif( $value1["Confirmacao"] == 'S' ){ ?>
+                        <span class="text-green">Confirmada</span>
+                        <?php }else{ ?>
+                        <span class="text-red">Desmarcada</span>
+                        <?php } ?>
+                      </strong>
+                    </td>
+                    <td>
+                      <a
+                        href="/marcacoes/<?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                        class="btn btn-primary btn-sm"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Atualizar Marcação"
+                        ><i class="fa fa-edit"></i
+                      ></a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>219</td>
-                    <td>Alexander Pierce</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-warning">Pending</span></td>
-                    <td>
-                      Bacon ipsum dolor sit amet salami venison chicken flank
-                      fatback doner.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>657</td>
-                    <td>Bob Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-primary">Approved</span></td>
-                    <td>
-                      Bacon ipsum dolor sit amet salami venison chicken flank
-                      fatback doner.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>175</td>
-                    <td>Mike Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-danger">Denied</span></td>
-                    <td>
-                      Bacon ipsum dolor sit amet salami venison chicken flank
-                      fatback doner.
-                    </td>
-                  </tr>
+                  <?php } ?>
                 </tbody>
               </table>
             </div>
             <!-- /.card-body -->
+            <div class="card-footer clearfix">
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item">
+                  <a class="page-link" href="#">&laquo;</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">&raquo;</a>
+                </li>
+              </ul>
+            </div>
           </div>
           <!-- /.card -->
         </div>
+        <!-- /.card -->
       </div>
     </div>
   </section>

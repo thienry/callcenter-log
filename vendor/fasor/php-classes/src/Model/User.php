@@ -34,23 +34,28 @@ class User extends Model {
   }
 
   public static function verifyLogin() {
-    if (!isset($_SESSION[User::SESSION]) || 
-        !$_SESSION[User::SESSION] || 
-        (int)$_SESSION[User::SESSION]["id_user"] > 0) 
-        {
+    if (isset($_SESSION[User::SESSION]['ausente']) && $_SESSION[User::SESSION]['ausente'] === true) {
+      header("Location: /ausente/lock");
+      exit;
+    } elseif (!isset($_SESSION[User::SESSION]) || !$_SESSION[User::SESSION] || !(int)$_SESSION[User::SESSION]["id_user"] > 0) {
       header("Location: /login");
       exit;
-    }
+    }             
   }
 
-  public static function verifyAdmin($admin = true) {
-    if ((bool)$_SESSION[User::SESSION]["admin"] !== $admin) {
-      header("Location: /login");
+  public static function verifyAdmin($admin = false) {
+    if ($admin === false && (bool)$_SESSION[User::SESSION]['admin'] === false) {
+      header("Location: /admin");
       exit;
     }
   }
 
   public static function logout() {
     $_SESSION[User::SESSION] = NULL;
+  }
+
+  public static function listAll() {
+    $sql = new Sql();
+    return $sql -> select("SELECT * FROM tb_users");
   }
 }

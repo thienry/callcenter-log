@@ -1,14 +1,19 @@
 <?php
 
 use \Fasor\Page;
-use \Fasor\Model\User; 
+use \Fasor\Model\User;
+use \Fasor\Model\Callcenter;
 
 $app -> get("/", function () {
+  User::verifyLogin();
+  
   header("Location: /dashboard");
   exit;
 });
 
 $app->get("/dashboard(/)", function () {
+  User::verifyLogin();
+
   $page = new Page();
   $page->setTpl("navbar"); 
   $page->setTpl("index", [
@@ -30,6 +35,7 @@ $app->get("/dashboard(/)", function () {
 });
 
 $app->get("/perfil(/)", function () {
+  User::verifyLogin();
 
   $page = new Page();
   $page->setTpl("navbar"); 
@@ -53,12 +59,17 @@ $app->get("/perfil(/)", function () {
 });
 
 $app -> get("/marcacoes(/)", function () {
+  User::verifyLogin();
+
+  $log = Callcenter::listAll();
+
   $page = new Page();
   $page->setTpl("navbar");
   $page->setTpl("appointments", [
     "pageTitle" => "Marcações",
     "breadcrumbItem" => "Dashboard",
-    "appointments" => "Marcações"
+    "appointments" => "Marcações",
+    "logs" => $log,
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -72,4 +83,13 @@ $app -> get("/marcacoes(/)", function () {
     "isActiveUsers" => 0,
     "isActiveAppointment" => 1
   ]);
+});
+
+$app -> get("/marcacoes/:id(/)", function ($id) {
+
+});
+
+$app -> get("/ausente/lock", function () {
+  $page = new Page();
+  $page->setTpl("lockscreen"); 
 });
