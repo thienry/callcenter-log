@@ -1,44 +1,48 @@
-<?php
+<?php 
 
 namespace Fasor\Db;
 
 class Sql {
-  const HOSTNAME = "localhost";
-  const USERNAME = "root";
-  const PASSWORD = "";
-  const DBNAME = "callcenter_log";
-  const CHARSET = "utf8";
 
-  private $conn;
+	const HOSTNAME = "localhost";
+	const USERNAME = "root";
+	const PASSWORD = "";
+	const DBNAME = "callcenter_log";
+	const CHARSET = "utf8";
 
-  public function __construct() {
-    $this->conn = new \PDO(
-      "mysql:dbname=" . Sql::DBNAME . ";host=" . Sql::HOSTNAME . ";charset=" . Sql::CHARSET,
-      Sql::USERNAME,
-      Sql::PASSWORD
-    );
-  }
+	private $conn;
 
-  private function setParams($statement, $parameters = array()) {
-    foreach ($parameters as $key => $value) {
-      $this -> bindParam($parameters, $key, $value);
-    }
-  }
+	public function __construct()	{
+		$this->conn = new \PDO(
+			"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME.";charset=".Sql::CHARSET, 
+			Sql::USERNAME,
+			Sql::PASSWORD			
+		);
+	}
 
-  private function bindParam($statement, $key, $value) {
-    $statement -> bindParam($key, $value);
-  }
+	private function setParams($statement, $parameters = array()) {
+		foreach ($parameters as $key => $value) {
+			$this->bindParam($statement, $key, $value);
+		}
+	}
 
-  public function query($rawQuery, $params = array()) {
-    $stmt = $this -> conn -> prepare($rawQuery);
-    $this -> setParams($stmt, $params);
-    $stmt -> execute();
-  }
+	private function bindParam($statement, $key, $value) {
+		$statement->bindParam($key, $value);
+	}
 
-  public function select($rawQuery, $params = array()): array {
-    $stmt = $this -> conn -> prepare($rawQuery);
-    $this -> setParams($stmt, $params);
-    $stmt -> execute();
-    return $stmt -> fetchAll(\PDO::FETCH_ASSOC);
-  }
+	public function query($rawQuery, $params = array()) {
+		$stmt = $this->conn->prepare($rawQuery);
+		$this->setParams($stmt, $params);
+		$stmt->execute();
+	}
+
+	public function select($rawQuery, $params = array()):array {
+		$stmt = $this->conn->prepare($rawQuery);
+		$this->setParams($stmt, $params);
+		$stmt->execute();
+		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
 }
+
+?>

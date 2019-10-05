@@ -2,7 +2,7 @@
 
 use Fasor\Page;
 
-$app->get("/usuarios", function () {
+$app->get("/usuarios(/)", function () {
   $page = new Page();
   $page->setTpl("navbar");
   $page->setTpl("users", [

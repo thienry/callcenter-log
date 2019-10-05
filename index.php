@@ -12,17 +12,14 @@ $app->config("debug", true);
 
 $app->notFound(function () use ($app) {
   $page = new Page([
-    "header" => false,
-    "footer" => false
+    "header" => "false",
+    "footer" => "false"
   ]);
   $page->setTpl("error");
 });
 
 require_once("routes/app.php");
 require_once("routes/users.php");
-
-/*
- * require_once("routes/login.php");
-*/
+require_once("routes/login.php");
 
 $app->run();

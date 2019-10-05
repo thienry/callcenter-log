@@ -1,8 +1,14 @@
 <?php
 
 use \Fasor\Page;
+use \Fasor\Model\User; 
 
-$app->get("/dashboard", function () {
+$app -> get("/", function () {
+  header("Location: /dashboard");
+  exit;
+});
+
+$app->get("/dashboard(/)", function () {
   $page = new Page();
   $page->setTpl("navbar"); 
   $page->setTpl("index", [
@@ -23,7 +29,8 @@ $app->get("/dashboard", function () {
   
 });
 
-$app->get("/perfil", function () {
+$app->get("/perfil(/)", function () {
+
   $page = new Page();
   $page->setTpl("navbar"); 
   $page->setTpl("profile", [
@@ -40,12 +47,12 @@ $app->get("/perfil", function () {
     "appointment" => "Marcações",
     "users" => "Usuários",
     "isActiveDashboard" => 0,
-    "isActiveUsers" => 1,
+    "isActiveUsers" => 0,
     "isActiveAppointment" => 0
   ]);
 });
 
-$app -> get("/marcacoes", function () {
+$app -> get("/marcacoes(/)", function () {
   $page = new Page();
   $page->setTpl("navbar");
   $page->setTpl("appointments", [
