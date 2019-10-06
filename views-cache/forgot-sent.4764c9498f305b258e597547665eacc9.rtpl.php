@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
 <html>
 
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CallCenter Log | Senha Recuperada com Sucesso</title>
+    <title>CallCenter Log | Recuperação de Senha</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -35,8 +35,9 @@
       <!-- /.lockscreen-item -->
       <div class="help-block text-center">
         <div class="callout callout-success">
-          <h4>Senha Alterada!</h4>
-          <p>Tente fazer o login com sua nova senha.<br><a class="text-dark" href="/login">Clique aqui</a> para fazer o login.</p>
+          <h4>E-mail enviado!</h4>
+
+          <p>Verifique as instruções no seu e-mail.</p>
         </div>
       </div>
       <div class="lockscreen-footer text-center text-white">

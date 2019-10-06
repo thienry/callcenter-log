@@ -37,26 +37,10 @@ $(function() {
     options: donutOptions
   });
 
-  $(".confirmation").confirm({
-    title: 'Exclusão de Usuário',
-    content: "Deseja realmente excluir este registro?",
-    type: 'red',
-    typeAnimated: true,
-    buttons: {
-      Cancelar: {
-        text: 'Cancelar',
-        btnClass: 'btn-red',
-        action: function () {
-          $.alert('Cancelado!');
-        }
-      },
-      Confirmar: {
-        text: 'Confirmar',
-        btnClass: 'btn-blue',
-        action: function () {
-          $.alert('Confirmado!');
-        }
-      }
-    }
+  $('.toastrDefaultSuccess').click(function () {
+    toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+  });
+  $('.toastrDefaultError').click(function () {
+    toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
   });
 });

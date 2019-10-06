@@ -22,7 +22,7 @@
 
   <body class="hold-transition register-page" style="background: darkblue">
     <div class="register-box">
-      <div class="register-logo" style="color: aliceblue">
+      <div class="register-logo text-white">
         <i class="nav-icon fas fa-headset"></i>
         <strong>CallCenter Log</strong>
       </div>
@@ -31,9 +31,9 @@
         <div class="card-body register-card-body">
           <p class="login-box-msg">Cadastre um Novo Usuário</p>
 
-          <form action="/cadastro/usuarios" method="post">
+          <form action="/cadastro" method="post">
             <div class="input-group mb-3">
-              <input required type="text" class="form-control" placeholder="Nome Completo">
+              <input required type="text" name="name" class="form-control" placeholder="Nome Completo">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-user"></span>
@@ -41,7 +41,7 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input required type="text" class="form-control" placeholder="Login">
+              <input required type="text" name="login" class="form-control" placeholder="Login">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-user"></span>
@@ -49,7 +49,7 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input required type="email" class="form-control" placeholder="Email">
+              <input required type="email" name="email" class="form-control" placeholder="Email">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>
@@ -57,35 +57,28 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input required type="password" class="form-control" placeholder="Senha">
+              <input name="password" required type="password" class="form-control" placeholder="Senha">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>
                 </div>
               </div>
             </div>
-            <div class="input-group mb-3">
-              <input required type="password" class="form-control" placeholder="Confirme a Senha">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
-                </div>
-              </div>
-            </div>
-            <input type="hidden" name="admin" value="0">
             <div class="row">
               <div class="col-12">
                 <div class="icheck-primary">
-                  <input required type="checkbox" id="agreeTerms" name="terms" value="agree">
+                  <input required type="checkbox" id="agreeTerms">
                   <label for="agreeTerms">
                     Eu concordo com os <a href="#">termos</a>
                   </label>
                 </div>
               </div>
-            
+              
+              <input type="hidden" name="admin" value="0">
+              <input type="hidden" name="user_status" value="A">
               <!-- /.col -->
               <div class="col-12 mt-3">
-                <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                <button type="submit" class="btn btn-primary btn-block">Cadastrar Novo Usuário</button>
               </div>
               <!-- /.col -->
             </div>
@@ -96,6 +89,10 @@
         </div>
         <!-- /.form-box -->
       </div><!-- /.card -->
+      <div class="lockscreen-footer text-center text-white">
+        Copyright &copy; <span class="year"></span> <b><a href="http://fasortec.com.br" class="text-white" target="_blank">Fasortec</a></b><br>
+        Todos os direitos reservados.
+      </div>
     </div>
     <!-- /.register-box -->
 
@@ -103,6 +100,7 @@
     <script src="/res/admin-lte/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="/res/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/res/js/index.js"></script>
   </body>
 
 </html>

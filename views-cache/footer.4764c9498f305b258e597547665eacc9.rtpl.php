@@ -33,7 +33,6 @@
   <!-- AdminLTE App -->
   <script src="/res/admin-lte/dist/js/adminlte.min.js"></script>
   <script src="/res/js/index.js"></script>
-  <script src="/res/jquery-confirm-v3.3.4/dist/jquery-confirm.min.js"></script>
 
 </body>
 

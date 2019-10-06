@@ -20639,24 +20639,9 @@ html.maximized-card {
   width: 290px;
 }
 
-.lockscreen-image {
-  border-radius: 50%;
-  background: #ffffff;
-  left: -10px;
-  padding: 5px;
-  position: absolute;
-  top: -25px;
-  z-index: 10;
-}
-
-.lockscreen-image > img {
-  border-radius: 50%;
-  height: 70px;
-  width: 70px;
-}
 
 .lockscreen-credentials {
-  margin-left: 70px;
+  margin-left: -100px;
 }
 
 .lockscreen-credentials .form-control {

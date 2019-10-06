@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
 <html>
 
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CallCenter Log | Senha Recuperada com Sucesso</title>
+    <title>CallCenter Log | Recuperação de Senha</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -32,13 +32,28 @@
         <strong>CallCenter Log</strong>
       </div>
 
-      <!-- /.lockscreen-item -->
-      <div class="help-block text-center">
-        <div class="callout callout-success">
-          <h4>Senha Alterada!</h4>
-          <p>Tente fazer o login com sua nova senha.<br><a class="text-dark" href="/login">Clique aqui</a> para fazer o login.</p>
-        </div>
+      <div class="help-block text-center text-white">
+        Olá <?php echo htmlspecialchars( $name, ENT_COMPAT, 'UTF-8', FALSE ); ?>, digite uma nova senha:
       </div>
+
+      <!-- START LOCK SCREEN ITEM -->
+      <div class="lockscreen-item">
+
+        <!-- lockscreen credentials (contains the form) -->
+        <form action="/esqueci-a-senha/recuperar" method="post">
+          <input type="hidden" name="code" value="<?php echo htmlspecialchars( $code, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+          <div class="input-group">
+            <input type="password" class="form-control" placeholder="Digite a nova senha" name="password">
+            <div class="input-group-btn">
+              <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
+            </div>
+          </div>
+        </form>
+        <!-- /.lockscreen credentials -->
+
+      </div>
+      <!-- /.lockscreen-item -->
+
       <div class="lockscreen-footer text-center text-white">
         Copyright &copy; <span class="year"></span>
         <b><a href="http://fasortec.com.br" class="text-white" target="_blank">Fasortec</a></b><br />

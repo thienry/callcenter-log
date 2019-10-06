@@ -5,14 +5,14 @@ use \Fasor\Model\User;
 use \Fasor\Model\Callcenter;
 
 $app -> get("/", function () {
-  User::verifyLogin();
+  // User::verifyLogin();
   
   header("Location: /dashboard");
   exit;
 });
 
 $app->get("/dashboard(/)", function () {
-  User::verifyLogin();
+  // User::verifyLogin();
 
   $page = new Page();
   $page->setTpl("navbar"); 
@@ -35,7 +35,7 @@ $app->get("/dashboard(/)", function () {
 });
 
 $app->get("/perfil(/)", function () {
-  User::verifyLogin();
+  // User::verifyLogin();
 
   $page = new Page();
   $page->setTpl("navbar"); 
@@ -59,7 +59,7 @@ $app->get("/perfil(/)", function () {
 });
 
 $app -> get("/marcacoes(/)", function () {
-  User::verifyLogin();
+  // User::verifyLogin();
 
   $log = Callcenter::listAll();
 

@@ -33,7 +33,7 @@
 
   <body class="hold-transition login-page" style="background: darkblue">
     <div class="login-box">
-      <div class="login-logo" style="color: aliceblue">
+      <div class="login-logo text-white">
         <i class="nav-icon fas fa-headset"></i>
         <strong>CallCenter Log</strong>
       </div>
@@ -90,6 +90,13 @@
         </div>
         <!-- /.login-card-body -->
       </div>
+
+      <div class="lockscreen-footer text-center text-white">
+        Copyright &copy; <span class="year"></span>
+        <b><a href="http://fasortec.com.br" target="_blank" class="text-white">Fasortec</a></b
+        ><br />
+        Todos os direitos reservados.
+      </div>
     </div>
     <!-- /.login-box -->
 
@@ -97,5 +104,6 @@
     <script src="/res/admin-lte/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="/res/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/res/js/index.js"></script>
   </body>
 </html>

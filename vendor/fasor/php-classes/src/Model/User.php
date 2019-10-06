@@ -3,11 +3,15 @@
 namespace Fasor\Model;
 
 use \Fasor\Db\Sql; 
-use \Fasor\Model; 
+use \Fasor\Model;
+use \Fasor\Mailer;
 
 class User extends Model {
   const SESSION = "User";
-
+  const KEY = "CallCenter_Log_Secret";
+  const ERROR = "UserError";
+  const SUCCESS = "UserSucesss";
+  
   public static function login($login, $password) {
     $sql = new Sql();
     $results = $sql -> select("SELECT * FROM tb_users WHERE login = :LOGIN AND user_status = 'A'", [
@@ -107,6 +111,79 @@ class User extends Model {
     $sql = new Sql();
     $results = $sql -> select("UPDATE tb_users SET user_status = 'I' WHERE id_user = :id_user;", [
       ":id_user"=>$this->getid_user()
+    ]);
+  }
+
+  public static function getForgot($email) {
+    $sql = new Sql();
+    $results = $sql -> select("SELECT * FROM tb_users WHERE email = :email", [
+      ":email" => $email
+    ]);
+
+    if (count($results) === 0) {
+      header("Location: /esqueci-a-senha?erro=1");
+      exit;
+    } else {
+      $data = $results[0];
+
+      $resultsRecovery = $sql -> select("CALL sp_userspasswordsrecoveries_create(:id_user, :ip)", [
+        ":id_user" => $data["id_user"],
+        ":ip" => $_SERVER["REMOTE_ADDR"]
+      ]);
+
+      if ($resultsRecovery === 0) {
+        header("Location: /esqueci-a-senha?erro=1");
+        exit;
+      } else {
+        $dataRecovery = $resultsRecovery[0];
+        
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length("aes-256-cbc")); // generate 16  random bytes
+        $code = openssl_encrypt($dataRecovery["id_recovery"], "aes-256-cbc", User::KEY, 0, $iv);
+        $code = base64_encode($code . "::" . $iv);
+
+        $link = "callcenterlog.local/esqueci-a-senha/recuperar?code=$code";
+
+        $mailer = new Mailer($data["email"], $data["name"], "Redefinir Senha da CallCenter Log", "email", [
+          "name" => $data["name"],
+          "link" => $link
+        ]);
+
+        $mailer -> send();
+
+        return $data;
+      }
+    }
+  }
+
+  public static function validForgotDecrypt($code) {
+    list($encrypted, $iv) = explode('::', base64_decode($code));
+    $id_recovery = openssl_decrypt($encrypted, 'aes-256-cbc', USER::KEY, 0,  $iv);
+
+    $sql = new Sql();
+    $results = $sql -> select("SELECT * FROM tb_userspasswordsrecoveries a INNER JOIN tb_users b USING(id_user) WHERE a.id_recovery = :id_recovery AND dt_recovery IS NULL AND DATE_ADD(a.dt_register, INTERVAL 1 HOUR) >= NOW();", [
+      ":id_recovery" => $id_recovery
+    ]);
+
+    if (count($results) === 0) {
+      header("Location: /esqueci-a-senha?erro=1");
+      exit;
+    } else {
+      return $results[0];
+    }
+  }
+
+  public static function setForgotUsed($idrecovery) {
+    $sql = new Sql();
+    $results = $sql -> query("UPDATE tb_userspasswordsrecoveries SET dt_recovery = NOW() WHERE id_recovery = :id_recovery", [
+      ":id_recovery" => $idrecovery
+    ]);
+  }
+
+  public function setPassword($password) {
+    $sql = new Sql();
+    $results = $sql -> query("UPDATE tb_users SET password = :password WHERE id_user = :id_user", [
+      ":password" => User::getPasswordHash($password),
+      ":id_user" => $this -> getid_user()
     ]);
   }
 }

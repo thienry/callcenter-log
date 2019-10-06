@@ -6,17 +6,16 @@ use Rain\Tpl;
 use Fasor\Model\Notificacao;
 
 class Mailer {
-  /**
-   * const USERNAME = // "thiagodevelloper@gmail.com";
-   * const PASSWORD = // "qwerty!@#$%";
-   * const NAME_FROM = // "Notificacoes HJF";
-   */  
+    const USERNAME = "thiagodevelloper@gmail.com";
+    const PASSWORD = "qwerty!@#$%";
+   
+    const NAME_FROM = "CallCenter Log";
 
     private $mail;
 
-    public function __construct($subject, $tplName, $data = []) {
+    public function __construct($toAddress, $toName, $subject, $tplName, $data = []) {
         $config = array(
-            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."/views/email/",
+            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."/views/",
             "cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/views-cache/",
             "debug"         => false // set to false to improve the speed
         );
@@ -67,7 +66,7 @@ class Mailer {
         //Set an alternative reply-to address
         //$this->mail->addReplyTo('replyto@example.com', 'First Last');
         //Set who the message is to be sent to
-        $this->mail->addAddress('notificacoes@jaymedafonte.com.br', 'Notificacao');
+        $this->mail->addAddress($toAddress, $toName);
         //Set the subject line
         $this->mail->Subject = $subject;
         //Read an HTML message body from an external file, convert referenced images to embedded,

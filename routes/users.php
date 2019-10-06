@@ -4,8 +4,8 @@ use Fasor\Page;
 use \Fasor\Model\User; 
 
 $app->get("/usuarios(/)", function () {
-  User::verifyLogin();
-  User::verifyAdmin();
+  // User::verifyLogin();
+  // User::verifyAdmin();
   $users = User::listAll();
 
 
@@ -57,8 +57,11 @@ $app->get("/usuarios/cadastrar(/)", function () {
 });
 
 $app->get("/usuarios/:id_user/senha(/)", function($iduser) {
-  User::verifyLogin();
-  User::verifyAdmin();
+  // User::verifyLogin();
+  // User::verifyAdmin();
+
+  $user = new User();
+  $user -> get((int)$iduser);
 
   $page = new Page();
   $page->setTpl("navbar");
@@ -66,6 +69,7 @@ $app->get("/usuarios/:id_user/senha(/)", function($iduser) {
     "pageTitle" => "Usuários",
     "dashboard" => "Dashboard",
     "users" => "Usuários",
+    "user" => $user -> getValues()
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -82,8 +86,8 @@ $app->get("/usuarios/:id_user/senha(/)", function($iduser) {
 });
 
 $app->post("/usuarios/:id_user/senha(/)", function($iduser) {
-  User::verifyLogin();
-  User::verifyAdmin();
+  // User::verifyLogin();
+  // User::verifyAdmin();
 });
 
 $app->get("/usuarios/:id_user(/)", function($iduser) {
@@ -134,6 +138,7 @@ $app->post("/usuarios/cadastrar(/)", function () {
   $_POST["admin"] = (isset($_POST["admin"])) ? 1 : 0;
 
   $user = new User();
+
   $user->setData($_POST);
   $user->save();
 
