@@ -62,6 +62,7 @@
                     <th>Ações</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   <?php $counter1=-1;  if( isset($usersdb) && ( is_array($usersdb) || $usersdb instanceof Traversable ) && sizeof($usersdb) ) foreach( $usersdb as $key1 => $value1 ){ $counter1++; ?>
                   <tr>
@@ -72,7 +73,7 @@
                     <td><?php if( $value1["admin"] == 1 ){ ?>Sim<?php }else{ ?>Não<?php } ?></td>
                     <td>
                       <a
-                        href="/usuarios/1"
+                        href="/usuarios/<?php echo htmlspecialchars( $value1["id_user"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
                         class="btn btn-primary btn-sm"
                         data-toggle="tooltip"
                         data-placement="top"
@@ -80,7 +81,7 @@
                         ><i class="fa fa-edit"></i
                       ></a>
                       <a
-                        href="/usuarios/1/senha"
+                        href="/usuarios/<?php echo htmlspecialchars( $value1["id_user"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/senha"
                         class="btn btn-warning btn-sm"
                         data-toggle="tooltip"
                         data-placement="top"
@@ -88,7 +89,7 @@
                         ><i class="fa fa-unlock"></i
                       ></a>
                       <a
-                        href="/usuarios/1/delete"
+                        href="/usuarios/<?php echo htmlspecialchars( $value1["id_user"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete"
                         onclick="return confirm('Deseja realmente excluir este registro?')"
                         class="btn btn-danger btn-sm "
                         data-toggle="tooltip"
@@ -102,6 +103,9 @@
                 </tbody>
               </table>
             </div>
+            <?php if( $usersdb == false ){ ?>
+            <strong class="text-center pt-5 pb-5">Não há dados para serem exibidos na tabela!</strong>
+            <?php } ?>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               <ul class="pagination pagination-sm m-0 float-right">

@@ -62,6 +62,7 @@
                     <th>Ações</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {loop="$usersdb"}
                   <tr>
@@ -102,6 +103,9 @@
                 </tbody>
               </table>
             </div>
+            {if="$usersdb == false"}
+            <strong class="text-center pt-5 pb-5">Não há dados para serem exibidos na tabela!</strong>
+            {/if}
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               <ul class="pagination pagination-sm m-0 float-right">
