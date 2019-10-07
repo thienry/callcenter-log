@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `marcacoes_diag` (
   CONSTRAINT `FK_id_user` FOREIGN KEY (`fk_id_user`) REFERENCES `tb_users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7892 DEFAULT CHARSET=latin1 AVG_ROW_LENGTH=369;
 
--- Copiando dados para a tabela callcenter_log.marcacoes_diag: ~7.406 rows (aproximadamente)
+-- Copiando dados para a tabela callcenter_log.marcacoes_diag: ~7.241 rows (aproximadamente)
 /*!40000 ALTER TABLE `marcacoes_diag` DISABLE KEYS */;
 INSERT INTO `marcacoes_diag` (`id`, `fone_contato`, `fone_celular`, `nome_pac`, `descricao`, `Medico`, `Data_hora`, `Confirmacao`, `Local`, `id_marcacao`, `dh_envio`, `dh_confirm`, `Cliente`, `Resposta`, `fk_id_user`) VALUES
 	(469, '81997138185', '81997138185', 'PEDRO MANOEL DA SILVA VELOSO', 'CONSULTA ELETIVA', 'Dr(a) DIOGO LUIZ BASTOS BRAINER', '2019-07-22 17:30:00', NULL, 'RIO MAR', '246736', '2019-07-21 00:00:01', NULL, NULL, NULL, 0),
@@ -7470,9 +7470,38 @@ INSERT INTO `marcacoes_diag` (`id`, `fone_contato`, `fone_celular`, `nome_pac`, 
 	(7891, '', '81996772849', 'GABRIELA DE LIMA GONCALVES', 'CONSULTA ELETIVA', 'Dr(a) JOAO PAULO L DE A LAFAYETTE AR', '2019-10-02 14:30:00', NULL, 'BOA VIAGEM', '260090', '2019-10-01 00:00:01', NULL, NULL, NULL, 0);
 /*!40000 ALTER TABLE `marcacoes_diag` ENABLE KEYS */;
 
+-- Copiando estrutura para procedure callcenter_log.sp_userspasswordsrecoveries_create
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_userspasswordsrecoveries_create`(
+	IN `pid_user` INT,
+	IN `pip` VARCHAR(50)
+
+
+
+)
+BEGIN
+	
+	INSERT INTO tb_userspasswordsrecoveries (id_user, ip)
+    VALUES(pid_user, pip);
+    
+    SELECT * FROM tb_userspasswordsrecoveries
+    WHERE id_recovery = LAST_INSERT_ID();
+    
+END//
+DELIMITER ;
+
 -- Copiando estrutura para procedure callcenter_log.sp_usersupdate_save
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usersupdate_save`(`pid_user` INT, `pname` VARCHAR(255), `plogin` VARCHAR(255), `ppassword` VARCHAR(255), `pemail` VARCHAR(255), `padmin` TINYINT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usersupdate_save`(
+	IN `pid_user` INT,
+	IN `pname` VARCHAR(255),
+	IN `plogin` VARCHAR(255),
+	IN `pemail` VARCHAR(255),
+	IN `padmin` TINYINT,
+	IN `puser_status` CHAR(1)
+
+
+)
 BEGIN
 	
     DECLARE vid_user INT;
@@ -7485,9 +7514,9 @@ BEGIN
     SET
 		name = pname,
 		login = plogin,
-      password = ppassword,
       email = pemail,
-      admin = padmin
+      admin = padmin,
+      user_status = puser_status
 	WHERE id_user = pid_user;
     
     SELECT * FROM tb_users WHERE id_user = pid_user;
@@ -7495,37 +7524,24 @@ BEGIN
 END//
 DELIMITER ;
 
--- Copiando estrutura para procedure callcenter_log.sp_users_delete
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_delete`(
-	IN `pid_user` INT
-)
-BEGIN
-    
-    DECLARE vid_user INT;
-    
-    SET FOREIGN_KEY_CHECKS = 0;
-    
-    SELECT id_user INTO vid_user
-    FROM tb_users
-    WHERE id_user = pid_user;
-    
-    DELETE FROM tb_users WHERE id_user = pid_user;
-    
-    SET FOREIGN_KEY_CHECKS = 1;
-        
-END//
-DELIMITER ;
-
 -- Copiando estrutura para procedure callcenter_log.sp_users_save
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_save`(`pname` VARCHAR(255), `plogin` VARCHAR(255), `ppassword` VARCHAR(255), `pemal` VARCHAR(255), `padmin` TINYINT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_save`(
+	IN `pname` VARCHAR(255),
+	IN `plogin` VARCHAR(255),
+	IN `pdespassword` VARCHAR(255),
+	IN `pemail` VARCHAR(255),
+	IN `padmin` TINYINT
+,
+	IN `puser_status` CHAR(1)
+
+)
 BEGIN
 	
     DECLARE vid_user INT;
     
-	INSERT INTO tb_users (id_user, name, login, password, email, admin)
-    VALUES(vid_user,pname, plogin, ppassword, pemail, padmin);
+	INSERT INTO tb_users (id_user, name, login, despassword, email, admin, user_status)
+    VALUES(vid_user,pname, plogin, pdespassword, pemail, padmin, puser_status);
     
     SET vid_user = LAST_INSERT_ID();
     
@@ -7539,18 +7555,37 @@ CREATE TABLE IF NOT EXISTS `tb_users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `login` varchar(255) NOT NULL,
-  `password` varchar(60) NOT NULL,
+  `despassword` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `admin` tinyint(3) NOT NULL,
+  `user_status` char(1) NOT NULL DEFAULT 'A',
   `dt_user` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela callcenter_log.tb_users: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela callcenter_log.tb_users: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `tb_users` DISABLE KEYS */;
-INSERT INTO `tb_users` (`id_user`, `name`, `login`, `password`, `email`, `admin`, `dt_user`) VALUES
-	(1, 'Fasortec ltda', 'fasor', 'fasor', 'cpd@fasortec.com.br', 1, '2019-10-02 11:01:44');
+INSERT INTO `tb_users` (`id_user`, `name`, `login`, `despassword`, `email`, `admin`, `user_status`, `dt_user`) VALUES
+	(24, 'Thiago Moura Ferreira de Lima', 'thienry', '$2y$12$xrI73bs83SZVIpebxTSsHetSxJCOcLYjOndZLArOZ3fpbtRHsgaDW', 'thmoura14@gmail.com', 1, 'A', '2019-10-06 22:10:19'),
+	(25, 'Fasortecnologia Informática e Elétrica', 'fasortec', '$2y$12$eyBLyLs.qJZHBxwLe13KXeE5T1peVKxkFrWwhy6GduWtQOjfmybv2', 'cpd@jaymedafonte.com.br', 1, 'A', '2019-10-06 22:16:01'),
+	(26, 'teste da silva', 'teste', '$2y$12$NM2aAXyHh0oasBhAgcCDMOcoAZ5O4sHxQqq646wCdkAOZIyqM/Wue', 'teste@teste.com', 0, 'A', '2019-10-06 22:21:43');
 /*!40000 ALTER TABLE `tb_users` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela callcenter_log.tb_userspasswordsrecoveries
+CREATE TABLE IF NOT EXISTS `tb_userspasswordsrecoveries` (
+  `id_recovery` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `dt_recovery` datetime DEFAULT NULL,
+  `dt_register` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_recovery`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `id_user` FOREIGN KEY (`id_user`) REFERENCES `tb_users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela callcenter_log.tb_userspasswordsrecoveries: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tb_userspasswordsrecoveries` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_userspasswordsrecoveries` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
