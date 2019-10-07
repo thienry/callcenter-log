@@ -35,37 +35,37 @@
             <form role="form" action="/usuarios/<?php echo htmlspecialchars( $user["id_user"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Nome Completo</label>
+                  <label for="name">Nome Completo</label>
                   <input
                     type="text"
                     name="name"
                     value="<?php echo htmlspecialchars( $user["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
                     class="form-control"
-                    id="exampleInputEmail1"
+                    id="name"
                     placeholder="Digite o Nome Completo"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Login</label>
+                  <label for="login">Login</label>
                   <input
                     type="text"
                     name="login"
                     value="<?php echo htmlspecialchars( $user["login"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="login"
                     placeholder="Digite o Login"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Email</label>
+                  <label for="email">Email</label>
                   <input
                     type="email"
                     name="email"
                     value="<?php echo htmlspecialchars( $user["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="email"
                     placeholder="Digite o Email"
                     required
                   />

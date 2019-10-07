@@ -15,6 +15,6 @@
         <img src="/res/admin-lte/dist/img/user2-160x160.jpg" class="img-circle elevation-2 ml-2" alt="User Image" />
       </div>
       <div class="info">
-        <a href="/perfil" class="d-block "><?php echo htmlspecialchars( $username, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+        <a href="/perfil" class="d-block "><?php echo getUserLogin(); ?></a>
       </div>
     </div>

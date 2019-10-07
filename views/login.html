@@ -32,7 +32,14 @@
   </head>
 
   <body class="hold-transition login-page" style="background: darkblue">
-    <div class="login-box">
+      <div class="login-box">
+          {if="$erro == 1"}
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-ban"></i> Erro!</h5>
+            Usuário incorreto ou senha errada.
+          </div>
+          {/if}
       <div class="login-logo text-white">
         <i class="nav-icon fas fa-headset"></i>
         <strong>CallCenter Log</strong>
@@ -46,9 +53,10 @@
             <div class="input-group mb-3">
               <input
                 type="text"
+                name="login"
                 class="form-control"
                 placeholder="Login"
-                name="login"
+                required
               />
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -59,9 +67,10 @@
             <div class="input-group mb-3">
               <input
                 type="password"
+                name="despassword"
                 class="form-control"
                 placeholder="Senha"
-                name="password"
+                required
               />
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -69,6 +78,9 @@
                 </div>
               </div>
             </div>
+            {if="$erro == 1"}
+            <span class="text-red"><strong>Usuário incorreto ou senha errada.</strong></span>
+            {/if}
             <div class="row">
               <div class="col">
                 <button type="submit" class="btn btn-primary btn-block">
@@ -93,7 +105,10 @@
 
       <div class="lockscreen-footer text-center text-white">
         Copyright &copy; <span class="year"></span>
-        <b><a href="http://fasortec.com.br" target="_blank" class="text-white">Fasortec</a></b
+        <b
+          ><a href="http://fasortec.com.br" target="_blank" class="text-white"
+            >Fasortec</a
+          ></b
         ><br />
         Todos os direitos reservados.
       </div>

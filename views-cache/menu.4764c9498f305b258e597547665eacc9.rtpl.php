@@ -12,7 +12,7 @@
             </p>
           </a>
         </li>
-           
+        <?php if( $user["admin"] == 1 ){ ?>
         <li class="nav-item">
           <a href="/usuarios" class='nav-link <?php if( $isActiveUsers === 1 ){ ?> active <?php } ?>'>
             <i class="nav-icon fas fa-users"></i>
@@ -21,7 +21,7 @@
             </p>
           </a>
         </li>
-                
+        <?php } ?> 
         <li class="nav-item">
           <a href="/marcacoes" class='nav-link <?php if( $isActiveAppointment === 1 ){ ?> active <?php } ?>'>
             <i class="nav-icon fas fa-calendar-check"></i>

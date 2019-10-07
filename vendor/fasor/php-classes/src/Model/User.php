@@ -11,6 +11,14 @@ class User extends Model {
   const KEY = "CallCenter_Log_Secret";
   const ERROR = "UserError";
   const SUCCESS = "UserSucesss";
+
+  public static function getFromSession() {
+    $user = new User();
+    if (isset($_SESSION[User::SESSION]) && (int)$_SESSION[User::SESSION]["id_user"] > 0) {
+      $user->setData($_SESSION[User::SESSION]);
+    }
+    return $user;
+  }
   
   public static function login($login, $password) {
     $sql = new Sql();
@@ -22,10 +30,10 @@ class User extends Model {
       header("Location: /login?erro=1");
       exit;
     }
-
+    
     $data = $results[0];
-
-    if (password_verify($password, $data["password"]) === true) {
+    
+    if (password_verify($password, $data["despassword"]) === true) {
       $user = new User();
       $user -> setData($data);
       $_SESSION[User::SESSION] = $user -> getValues();
@@ -66,20 +74,21 @@ class User extends Model {
 
   public function save() {
     $sql = new Sql();
-    $results = $sql -> select("CALL sp_users_save(:name, :login, :password, :email, :admin, :user_status)", [
+    $results = $sql -> select("CALL sp_users_save(:name, :login, :despassword, :email, :admin, :user_status)", [
       ":name" => $this -> getname(),
       ":login" => $this -> getlogin(),
-      ":password" => User::getPasswordHash($this -> getpassword()),
+      ":despassword" => User::getPasswordHash($this->getdespassword()),
       ":email" => $this -> getemail(),
       ":admin" => $this -> getadmin(),
       ":user_status" => $this -> getuser_status()
     ]);
-
     $this -> setData($results[0]);
   }
 
   public static function getPasswordHash($password) {
-    return password_hash($password, PASSWORD_DEFAULT, ["cost"=>12]);
+    return password_hash($password, PASSWORD_DEFAULT, [
+			'cost'=>12
+		]);
   }
 
   public function get($iduser) {
@@ -94,11 +103,10 @@ class User extends Model {
 
   public function update() {
     $sql = new Sql();
-    $results = $sql -> select("CALL sp_usersupdate_save(:id_user, :name, :login, :password, :email, :admin, :user_status)", [
+    $results = $sql -> select("CALL sp_usersupdate_save(:id_user, :name, :login, :email, :admin, :user_status)", [
       ":id_user" => $this -> getid_user(),
       ":name" => $this -> getname(),
       ":login" => $this -> getlogin(),
-      ":password" => User::getPasswordHash($this -> getpassword()),
       ":email" => $this -> getemail(),
       ":admin" => $this -> getadmin(),
       ":user_status" => $this -> getuser_status()
@@ -181,9 +189,37 @@ class User extends Model {
 
   public function setPassword($password) {
     $sql = new Sql();
-    $results = $sql -> query("UPDATE tb_users SET password = :password WHERE id_user = :id_user", [
-      ":password" => User::getPasswordHash($password),
-      ":id_user" => $this -> getid_user()
+    $sql -> select("UPDATE tb_users SET despassword = :despassword WHERE id_user = :id_user", [
+      ":despassword" => $password,
+      ":id_user" => $this->getid_user()
     ]);
+  }
+
+  public static function setError($msg) {
+		$_SESSION[User::ERROR] = $msg;
+  }
+    
+  public static function getError() {
+    $msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
+    User::clearError();
+    return $msg;
+  }
+    
+	public static function clearError()	{
+		$_SESSION[User::ERROR] = NULL;
+  }
+    
+  public static function setSuccess($msg) {
+    $_SESSION[User::SUCCESS] = $msg;
+  }
+    
+	public static function getSuccess()	{
+    $msg = (isset($_SESSION[User::SUCCESS]) && $_SESSION[User::SUCCESS]) ? $_SESSION[User::SUCCESS] : '';
+    User::clearSuccess();
+    return $msg;
+  }
+    
+	public static function clearSuccess() {
+    $_SESSION[User::SUCCESS] = NULL;
   }
 }

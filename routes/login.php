@@ -4,15 +4,19 @@ use \Fasor\Page;
 use \Fasor\Model\User;
 
 $app -> get("/login(/)", function () {
+  $erro = isset($_GET['erro']) ? $_GET['erro'] : 0;
+
   $page = new Page([
-    "header" => "header",
-    "footer" => "footer"
+    "header" => false,
+    "footer" => false
    ]);
-   $page -> setTpl("login");
+   $page -> setTpl("login", [
+     "erro"=>$erro
+   ]);
 });
 
 $app -> post("/login", function () {
-  User::login($_POST["login"], $_POST["password"]);
+  User::login($_POST["login"], $_POST["despassword"]);
 
   header("Location: /dashboard");
   exit;
@@ -20,17 +24,15 @@ $app -> post("/login", function () {
 
 $app -> get("/cadastro(/)", function () {
   $page = new Page([
-    "header" => "header",
-    "footer" => "footer"
+    "header" => false,
+    "footer" => false
    ]);
    $page -> setTpl("register");
 });
 
 $app->post("/cadastro(/)", function () {;
   $user = new User();
-  $user->setData($_POST);
-  var_dump($user);
-  exit;
+  $user -> setData($_POST);
   $user->save();
 
   header("Location: /login");
@@ -39,8 +41,8 @@ $app->post("/cadastro(/)", function () {;
 
 $app -> get("/esqueci-a-senha(/)", function () {
   $page = new Page([
-    "header" => "header",
-    "footer" => "footer"
+    "header" => false,
+    "footer" => false
    ]);
    $page -> setTpl("forgot");
 });
@@ -54,8 +56,8 @@ $app -> post("/esqueci-a-senha(/)", function () {
 
 $app -> get("/esqueci-a-senha/enviada(/)", function () {
   $page = new Page([
-    "header" => "header",
-    "footer" => "footer"
+    "header" => false,
+    "footer" => false
    ]);
    $page -> setTpl("forgot-sent");
 });
@@ -64,8 +66,8 @@ $app -> get("/esqueci-a-senha/recuperar(/)", function () {
   $user = User::validForgotDecrypt($_GET["code"]);
 
   $page = new Page([
-    "header" => "header",
-    "footer" => "footer"
+    "header" => false,
+    "footer" => false
   ]);
   $page -> setTpl("forgot-reset", [
     "name" => $user["name"],
@@ -83,15 +85,8 @@ $app -> post("/esqueci-a-senha/recuperar(/)", function () {
   $user -> setPassword($_POST["password"]);
 
   $page = new Page([
-    "header" => "header",
-    "footer" => "footer"
+    "header" => false,
+    "footer" => false
   ]);
   $page -> setTpl("forgot-success");
-});
-
-$app -> get("/logout", function () {
-  User::logout();
-
-  header("Location: /login");
-  exit;
 });

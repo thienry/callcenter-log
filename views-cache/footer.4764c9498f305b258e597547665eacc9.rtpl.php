@@ -29,11 +29,9 @@
   <script src="/res/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- ChartJS -->
   <script src="/res/admin-lte/plugins/chart.js/Chart.min.js"></script>
-  <!-- SweetAlert2 -->
   <!-- AdminLTE App -->
   <script src="/res/admin-lte/dist/js/adminlte.min.js"></script>
   <script src="/res/js/index.js"></script>
-
 </body>
 
 </html>

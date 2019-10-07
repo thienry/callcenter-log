@@ -28,7 +28,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3 class="counter">17</h3>
+              <h3 class="counter"><?php echo htmlspecialchars( $confirmedTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
 
               <p>Marcações Confirmadas</p>
             </div>
@@ -42,7 +42,7 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3 class="counter">131</h3>
+              <h3 class="counter"><?php echo htmlspecialchars( $noAnswerTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
 
               <p>Marcações Sem Resposta</p>
             </div>
@@ -56,7 +56,7 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3 class="counter">7</h3>
+              <h3 class="counter"><?php echo htmlspecialchars( $unmarkedTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
 
               <p>Marcações Desmarcadas</p>
             </div>
@@ -70,7 +70,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3><span class="counter">151</span></h3>
+              <h3><span class="counter"><?php echo htmlspecialchars( $totalTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></span></h3>
 
               <p>Total de Marcações</p>
             </div>

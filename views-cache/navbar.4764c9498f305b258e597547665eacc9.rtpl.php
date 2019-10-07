@@ -9,7 +9,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3 ">
+    <form class="form-inline d-none ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Buscar" aria-label="Search" />
         <div class="input-group-append">
@@ -21,7 +21,7 @@
     </form>
 
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item d-none d-sm-inline-block">
+      <li class="nav-item  ">
         <a href="/logout" class="nav-link"><i class="nav-icon fas fa-sign-out-alt"></i> Sair</a>
       </li>
     </ul>

@@ -16,7 +16,7 @@ $(function() {
     labels: ["Marcações Confirmadas", "Marcações Sem Resposta", "Marcações Desmarcadas"],
     datasets: [
       {
-        data: [17, 131, 3],
+        data: [151, 7257, 15],
         backgroundColor: [
           "#28a745",
           "#ffc107",
@@ -35,12 +35,5 @@ $(function() {
     type: "doughnut",
     data: donutData,
     options: donutOptions
-  });
-
-  $('.toastrDefaultSuccess').click(function () {
-    toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
-  });
-  $('.toastrDefaultError').click(function () {
-    toastr.error('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
   });
 });

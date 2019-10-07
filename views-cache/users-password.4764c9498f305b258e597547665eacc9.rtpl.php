@@ -25,6 +25,22 @@
       <div class="row">
         <!-- left column -->
         <div class="col-md">
+
+        <?php if( $msgError !== '' ){ ?>  
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-ban"></i> Erro!</h5>
+            <?php echo htmlspecialchars( $msgError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+          </div>
+        <?php } ?>
+
+        <?php if( $msgSuccess !== '' ){ ?>
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-check"></i> Sucesso!</h5>
+            <?php echo htmlspecialchars( $msgSuccess, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+          </div>
+        <?php } ?>
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
@@ -32,16 +48,16 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" action="/usuarios/:id_user/senha" method="post">
+            <form role="form" action="/usuarios/<?php echo htmlspecialchars( $user["id_user"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/senha" method="post">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Nova Senha</label>
-                  <input type="password" name="password" class="form-control" id="exampleInputEmail1"
+                  <label for="despassword">Nova Senha</label>
+                  <input type="password" name="despassword" class="form-control" id="password"
                     placeholder="Digite a Nova Senha" required />
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Confirme a Senha</label>
-                  <input type="password" name="confirmPassword" class="form-control" id="exampleInputPassword1"
+                  <label for="confirmPassword">Confirme a Senha</label>
+                  <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
                     placeholder="Confirme a Nova Senha" required />
                 </div>
               </div>

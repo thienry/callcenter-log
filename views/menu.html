@@ -12,7 +12,7 @@
             </p>
           </a>
         </li>
-           
+        {if="$user.admin == 1"}
         <li class="nav-item">
           <a href="/usuarios" class='nav-link {if="$isActiveUsers === 1"} active {/if}'>
             <i class="nav-icon fas fa-users"></i>
@@ -21,7 +21,7 @@
             </p>
           </a>
         </li>
-                
+        {/if} 
         <li class="nav-item">
           <a href="/marcacoes" class='nav-link {if="$isActiveAppointment === 1"} active {/if}'>
             <i class="nav-icon fas fa-calendar-check"></i>

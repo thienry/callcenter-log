@@ -35,45 +35,45 @@
             <form role="form" action="/usuarios/cadastrar" method="post">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Nome Completo</label>
+                  <label for="name">Nome Completo</label>
                   <input
                     type="text"
                     name="name"
                     class="form-control"
-                    id="exampleInputEmail1"
+                    id="name"
                     placeholder="Digite o Nome Completo"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Login</label>
+                  <label for="login">Login</label>
                   <input
                     type="text"
                     name="login"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="login"
                     placeholder="Digite o Login"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Email</label>
+                  <label for="email">Email</label>
                   <input
                     type="email"
                     name="email"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="email"
                     placeholder="Digite o Email"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Senha</label>
+                  <label for="password">Senha</label>
                   <input
+                    name="despassword"
                     type="password"
-                    name="password"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="password"
                     placeholder="Digite a Senha"
                     required
                   />

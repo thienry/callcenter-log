@@ -107,7 +107,7 @@
                     <td>{$value.nome_pac}</td>
                     <td>{$value.descricao}</td>
                     <td>{$value.Medico}</td>
-                    <td>{$value.Data_hora}</td>
+                    <td>{function="formatDate($value.Data_hora)"}</td>
                     <td>
                       {if="$value.fone_celular == ''"}
                         <span class="text-red">Sem Número Cadastrado</span> 
