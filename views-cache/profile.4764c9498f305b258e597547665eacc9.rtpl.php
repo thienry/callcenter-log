@@ -27,13 +27,6 @@
           <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
-              <div class="text-center">
-                <img
-                  class="profile-user-img img-fluid img-circle"
-                  src="/res/admin-lte/dist/img/user4-128x128.jpg"
-                  alt="User profile picture"
-                />
-              </div>
               <h3 class="profile-username text-center"><?php echo getUserName(); ?></h3>
               <p class="text-muted text-center">@<?php echo getUserLogin(); ?></p>
             </div>
@@ -63,6 +56,14 @@
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
+
+          <div class="avatar-wrapper">
+            <img class="profile-pic" src="" />
+            <div class="upload-button">
+              <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+            </div>
+            <input class="file-upload" type="file" accept="image/*" />
+          </div>
         </div>
         <div class="col-md-3"></div>
       </div>
@@ -73,3 +74,4 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+

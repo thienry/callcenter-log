@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="/res/admin-lte/plugins/daterangepicker/daterangepicker.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/res/admin-lte/dist/css/adminlte.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/res/css/styles.scss" />
+    <link rel="stylesheet" href="/res/css/styles.css" />
     <!-- Google Font: Source Sans Pro -->
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
