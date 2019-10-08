@@ -55,7 +55,7 @@
                 type="text"
                 name="login"
                 class="form-control"
-                placeholder="Login"
+                placeholder="Login ou Email"
                 required
               />
               <div class="input-group-append">
@@ -95,9 +95,11 @@
             <p class="mb-1 mt-4">
               <a href="/esqueci-a-senha">Esqueci a Senha</a>
             </p>
-            <p class="mb-0">
+            
+            <!--<p class="mb-0">
               <a href="/cadastro" class="text-center">Cadastrar Novo Usuário</a>
             </p>
+          -->
           </div>
         </div>
         <!-- /.login-card-body -->

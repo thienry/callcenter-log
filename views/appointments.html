@@ -24,36 +24,57 @@
     <div class="container-fluid">
       <div class="row">
         <!-- left column -->
-        <div class="col-md">
+        <div class="col-md-12">
           <!-- general form elements -->
           <div class="card card-primary">
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form">
+            <div class="card-header">
+              <h3 class="card-title">Filtrar Marcações</h3>
+            </div>
+            <form role="form" action="/marcacoes" method="GET">
               <div class="card-body">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    placeholder="Enter email"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Password"
-                  />
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label>Buscar pela data:</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="far fa-calendar-alt"></i>
+                          </span>
+                        </div>
+                        <input
+                          type="text"
+                          class="form-control float-right"
+                          id="reservation"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="search">Buscar:</label>
+                      <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        id="search"
+                        value="{$search}"
+                        placeholder="Buscar"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- /.card-body -->
-
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-primary float-right"
+                >
+                  Filtrar
+                </button>
               </div>
             </form>
           </div>
@@ -110,10 +131,8 @@
                     <td>{function="formatDate($value.Data_hora)"}</td>
                     <td>
                       {if="$value.fone_celular == ''"}
-                        <span class="text-red">Sem Número Cadastrado</span> 
-                      {else} 
-                        {$value.fone_celular} 
-                      {/if}
+                      <span class="text-red">Sem Número Cadastrado</span>
+                      {else} {$value.fone_celular} {/if}
                     </td>
                     <td>
                       <strong>
@@ -140,18 +159,18 @@
                 </tbody>
               </table>
             </div>
+            {if="$logs == false"}
+              <strong class="text-center pt-5 pb-5">Não há dados para serem exibidos na tabela!</strong>
+            {/if}
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               <ul class="pagination pagination-sm m-0 float-right">
+                {loop="$pages"}
                 <li class="page-item">
-                  <a class="page-link" href="#">&laquo;</a>
+                  <a class="page-link" href="{$value.href}">{$value.text}</a>
+                  <br>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">&raquo;</a>
-                </li>
+                {/loop}
               </ul>
             </div>
           </div>

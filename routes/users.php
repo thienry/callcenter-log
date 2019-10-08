@@ -7,9 +7,29 @@ $app->get("/usuarios(/)", function () {
   User::verifyLogin();
   User::verifyAdmin();
 
+  $search = (isset($_GET["search"])) ? $_GET["search"] : "";
+  $page = (isset($_GET["page"])) ? (int)$_GET["page"] : 1;
+  
+  if ($search != "") {
+    $pagination = User::getPageSearch($search, $page);
+  } else {
+    $pagination = User::getPage($page);
+  }
+
+  $pages = [];
+
+  for ($i=0; $i < $pagination["pages"]; $i++) { 
+    array_push($pages, [
+      "href"=>"/usuarios?".http_build_query([
+        "page"=>$i + 1,
+        "search"=>$search
+      ]),
+      "text"=>$i + 1
+    ]);
+  }
+
   $user = new User();
   $user = User::getFromSession();
-  $users = User::listAll();
 
   $page = new Page();
   $page->setTpl("navbar");
@@ -17,7 +37,9 @@ $app->get("/usuarios(/)", function () {
     "pageTitle" => "Usuários",
     "dashboard" => "Dashboard",
     "users" => "Usuários",
-    "usersdb" => $users,
+    "usersdb" => $pagination["data"],
+    "search" => $search,
+    "pages" => $pages
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",

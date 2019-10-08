@@ -22,8 +22,9 @@ class User extends Model {
   
   public static function login($login, $password) {
     $sql = new Sql();
-    $results = $sql -> select("SELECT * FROM tb_users WHERE login = :LOGIN AND user_status = 'A'", [
-      ":LOGIN" => $login
+    $results = $sql -> select("SELECT * FROM tb_users WHERE login = :LOGIN OR email = :email AND user_status = 'A'", [
+      ":LOGIN" => $login,
+      ":email" => $login
     ]);
 
     if (count($results) === 0) {
@@ -193,6 +194,38 @@ class User extends Model {
       ":despassword" => $password,
       ":id_user" => $this->getid_user()
     ]);
+  }
+
+  public static function getPage($page = 1, $itemsPerPage = 10) {
+    $start = ($page - 1) * $itemsPerPage;
+    
+    $sql = new Sql();
+    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_users LIMIT $start, $itemsPerPage;");
+
+    $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+
+    return [
+      "data"=>$results,
+      "total"=>(int)$resultsTotal[0]["nrtotal"],
+      "pages"=>ceil($resultsTotal[0]["nrtotal"] / $itemsPerPage)
+    ];
+  }
+
+  public static function getPageSearch($search, $page = 1, $itemsPerPage = 10) {
+    $start = ($page - 1) * $itemsPerPage;
+
+    $sql = new Sql();
+    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_users WHERE name LIKE :search OR login LIKE :search OR email LIKE :search LIMIT $start, $itemsPerPage;", [
+      ":search" => "%". $search ."%"
+    ]);
+
+    $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+
+    return [
+      "data" => $results,
+      "total" => (int) $resultsTotal[0]["nrtotal"],
+      "pages" => ceil($resultsTotal[0]["nrtotal"] / $itemsPerPage)
+    ];
   }
 
   public static function setError($msg) {

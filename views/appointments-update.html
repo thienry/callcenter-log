@@ -1,0 +1,156 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>{$pageTitle}</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a href="/dashboard">{$breadcrumbItem}</a>
+            </li>
+            <li class="breadcrumb-item active">{$appointments}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Atualizar {$appointments}</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form" action="/marcacoes/{$log.id}" method="post">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label for="name">Nome Paciente</label>
+                      <input type="text" name="name" value="{$log.nome_pac}" class="form-control" id="name" disabled />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label for="name">Médico</label>
+                      <input type="text" name="Medico" value="{$log.Medico}" class="form-control" disabled />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label for="login">Tipo Consulta</label>
+                      <input type="text" name="descricao" value="{$log.descricao}" class="form-control" disabled />
+                    </div>
+                  </div>
+                </div>    
+                <div class="row">
+                  <div class="col-4">
+                    <!-- select -->
+                    <div class="form-group">
+                      <label>Status Marcação</label>
+                      <select name="Confirmacao" class="custom-select">
+                        <option value="{$log.Confirmacao}" checked >
+                          {if="$log.Confirmacao == 'S'"}
+                            Marcada
+                          {elseif="$log.Confirmacao == 'N'"} 
+                            Desmarcada
+                          {else}
+                            Sem resposta
+                          {/if}
+                        </option>
+                        <option value="{$confirm[0]}">Marcada</option>
+                        <option value="{$confirm[1]}">Desmarcada</option>
+                        <option value="{$confirm[2]}">Sem resposta</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label for="name">Local</label>
+                      <input type="text" name="Medico" value="{$log.Local}" class="form-control" disabled />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label for="login">Número Marcação</label>
+                      <input type="text" name="descricao" value="{$log.id_marcacao}" class="form-control" disabled />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label for="name">Fone Contato</label>
+                      <input type="text" name="name" value="{$log.fone_contato}" class="form-control" id="name" disabled />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label for="name">Fone celular</label>
+                      <input type="text" name="Medico" value="{$log.fone_celular}" class="form-control" disabled />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group">
+                      <label for="login">Data</label>
+                      <input type="text" name="descricao" value="{$log.Data_hora}" class="form-control" disabled />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label for="name">Data Envio</label>
+                      <input type="text" name="name" value="{$log.dh_envio}" class="form-control" id="name" disabled />
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label for="name">Data da Confirmacao</label>
+                      <input type="text" name="Medico" value="{$log.dh_confirm}" class="form-control" disabled />
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label for="login">Cliente</label>
+                      <input type="text" name="descricao" value="{$log.Cliente}" class="form-control" disabled />
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label for="login">Resposta</label>
+                      <input type="text" name="descricao" value="{$log.Resposta}" class="form-control" disabled />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label>Observações</label>
+                      <textarea class="form-control" rows="3" name="observacao" placeholder="Digite aqui as Observações ..."></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

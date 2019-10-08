@@ -29,9 +29,20 @@
   <script src="/res/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- ChartJS -->
   <script src="/res/admin-lte/plugins/chart.js/Chart.min.js"></script>
+  <!-- InputMask -->
+  <script src="/res/admin-lte/plugins/inputmask/jquery.inputmask.bundle.js"></script>
+  <script src="/res/admin-lte/plugins/moment/moment.min.js"></script>
+  <!-- date-range-picker -->
+  <script src="/res/admin-lte/plugins/daterangepicker/daterangepicker.js"></script>
   <!-- AdminLTE App -->
   <script src="/res/admin-lte/dist/js/adminlte.min.js"></script>
   <script src="/res/js/index.js"></script>
+  <script>
+    $(function () {
+      //Date range picker
+      $('#reservation').daterangepicker();
+    });
+  </script>
 </body>
 
 </html>

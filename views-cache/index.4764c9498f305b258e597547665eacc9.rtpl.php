@@ -26,58 +26,66 @@
       <div class="row">
         <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3 class="counter"><?php echo htmlspecialchars( $confirmedTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
+          <a href="/marcacoes">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 class="counter"><?php echo htmlspecialchars( $confirmedTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
 
-              <p>Marcações Confirmadas</p>
+                <p>Marcações Confirmadas</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-calendar"></i>
+              </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-calendar"></i>
-            </div>
-          </div>
+          </a>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h3 class="counter"><?php echo htmlspecialchars( $noAnswerTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
+          <a href="/marcacoes">
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3 class="counter"><?php echo htmlspecialchars( $noAnswerTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
 
-              <p>Marcações Sem Resposta</p>
+                <p>Marcações Sem Resposta</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-calendar"></i>
+              </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-calendar"></i>
-            </div>
-          </div>
+          </a>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-danger">
-            <div class="inner">
-              <h3 class="counter"><?php echo htmlspecialchars( $unmarkedTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
+          <a href="/marcacoes">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3 class="counter"><?php echo htmlspecialchars( $unmarkedTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></h3>
 
-              <p>Marcações Desmarcadas</p>
+                <p>Marcações Desmarcadas</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-calendar"></i>
+              </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-calendar"></i>
-            </div>
-          </div>
+          </a>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-info">
-            <div class="inner">
-              <h3><span class="counter"><?php echo htmlspecialchars( $totalTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></span></h3>
+          <a href="/marcacoes">
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><span class="counter"><?php echo htmlspecialchars( $totalTags, ENT_COMPAT, 'UTF-8', FALSE ); ?></span></h3>
 
-              <p>Total de Marcações</p>
+                <p>Total de Marcações</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-calendar"></i>
+              </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-calendar"></i>
-            </div>
-          </div>
+          </a>
         </div>
         <!-- ./col -->
       </div>

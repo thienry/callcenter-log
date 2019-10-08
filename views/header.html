@@ -15,6 +15,8 @@
     />
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/res/admin-lte/plugins/daterangepicker/daterangepicker.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/res/admin-lte/dist/css/adminlte.min.css" />
     <!-- Google Font: Source Sans Pro -->

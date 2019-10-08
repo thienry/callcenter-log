@@ -78,10 +78,29 @@ $app->get("/perfil(/)", function () {
 $app -> get("/marcacoes(/)", function () {
   User::verifyLogin();
 
+  $search = (isset($_GET["search"])) ? $_GET["search"] : "";
+  $page = (isset($_GET["page"])) ? (int) $_GET["page"] : 1;
+
+  if ($search != "") {
+    $pagination = Callcenter::getPageSearch($search, $page);
+  } else {
+    $pagination = Callcenter::getPage($page);
+  }
+
+  $pages = [];
+
+  for ($i = 0; $i < $pagination["pages"]; $i++) {
+    array_push($pages, [
+      "href" => "/marcacoes?" . http_build_query([
+        "page" => $i + 1,
+        "search" => $search
+      ]),
+      "text" => $i + 1
+    ]);
+  }
+
   $user = new User();
   $user = User::getFromSession();
-
-  $log = Callcenter::listAll();
 
   $page = new Page();
   $page->setTpl("navbar");
@@ -89,7 +108,9 @@ $app -> get("/marcacoes(/)", function () {
     "pageTitle" => "Marcações",
     "breadcrumbItem" => "Dashboard",
     "appointments" => "Marcações",
-    "logs" => $log,
+    "logs" => $pagination["data"],
+    "search" => $search,
+    "pages" => $pages
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -108,6 +129,48 @@ $app -> get("/marcacoes(/)", function () {
 
 $app -> get("/marcacoes/:id(/)", function ($id) {
   User::verifyLogin();
+
+  $user = new User();
+  $user = User::getFromSession();
+
+  $log = new Callcenter();
+  $log->get((int)$id);
+
+  $page = new Page();
+  $page->setTpl("navbar");
+  $page->setTpl("appointments-update", [
+    "pageTitle" => "Marcações",
+    "breadcrumbItem" => "Dashboard",
+    "appointments" => "Marcações",
+    "log" => $log->getValues(),
+    "confirm" => ["S", "N", ""]
+  ]);
+  $page->setTpl("user-side", [
+    "title" => "CallCenter Log",
+    "username" => "Thiago Moura"
+  ]);
+  $page->setTpl("menu", [
+    "dashboard" => "Dashboard",
+    "appointment" => "Marcações",
+    "users" => "Usuários",
+    "user" => $user->getValues(),
+    "isActiveDashboard" => 0,
+    "isActiveUsers" => 0,
+    "isActiveAppointment" => 1
+  ]);
+
+});
+
+$app -> post("/marcacoes/:id", function($id) {
+  User::verifyLogin();
+
+  $log = new Callcenter();
+  $log->get((int)$id);
+  $log->setData($_POST);
+  $log->update();
+
+  header("Location: /marcacoes");
+  exit;
 });
 
 $app -> get("/ausente/lock", function () {
