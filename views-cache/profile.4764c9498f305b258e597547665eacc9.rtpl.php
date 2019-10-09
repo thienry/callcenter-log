@@ -9,7 +9,9 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/dashboard"><?php echo htmlspecialchars( $breadcrumbItem, ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+            <li class="breadcrumb-item">
+              <a href="/dashboard"><?php echo htmlspecialchars( $breadcrumbItem, ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+            </li>
             <li class="breadcrumb-item active"><?php echo htmlspecialchars( $userProfile, ENT_COMPAT, 'UTF-8', FALSE ); ?></li>
           </ol>
         </div>
@@ -27,7 +29,29 @@
           <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
-              <h3 class="profile-username text-center"><?php echo getUserName(); ?></h3>
+              <form>
+                <div class="text-center">
+                  <img
+                    id="image-preview"
+                    class="profile-user-img img-fluid img-circle "
+                    src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                    class="rounded-circle z-depth-1-half avatar-pic"
+                    alt="example placeholder avatar"
+                  />
+                </div>
+                <div
+                  class="upload-btn-wrapper mt-2"
+                  style="display: flex; justify-content: center;"
+                >
+                  <button class="btn btn-primary text-center">
+                    Upload de foto
+                  </button>
+                  <input type="file" id="file" name="profile-pic" />
+                </div>
+              </form>
+              <h3 class="profile-username text-center mt-2">
+                <?php echo getUserName(); ?>
+              </h3>
               <p class="text-muted text-center">@<?php echo getUserLogin(); ?></p>
             </div>
             <!-- /.card-body -->
@@ -36,7 +60,7 @@
           <!-- About Me Box -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Sobre Mim</h3>
+              <h3 class="card-title">Sobre</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -56,14 +80,6 @@
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
-
-          <div class="avatar-wrapper">
-            <img class="profile-pic" src="" />
-            <div class="upload-button">
-              <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-            </div>
-            <input class="file-upload" type="file" accept="image/*" />
-          </div>
         </div>
         <div class="col-md-3"></div>
       </div>
@@ -74,4 +90,3 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-

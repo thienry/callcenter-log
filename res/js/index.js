@@ -4,6 +4,7 @@ const year = document.querySelector(".year");
 
 year.innerText = fullYear;
 
+
 //-------------
 //- DONUT CHART -
 //-------------
@@ -57,4 +58,12 @@ $(function() {
     $(".file-upload").click();
   });
  
+});
+
+document.querySelector("#file").addEventListener("change", function () {
+  let file = new FileReader();
+  file.onload = function () {
+    document.querySelector("#image-preview").src = file.result;
+  };
+  file.readAsDataURL(this.files[0]);
 });

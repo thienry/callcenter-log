@@ -118,7 +118,7 @@ class User extends Model {
 
   public function delete() {
     $sql = new Sql();
-    $results = $sql -> select("UPDATE tb_users SET user_status = 'I' WHERE id_user = :id_user;", [
+    $sql -> select("UPDATE tb_users SET user_status = 'I' WHERE id_user = :id_user;", [
       ":id_user"=>$this->getid_user()
     ]);
   }
@@ -200,7 +200,7 @@ class User extends Model {
     $start = ($page - 1) * $itemsPerPage;
     
     $sql = new Sql();
-    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_users LIMIT $start, $itemsPerPage;");
+    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_users WHERE user_status = 'A' LIMIT $start, $itemsPerPage;");
 
     $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
 
@@ -215,11 +215,11 @@ class User extends Model {
     $start = ($page - 1) * $itemsPerPage;
 
     $sql = new Sql();
-    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_users WHERE name LIKE :search OR login LIKE :search OR email LIKE :search LIMIT $start, $itemsPerPage;", [
+    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_users WHERE name LIKE :search OR login LIKE :search OR email LIKE :search WHERE user_status = 'A' LIMIT $start, $itemsPerPage;", [
       ":search" => "%". $search ."%"
     ]);
 
-    $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+    $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal ;");
 
     return [
       "data" => $results,
