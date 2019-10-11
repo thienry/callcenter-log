@@ -29,12 +29,12 @@
           <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
-              <form>
+              <form action="/perfil" method="POST" enctype="multipart/form-data">
                 <div class="text-center">
                   <img
                     id="image-preview"
                     class="profile-user-img img-fluid img-circle "
-                    src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                    src="/res/img/avatar/avatar.jpg"
                     class="rounded-circle z-depth-1-half avatar-pic"
                     alt="example placeholder avatar"
                   />
@@ -43,7 +43,7 @@
                   class="upload-btn-wrapper mt-2"
                   style="display: flex; justify-content: center;"
                 >
-                  <button class="btn btn-primary text-center">
+                  <button type="submit" class="btn btn-primary text-center">
                     Upload de foto
                   </button>
                   <input type="file" id="file" name="profile-pic" />

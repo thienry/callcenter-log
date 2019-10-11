@@ -36,23 +36,35 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-6">
+                    <!-- Date dd/mm/yyyy -->
                     <div class="form-group">
-                      <label>Buscar pela data:</label>
+                      <label>Data Inicial</label>
+                    
                       <div class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="far fa-calendar-alt"></i>
-                          </span>
+                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input
-                          type="text"
-                          class="form-control float-right"
-                          id="reservation"
-                        />
+                        <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                       </div>
+                      <!-- /.input group -->
                     </div>
                   </div>
+
                   <div class="col-6">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group">
+                      <label>Data Final</label>
+                    
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        </div>
+                        <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask2>
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                  </div>
+                  <div class="col">
                     <div class="form-group">
                       <label for="search">Buscar:</label>
                       <input
@@ -71,7 +83,7 @@
               <div class="card-footer">
                 <button
                   type="submit"
-                  class="btn btn-sm btn-primary float-right"
+                  class="btn btn-primary float-right"
                 >
                   Filtrar
                 </button>

@@ -43,16 +43,14 @@ $app->get("/dashboard(/)", function () {
     "isActiveDashboard" => 1,
     "isActiveUsers" => 0,
     "isActiveAppointment" => 0
-  ]);
-  
+  ]);    
 });
-
+  
 $app->get("/perfil(/)", function () {
-  User::verifyLogin();
-
+  User::verifyLogin();  
   $user = new User();
   $user = User::getFromSession();
-
+    
   $page = new Page();
   $page->setTpl("navbar"); 
   $page->setTpl("profile", [
@@ -74,7 +72,20 @@ $app->get("/perfil(/)", function () {
     "isActiveAppointment" => 0
   ]);
 });
+        
+$app->post("/perfil", function () {
+  User::verifyLogin();
+   $user = new User();
+   $user->setData($_POST);
+   
+  if ((int)$_FILES["file"]["size"] > 0) {
+   $user->setdesphoto($_FILES["file"]);
+  }
 
+  header("Location: /perfil");
+  exit;
+});
+       
 $app -> get("/marcacoes(/)", function () {
   User::verifyLogin();
 

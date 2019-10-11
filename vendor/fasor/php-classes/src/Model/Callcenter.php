@@ -76,7 +76,17 @@ class Callcenter extends Model {
     $start = ($page - 1) * $itemsPerPage;
 
     $sql = new Sql();
-    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM marcacoes_diag WHERE nome_pac LIKE :search OR descricao LIKE :search OR Medico LIKE :search OR Confirmacao LIKE :search OR Local LIKE :search OR fone_celular LIKE :search OR id_marcacao LIKE :search LIMIT $start, $itemsPerPage;", [
+    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * 
+                              FROM marcacoes_diag
+                              WHERE nome_pac LIKE :search 
+                              OR descricao LIKE :search 
+                              OR Medico LIKE :search 
+                              OR Confirmacao LIKE :search 
+                              OR Local LIKE :search 
+                              OR fone_celular LIKE :search 
+                              OR id_marcacao LIKE :search 
+                              OR Data_hora BETWEEN :dtini AND :dtend
+                              LIMIT $start, $itemsPerPage;", [
       ":search" => "%" . $search . "%"
     ]);
 
