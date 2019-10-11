@@ -3,7 +3,6 @@
 namespace Fasor;
 
 use Rain\Tpl;
-use Fasor\Model\Notificacao;
 
 class Mailer {
     const USERNAME = "thiagodevelloper@gmail.com";
