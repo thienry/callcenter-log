@@ -1,15 +1,10 @@
 const dateNow = new Date();
 const fullYear = dateNow.getFullYear();
 const year = document.querySelector(".year");
-
 year.innerText = fullYear;
 
-
-//-------------
-//- DONUT CHART -
-//-------------
-// Get context with jQuery - using jQuery's .get() method.
 $(function() {
+
   var donutChartCanvas = $("#donutChart")
     .get(0)
     .getContext("2d");
@@ -17,7 +12,7 @@ $(function() {
     labels: ["Marcações Confirmadas", "Marcações Sem Resposta", "Marcações Desmarcadas"],
     datasets: [
       {
-        data: [151, 7257, 15],
+        data: [val1, val2, val3],
         backgroundColor: [
           "#28a745",
           "#ffc107",
@@ -66,12 +61,4 @@ $(function() {
   //Money Euro
   $('[data-mask]').inputmask()
  
-});
-
-document.querySelector("#file").addEventListener("change", function () {
-  let file = new FileReader();
-  file.onload = function () {
-    document.querySelector("#image-preview").src = file.result;
-  };
-  file.readAsDataURL(this.files[0]);
 });

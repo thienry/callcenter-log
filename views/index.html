@@ -29,7 +29,7 @@
           <a href="/marcacoes">
             <div class="small-box bg-success">
               <div class="inner">
-                <h3 class="counter">{$confirmedTags}</h3>
+                <h3 id="log1" class="counter">{$confirmedTags}</h3>
 
                 <p>Marcações Confirmadas</p>
               </div>
@@ -45,7 +45,7 @@
           <a href="/marcacoes">
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3 class="counter">{$noAnswerTags}</h3>
+                <h3 id="log2" class="counter">{$noAnswerTags}</h3>
 
                 <p>Marcações Sem Resposta</p>
               </div>
@@ -61,7 +61,7 @@
           <a href="/marcacoes">
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3 class="counter">{$unmarkedTags}</h3>
+                <h3 id="log3" class="counter">{$unmarkedTags}</h3>
 
                 <p>Marcações Desmarcadas</p>
               </div>
@@ -110,3 +110,14 @@
   <!-- /.row -->
   <!-- /.content -->
 </div>
+
+<script>
+  const log1 = document.querySelector("#log1");
+  const val1 = log1.innerText;
+
+  const log2 = document.querySelector("#log2");
+  const val2 = log2.innerText;
+
+  const log3 = document.querySelector("#log3");
+  const val3 = log3.innerText;
+</script>

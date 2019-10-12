@@ -48,6 +48,16 @@ $app->get("/dashboard(/)", function () {
     "isActiveAppointment" => 0
   ]);    
 });
+
+$app->post("/dashboard", function () {
+  $log1 = Callcenter::listConfirmedTags();
+  $log2 = Callcenter::listNoAnswerTags();
+  $log3 = Callcenter::listUnmarkedTags();
+
+  $data = [$log1, $log2, $log3];
+  var_dump($data);
+  exit;
+});
   
 $app->get("/perfil(/)", function () {
   User::verifyLogin();  
