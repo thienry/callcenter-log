@@ -47,14 +47,11 @@ class Callcenter extends Model {
 
   public function update() {
     $sql = new Sql();
-    $results = $sql->select("UPDATE marcacoes_diag SET Confirmacao = :Confirmacao AND observacao = :observacao WHERE id = :id", [
+    $results = $sql->select("UPDATE marcacoes_diag SET Confirmacao = :Confirmacao, observacao = :observacao WHERE id = :id", [
       ":Confirmacao" => $this->getConfirmacao(),
       ":observacao" => $this->getobservacao(),
       ":id" => $this->getid(),
     ]);
-
-    var_dump($results);
-    exit;
   }
 
   public static function getPage($page = 1, $itemsPerPage = 10) {

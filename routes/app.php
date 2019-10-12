@@ -182,7 +182,7 @@ $app -> get("/marcacoes/:id(/)", function ($id) {
     "breadcrumbItem" => "Dashboard",
     "appointments" => "Marcações",
     "log" => $log->getValues(),
-    "confirm" => ["S", "N", ""]
+    "confirm" => ["S", "N", NULL]
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -203,6 +203,8 @@ $app -> get("/marcacoes/:id(/)", function ($id) {
 $app -> post("/marcacoes/:id", function($id) {
   User::verifyLogin();
 
+  $_POST["Confirmacao"] = (isset($_POST["Confirmacao"]) ) ? $_POST["Confirmacao"] : NULL;
+  
   $log = new Callcenter();
   $log->get((int)$id);
   $log->setData($_POST);

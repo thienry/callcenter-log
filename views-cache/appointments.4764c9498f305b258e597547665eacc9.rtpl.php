@@ -166,9 +166,10 @@
                     </td>
                     <td>
                       <strong>
-                        <?php if( $value1["Confirmacao"] == '' ){ ?> Sem Resposta
+                        <?php if( $value1["Confirmacao"] == '' ){ ?> 
+                          <span class="text-yellow">Sem Resposta</span>
                         <?php }elseif( $value1["Confirmacao"] == 'S' ){ ?>
-                        <span class="text-green">Confirmada</span>
+                        <span class="text-blue">Confirmada</span>
                         <?php }else{ ?>
                         <span class="text-red">Desmarcada</span>
                         <?php } ?>

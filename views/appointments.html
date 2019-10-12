@@ -166,9 +166,10 @@
                     </td>
                     <td>
                       <strong>
-                        {if="$value.Confirmacao == ''"} Sem Resposta
+                        {if="$value.Confirmacao == ''"} 
+                          <span class="text-yellow">Sem Resposta</span>
                         {elseif="$value.Confirmacao == 'S'"}
-                        <span class="text-green">Confirmada</span>
+                        <span class="text-blue">Confirmada</span>
                         {else}
                         <span class="text-red">Desmarcada</span>
                         {/if}

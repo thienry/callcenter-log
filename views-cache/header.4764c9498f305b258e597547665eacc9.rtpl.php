@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <!-- daterange picker -->
     <link rel="stylesheet" href="/res/admin-lte/plugins/daterangepicker/daterangepicker.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/res/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/res/admin-lte/dist/css/adminlte.min.css" />
     <!-- Theme style -->
