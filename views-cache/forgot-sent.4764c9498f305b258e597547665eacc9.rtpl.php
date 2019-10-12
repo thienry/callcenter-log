@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
 <html>
 
   <head>
@@ -29,9 +29,9 @@
   <body class="hold-transition lockscreen" style="background: darkblue">
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
-      {if="$success == 1"}
+      <?php if( $success == 1 ){ ?>
         <span id="emailSent"></span>
-      {/if}
+      <?php } ?>
       <div class="lockscreen-logo text-white">
         <i class="nav-icon fas fa-headset"></i>
         <strong>CallCenter Log</strong>

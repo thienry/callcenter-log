@@ -24,6 +24,24 @@
   <section class="content mt-3">
     <div class="container-fluid">
       <div class="row">
+        <?php if( $success == 1 ){ ?>
+        <span class="userCreated"></span>
+        <?php } ?> <?php if( $error == 1 ){ ?>
+        <span class="userNotCreated"></span>
+        <?php } ?> <?php if( $success == 2 ){ ?>
+        <span class="passwordChanged"></span>
+        <?php } ?> <?php if( $error == 2 ){ ?>
+        <span class="passwordNotChanged"></span>
+        <?php } ?> <?php if( $success == 3 ){ ?>
+        <span class="userDeleted"></span>
+        <?php } ?> <?php if( $error == 3 ){ ?>
+        <span class="userNotDeleted"></span>
+        <?php } ?> <?php if( $success == 4 ){ ?>
+        <span class="userUpdated"></span>
+        <?php } ?> <?php if( $error == 4 ){ ?>
+        <span class="userNotUpdated"></span>
+        <?php } ?>
+
         <div class="col-12">
           <div class="card">
             <div class="card-header">
@@ -115,9 +133,9 @@
             <div class="card-footer clearfix">
               <ul class="pagination pagination-sm m-0 float-right">
                 <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
-                  <li class="page-item">
-                    <a class="page-link" href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
-                  </li>
+                <li class="page-item">
+                  <a class="page-link" href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                </li>
                 <?php } ?>
               </ul>
             </div>

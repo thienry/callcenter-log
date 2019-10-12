@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="/res/admin-lte/plugins/daterangepicker/daterangepicker.css">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="/res/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/res/admin-lte/plugins/toastr/toastr.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/res/admin-lte/dist/css/adminlte.min.css" />
     <!-- Theme style -->

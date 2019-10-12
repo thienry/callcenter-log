@@ -24,6 +24,24 @@
   <section class="content mt-3">
     <div class="container-fluid">
       <div class="row">
+        {if="$success == 1"}
+        <span class="userCreated"></span>
+        {/if} {if="$error == 1"}
+        <span class="userNotCreated"></span>
+        {/if} {if="$success == 2"}
+        <span class="passwordChanged"></span>
+        {/if} {if="$error == 2"}
+        <span class="passwordNotChanged"></span>
+        {/if} {if="$success == 3"}
+        <span class="userDeleted"></span>
+        {/if} {if="$error == 3"}
+        <span class="userNotDeleted"></span>
+        {/if} {if="$success == 4"}
+        <span class="userUpdated"></span>
+        {/if} {if="$error == 4"}
+        <span class="userNotUpdated"></span>
+        {/if}
+
         <div class="col-12">
           <div class="card">
             <div class="card-header">
@@ -115,9 +133,9 @@
             <div class="card-footer clearfix">
               <ul class="pagination pagination-sm m-0 float-right">
                 {loop="$pages"}
-                  <li class="page-item">
-                    <a class="page-link" href="{$value.href}">{$value.text}</a>
-                  </li>
+                <li class="page-item">
+                  <a class="page-link" href="{$value.href}">{$value.text}</a>
+                </li>
                 {/loop}
               </ul>
             </div>

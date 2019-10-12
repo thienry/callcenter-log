@@ -22,6 +22,12 @@
 
   <section class="content">
     <div class="container-fluid">
+      <?php if( $success == 1 ){ ?>
+        <span id="appointmentSuccess"></span>
+      <?php } ?>
+      <?php if( $error == 1 ){ ?>
+        <span id="appointmentError"></span>
+      <?php } ?>
       <div class="row">
         <!-- left column -->
         <div class="col-md-12">

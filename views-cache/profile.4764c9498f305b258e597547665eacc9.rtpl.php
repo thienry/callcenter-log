@@ -24,6 +24,9 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
+        <?php if( $success == 1 ){ ?>
+        <span id="uploadSuccess"></span>
+        <?php } ?>
         <div class="col-md-3"></div>
         <div class="col-md-6">
           <!-- Profile Image -->

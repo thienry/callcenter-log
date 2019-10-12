@@ -8,6 +8,9 @@ $app->get("/usuarios(/)", function () {
   User::verifyLogin();
   User::verifyAdmin();
 
+  $success = isset($_GET["success"]) ? $_GET["success"] : 0;
+  $error = isset($_GET["error"]) ? $_GET["error"] : 0;
+
   $imageUpload = new ImageUpload();
 
   $search = (isset($_GET["search"])) ? $_GET["search"] : "";
@@ -42,7 +45,9 @@ $app->get("/usuarios(/)", function () {
     "users" => "Usuários",
     "usersdb" => $pagination["data"],
     "search" => $search,
-    "pages" => $pages
+    "pages" => $pages,    
+    "success" => $success,
+    "error" => $error
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -63,6 +68,7 @@ $app->get("/usuarios/cadastrar(/)", function () {
   User::verifyLogin();
   User::verifyAdmin();
 
+
   $user = new User();
 	$user = User::getFromSession();
 
@@ -74,7 +80,7 @@ $app->get("/usuarios/cadastrar(/)", function () {
     "pageTitle" => "Usuários",
     "dashboard" => "Dashboard",
     "users" => "Usuários",
-    "user"=>$user->getValues()
+    "user"=>$user->getValues(),
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -152,7 +158,7 @@ $app->post("/usuarios/:id_user/senha(/)", function($iduser) {
   $user->setPassword(User::getPasswordHash($_POST["despassword"]));
 
   User::setSuccess("Senha Alterada Com Successo.");
-  header("Location: /usuarios/$iduser/senha");
+  header("Location: /usuarios?success=2");
   exit;
 
 });
@@ -198,7 +204,7 @@ $app -> get("/usuarios/:id_user/delete(/)", function($iduser) {
   $user->get((int)$iduser);
   $user->delete();
 
-  header("Location: /usuarios");
+  header("Location: /usuarios?success=3");
   exit;
 });
 
@@ -206,13 +212,13 @@ $app->post("/usuarios/cadastrar(/)", function () {
   User::verifyLogin();
   User::verifyAdmin();
   
-  $user = new User();
-
   $_POST["admin"] = (isset($_POST["admin"])) ? 1 : 0;
+  
+  $user = new User();
   $user->setData($_POST);
   $user->save();
 
-  header("Location: /usuarios");
+  header("Location: /usuarios?success=1");
   exit;
 });
 
@@ -228,6 +234,6 @@ $app->post("/usuarios/:id_user(/)", function($iduser) {
   $user->setData($_POST);
   $user->update();
 
-  header("Location: /usuarios");
+  header("Location: /usuarios?success=4");
   exit;
 });

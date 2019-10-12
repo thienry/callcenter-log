@@ -40,26 +40,34 @@ $app->post("/cadastro(/)", function () {;
 });
 
 $app -> get("/esqueci-a-senha(/)", function () {
+  $error = isset($_GET["erro"]) ? $_GET["erro"] : 0;
+
   $page = new Page([
     "header" => false,
     "footer" => false
    ]);
-   $page -> setTpl("forgot");
+   $page -> setTpl("forgot", [
+    "error" => $error
+   ]);
 });
 
 $app -> post("/esqueci-a-senha(/)", function () {
   $user = User::getForgot($_POST["email"]);
 
-  header("Location: /esqueci-a-senha/enviada");
+  header("Location: /esqueci-a-senha/enviada?success=1");
   exit;
 });
 
 $app -> get("/esqueci-a-senha/enviada(/)", function () {
+  $success = isset($_GET["success"]) ? $_GET["success"] : 0;
+  
   $page = new Page([
     "header" => false,
     "footer" => false
    ]);
-   $page -> setTpl("forgot-sent");
+   $page -> setTpl("forgot-sent", [
+     "success" => $success,
+   ]);
 });
 
 $app -> get("/esqueci-a-senha/recuperar(/)", function () {

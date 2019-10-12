@@ -22,6 +22,11 @@
       rel="stylesheet"
       href="/res/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css"
     />
+    <!-- Toastr -->
+    <link
+      rel="stylesheet"
+      href="/res/admin-lte/plugins/toastr/toastr.min.css"
+    />
     <!-- Theme style -->
     <link rel="stylesheet" href="/res/admin-lte/dist/css/adminlte.min.css" />
     <!-- Google Font: Source Sans Pro -->
@@ -32,14 +37,10 @@
   </head>
 
   <body class="hold-transition login-page" style="background: darkblue">
-      <div class="login-box">
-          {if="$erro == 1"}
-          <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h5><i class="icon fas fa-ban"></i> Erro!</h5>
-            Usuário incorreto ou senha errada.
-          </div>
-          {/if}
+    <div class="login-box">
+      {if="$erro == 1"}
+        <span id="loginError"></span>
+      {/if}
       <div class="login-logo text-white">
         <i class="nav-icon fas fa-headset"></i>
         <strong>CallCenter Log</strong>
@@ -78,9 +79,6 @@
                 </div>
               </div>
             </div>
-            {if="$erro == 1"}
-            <span class="text-red"><strong>Usuário incorreto ou senha errada.</strong></span>
-            {/if}
             <div class="row">
               <div class="col">
                 <button type="submit" class="btn btn-primary btn-block">
@@ -95,12 +93,11 @@
             <p class="mb-1 mt-4">
               <a href="/esqueci-a-senha">Esqueci a Senha</a>
             </p>
-            
+
             <!--<p class="mb-0">
               <a href="/cadastro" class="text-center">Cadastrar Novo Usuário</a>
             </p>
-          -->
-          </div>
+          --></div>
         </div>
         <!-- /.login-card-body -->
       </div>
@@ -121,7 +118,18 @@
     <script src="/res/admin-lte/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="/res/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Toastr -->
+    <script src="/res/admin-lte/plugins/toastr/toastr.min.js"></script>
     <script src="/res/js/index.js"></script>
+    <script>
+      const url = window.location.href;
+      $(function() {
+        if (url === "http://callcenterlog.local/login?erro=1") {
+          $("#loginError").ready(function() {
+            toastr.error("ERROR, Usuário ou senha errada.");
+          });
+        }
+      });
+    </script>
   </body>
 </html>
-

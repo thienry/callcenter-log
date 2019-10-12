@@ -84,6 +84,11 @@ class User extends Model {
       ":user_status" => $this -> getuser_status()
     ]);
     $this -> setData($results[0]);
+
+    if (count($results) === 0) {
+      header("Location: /usuarios?error=1");
+      exit;
+    }
   }
 
   public static function getPasswordHash($password) {
@@ -114,13 +119,23 @@ class User extends Model {
     ]);
 
     $this -> setData($results[0]);
+
+    if ($results === 0) {
+      header("Location: /usuarios?error=4");
+      exit;
+    }
   }
 
   public function delete() {
     $sql = new Sql();
-    $sql -> select("UPDATE tb_users SET user_status = 'I' WHERE id_user = :id_user;", [
+    $results = $sql -> select("UPDATE tb_users SET user_status = 'I' WHERE id_user = :id_user;", [
       ":id_user"=>$this->getid_user()
     ]);
+
+    if ($results === 0) {
+      header("Location: /usuarios?error=3");
+      exit;
+    }
   }
 
   public static function getForgot($email) {
@@ -141,7 +156,7 @@ class User extends Model {
       ]);
 
       if ($resultsRecovery === 0) {
-        header("Location: /esqueci-a-senha?erro=1");
+        header("Location: /esqueci-a-senha?erro=2");
         exit;
       } else {
         $dataRecovery = $resultsRecovery[0];
@@ -174,7 +189,7 @@ class User extends Model {
     ]);
 
     if (count($results) === 0) {
-      header("Location: /esqueci-a-senha?erro=1");
+      header("Location: /esqueci-a-senha?erro=3");
       exit;
     } else {
       return $results[0];
@@ -186,14 +201,24 @@ class User extends Model {
     $results = $sql -> query("UPDATE tb_userspasswordsrecoveries SET dt_recovery = NOW() WHERE id_recovery = :id_recovery", [
       ":id_recovery" => $idrecovery
     ]);
+
+    if ($results === 0) {
+      header("Location: /esqueci-a-senha?erro=4");
+      exit;
+    }
   }
 
   public function setPassword($password) {
     $sql = new Sql();
-    $sql -> select("UPDATE tb_users SET despassword = :despassword WHERE id_user = :id_user", [
+    $results = $sql -> select("UPDATE tb_users SET despassword = :despassword WHERE id_user = :id_user", [
       ":despassword" => $password,
       ":id_user" => $this->getid_user()
     ]);
+
+    if ($results === 0) {
+      header("Location: /usuarios?error=2");
+      exit;
+    }
   }
 
   public static function getPage($page = 1, $itemsPerPage = 10) {

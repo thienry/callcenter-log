@@ -19,6 +19,11 @@
     />
     <!-- Theme style -->
     <link rel="stylesheet" href="/res/admin-lte/dist/css/adminlte.min.css" />
+    <!-- Toastr -->
+    <link
+      rel="stylesheet"
+      href="/res/admin-lte/plugins/toastr/toastr.min.css"
+    />
     <!-- Google Font: Source Sans Pro -->
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
@@ -36,10 +41,17 @@
       <!-- START LOCK SCREEN ITEM -->
       <div class="lockscreen-item">
         <!-- lockscreen credentials (contains the form) -->
-        <form
-          action="/esqueci-a-senha"
-          method="post"
-        >
+        {if="$error == 1"}
+        <span id="emailNotFound"></span>
+        {/if} {if="$error == 2"}
+        <span id="emailNotSent"></span>
+        {/if} {if="$error == 3"}
+        <span id="errorLink"></span>
+        {/if} {if="$error == 4"}
+        <span id="errorPassword"></span>
+        {/if}
+
+        <form action="/esqueci-a-senha" method="post">
           <div class="input-group">
             <input
               type="email"
@@ -82,6 +94,41 @@
     <script src="/res/admin-lte/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="/res/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Toastr -->
+    <script src="/res/admin-lte/plugins/toastr/toastr.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/res/admin-lte/dist/js/adminlte.min.js"></script>
     <script src="/res/js/index.js"></script>
+
+    <script>
+      const url = window.location.href;
+
+      $(function() {
+        if (url === "http://callcenterlog.local/esqueci-a-senha?erro=1") {
+          $("#emailNotFound").ready(function () {
+            toastr.error("Error, Email não Encontrado, Tente Novamente.");
+          });
+        }
+
+        if (url === "http://callcenterlog.local/esqueci-a-senha?erro=2") {
+          $("#emailNotSent").ready(function () {
+            toastr.error("Error, Erro Interno, Tente Novamente Mais Tarde.");
+          });
+        }
+
+        if (url === "http://callcenterlog.local/esqueci-a-senha?erro=3") {
+          $("#errorLink").ready(function () {
+            toastr.error("Error, Link de Verificação Expirado ou Com Erro, Tente Novamente Mais Tarde.");
+          });
+        }
+
+        if (url === "http://callcenterlog.local/esqueci-a-senha?erro=4") {
+          $("#errorPassword").ready(function () {
+            toastr.error("Error, Não Foi Possivel redefinir senha, Tente Novamente Mais Tarde.");
+          });
+
+
+      });
+    </script>
   </body>
 </html>

@@ -25,6 +25,8 @@
       <div class="row">
         <!-- left column -->
         <div class="col-md">
+
+
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
@@ -215,7 +217,7 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary">
+                <button type="submit" class="btn btn-sm btn-primary toastsDefaultSuccess">
                   Atualizar
                 </button>
               </div>

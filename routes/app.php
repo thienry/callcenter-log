@@ -48,21 +48,13 @@ $app->get("/dashboard(/)", function () {
     "isActiveAppointment" => 0
   ]);    
 });
-
-$app->post("/dashboard", function () {
-  $log1 = Callcenter::listConfirmedTags();
-  $log2 = Callcenter::listNoAnswerTags();
-  $log3 = Callcenter::listUnmarkedTags();
-
-  $data = [$log1, $log2, $log3];
-  var_dump($data);
-  exit;
-});
   
 $app->get("/perfil(/)", function () {
   User::verifyLogin();  
   $user = new User();
   $user = User::getFromSession();
+  
+  $success = isset($_GET["success"]) ? $_GET["success"] : 0;
 
   $imageUpload = new ImageUpload();
     
@@ -72,7 +64,8 @@ $app->get("/perfil(/)", function () {
     "pageTitle" => "Perfil",
     "breadcrumbItem" => "Dashboard",
     "userProfile" => "Perfil do Usuário",
-    "img" => $imageUpload->getValues()
+    "img" => $imageUpload->getValues(),
+    "success" => $success
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -100,12 +93,15 @@ $app->post("/perfil", function () {
    $imageUpload->setPhoto($_FILES["file"]);
   }
 
-  header("Location: /perfil");
+  header("Location: /perfil?success=1");
   exit;
 });
        
 $app -> get("/marcacoes(/)", function () {
   User::verifyLogin();
+  
+  $error = isset($_GET["error"]) ? $_GET["error"] : 0;
+  $success = isset($_GET["success"]) ? $_GET["success"] : 0;
 
   $imageUpload = new ImageUpload();
 
@@ -147,7 +143,9 @@ $app -> get("/marcacoes(/)", function () {
     "search" => $search,
     "dtini" => $dtini,
     "dtend" => $dtend,
-    "pages" => $pages,
+    "pages" => $pages,    
+    "success" => $success,
+    "error"=>$error,
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -167,6 +165,7 @@ $app -> get("/marcacoes(/)", function () {
 $app -> get("/marcacoes/:id(/)", function ($id) {
   User::verifyLogin();
 
+
   $user = new User();
   $user = User::getFromSession();
 
@@ -182,7 +181,6 @@ $app -> get("/marcacoes/:id(/)", function ($id) {
     "breadcrumbItem" => "Dashboard",
     "appointments" => "Marcações",
     "log" => $log->getValues(),
-    "confirm" => ["S", "N", NULL]
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -210,7 +208,7 @@ $app -> post("/marcacoes/:id", function($id) {
   $log->setData($_POST);
   $log->update();
 
-  header("Location: /marcacoes");
+  header("Location: /marcacoes?success=1");
   exit;
 });
 

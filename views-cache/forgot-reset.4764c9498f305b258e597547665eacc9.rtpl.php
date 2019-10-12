@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
 <html>
 
   <head>
@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/res/admin-lte/dist/css/AdminLTE.min.css">
-    <!-- Toastr -->
-    <link rel="stylesheet" href="/res/admin-lte/plugins/toastr/toastr.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,22 +27,33 @@
   <body class="hold-transition lockscreen" style="background: darkblue">
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
-      {if="$success == 1"}
-        <span id="emailSent"></span>
-      {/if}
       <div class="lockscreen-logo text-white">
         <i class="nav-icon fas fa-headset"></i>
         <strong>CallCenter Log</strong>
       </div>
 
-      <!-- /.lockscreen-item -->
-      <div class="help-block text-center">
-        <div class="callout callout-success">
-          <h4>E-mail enviado!</h4>
-
-          <p>Verifique as instruções no seu e-mail.</p>
-        </div>
+      <div class="help-block text-center text-white">
+        Olá <?php echo htmlspecialchars( $name, ENT_COMPAT, 'UTF-8', FALSE ); ?>, digite uma nova senha:
       </div>
+
+      <!-- START LOCK SCREEN ITEM -->
+      <div class="lockscreen-item">
+
+        <!-- lockscreen credentials (contains the form) -->
+        <form action="/esqueci-a-senha/recuperar" method="post">
+          <input type="hidden" name="code" value="<?php echo htmlspecialchars( $code, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+          <div class="input-group">
+            <input type="password" class="form-control" placeholder="Digite a nova senha" name="password">
+            <div class="input-group-btn">
+              <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
+            </div>
+          </div>
+        </form>
+        <!-- /.lockscreen credentials -->
+
+      </div>
+      <!-- /.lockscreen-item -->
+
       <div class="lockscreen-footer text-center text-white">
         Copyright &copy; <span class="year"></span>
         <b><a href="http://fasortec.com.br" class="text-white" target="_blank">Fasortec</a></b><br />
@@ -57,20 +66,6 @@
     <script src="/res/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <!-- Bootstrap 3.3.6 -->
     <script src="/res/admin-lte/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Toastr -->
-    <script src="/res/admin-lte/plugins/toastr/toastr.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="/res/admin-lte/dist/js/adminlte.min.js"></script>
-    <script>
-      const url = window.location.href;
-      $(function () {
-        if (url === "http://callcenterlog.local/esqueci-a-senha/enviada?success=1") {
-          $("#emailSent").ready(function () {
-            toastr.success("SUCESSO, Email Enviado Com Sucesso.");
-          });
-        }
-      });
-    </script>
   </body>
 
 </html>
