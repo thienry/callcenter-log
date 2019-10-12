@@ -53,11 +53,12 @@
           <form action="/login" method="post">
             <div class="input-group mb-3">
               <input
+                id="input-login"
                 type="text"
                 name="login"
                 class="form-control"
                 placeholder="Login ou Email"
-                required
+                
               />
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -67,11 +68,12 @@
             </div>
             <div class="input-group mb-3">
               <input
+                id="input-password"
                 type="password"
                 name="despassword"
                 class="form-control"
                 placeholder="Senha"
-                required
+                
               />
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -81,7 +83,7 @@
             </div>
             <div class="row">
               <div class="col">
-                <button type="submit" class="btn btn-primary btn-block">
+                <button type="submit" class="btn btn-primary btn-block btn-login">
                   Entrar
                 </button>
               </div>
@@ -129,6 +131,27 @@
             toastr.error("ERROR, Usuário ou senha errada.");
           });
         }
+
+        //Login Form Validation
+        $(".btn-login").click(function () {
+          let emptyField = false;
+
+          if ($("#input-login").val() == "") {
+            $("#input-login").css({ "border-color": "#f00" });
+            emptyField = true;
+          } else {
+            $("#input-login").css({ "border-color": "#CCC" });
+          }
+
+          if ($("#input-password").val() == "") {
+            $("#input-password").css({ "border-color": "#f00" });
+            emptyField = true;
+          } else {
+            $("#input-password").css({ "border-color": "#CCC" });
+          }
+
+          if (emptyField) return false;
+        });
       });
     </script>
   </body>

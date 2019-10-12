@@ -37,6 +37,7 @@
                 <div class="form-group">
                   <label for="name">Nome Completo</label>
                   <input
+                    id="input-name"
                     type="text"
                     name="name"
                     class="form-control"
@@ -48,6 +49,7 @@
                 <div class="form-group">
                   <label for="login">Login</label>
                   <input
+                    id="input-login"
                     type="text"
                     name="login"
                     class="form-control"
@@ -59,6 +61,7 @@
                 <div class="form-group">
                   <label for="email">Email</label>
                   <input
+                    id="input-email"
                     type="email"
                     name="email"
                     class="form-control"
@@ -70,6 +73,7 @@
                 <div class="form-group">
                   <label for="password">Senha</label>
                   <input
+                    id="input-password"
                     name="despassword"
                     type="password"
                     class="form-control"
@@ -96,8 +100,8 @@
               </div>
               <!-- /.card-body -->
 
-              <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary">Cadastrar</button>
+              <div class="card-footer"> 
+                <button type="submit" class="btn btn-sm btn-primary btn-user-create">Cadastrar</button>
               </div>
             </form>
           </div>

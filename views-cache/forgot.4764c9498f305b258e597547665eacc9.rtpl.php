@@ -54,6 +54,7 @@
         <form action="/esqueci-a-senha" method="post">
           <div class="input-group">
             <input
+              id="input-email"
               type="email"
               name="email"
               class="form-control"
@@ -61,7 +62,7 @@
             />
 
             <div class="input-group-append">
-              <button type="submit" class="btn">
+              <button type="submit" class="btn btn-submit">
                 <i class="fas fa-arrow-right text-muted"></i>
               </button>
             </div>
@@ -126,8 +127,22 @@
           $("#errorPassword").ready(function () {
             toastr.error("Error, Não Foi Possivel redefinir senha, Tente Novamente Mais Tarde.");
           });
+        }
 
+        //Login Form Validation
+        $(".btn-submit").click(function () {
+          let emptyField = false;
 
+          if ($("#input-email").val() == "") {
+            $("#input-email").css({ "border-color": "#f00" });
+            emptyField = true;
+          } else {
+            $("#input-email").css({ "border-color": "#CCC" });
+          }
+
+          if (emptyField) return false;
+        });
+  
       });
     </script>
   </body>

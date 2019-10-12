@@ -25,22 +25,33 @@
       <div class="row">
         <!-- left column -->
         <div class="col-md">
-
-        <?php if( $msgError !== '' ){ ?>  
+          <?php if( $msgError !== '' ){ ?>
           <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-hidden="true"
+            >
+              &times;
+            </button>
             <h5><i class="icon fas fa-ban"></i> Erro!</h5>
             <?php echo htmlspecialchars( $msgError, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
-        <?php } ?>
-
-        <?php if( $msgSuccess !== '' ){ ?>
+          <?php } ?> <?php if( $msgSuccess !== '' ){ ?>
           <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-hidden="true"
+            >
+              &times;
+            </button>
             <h5><i class="icon fas fa-check"></i> Sucesso!</h5>
             <?php echo htmlspecialchars( $msgSuccess, ENT_COMPAT, 'UTF-8', FALSE ); ?>
           </div>
-        <?php } ?>
+          <?php } ?>
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
@@ -48,23 +59,46 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" action="/usuarios/<?php echo htmlspecialchars( $user["id_user"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/senha" method="post">
+            <form
+              role="form"
+              action="/usuarios/<?php echo htmlspecialchars( $user["id_user"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/senha"
+              method="post"
+            >
               <div class="card-body">
                 <div class="form-group">
                   <label for="despassword">Nova Senha</label>
-                  <input type="password" name="despassword" class="form-control" id="password"
-                    placeholder="Digite a Nova Senha" required />
+                  <input
+                    id="input-password"
+                    type="password"
+                    name="despassword"
+                    class="form-control"
+                    id="password"
+                    placeholder="Digite a Nova Senha"
+                    required
+                  />
                 </div>
                 <div class="form-group">
                   <label for="confirmPassword">Confirme a Senha</label>
-                  <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
-                    placeholder="Confirme a Nova Senha" required />
+                  <input
+                    id="input-confirmPassword"
+                    type="password"
+                    name="confirmPassword"
+                    class="form-control"
+                    id="confirmPassword"
+                    placeholder="Confirme a Nova Senha"
+                    required
+                  />
                 </div>
               </div>
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary">Atualizar</button>
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-primary btn-user-password-update"
+                >
+                  Atualizar
+                </button>
               </div>
             </form>
           </div>

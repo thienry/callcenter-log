@@ -198,11 +198,11 @@ class User extends Model {
 
   public static function setForgotUsed($idrecovery) {
     $sql = new Sql();
-    $results = $sql -> query("UPDATE tb_userspasswordsrecoveries SET dt_recovery = NOW() WHERE id_recovery = :id_recovery", [
+    $results = $sql -> select("UPDATE tb_userspasswordsrecoveries SET dt_recovery = NOW() WHERE id_recovery = :id_recovery", [
       ":id_recovery" => $idrecovery
     ]);
 
-    if ($results === 0) {
+    if ($results !== 0) {
       header("Location: /esqueci-a-senha?erro=4");
       exit;
     }

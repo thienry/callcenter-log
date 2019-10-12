@@ -31,24 +31,19 @@
   <script src="/res/admin-lte/plugins/chart.js/Chart.min.js"></script>
   <!-- InputMask -->
   <script src="/res/admin-lte/plugins/inputmask/jquery.inputmask.bundle.js"></script>
+  <!-- Moment JS -->
   <script src="/res/admin-lte/plugins/moment/moment.min.js"></script>
   <!-- Toastr -->
   <script src="/res/admin-lte/plugins/toastr/toastr.min.js"></script>
   <!-- AdminLTE App -->
   <script src="/res/admin-lte/dist/js/adminlte.min.js"></script>
+  <!-- Custom Script -->
   <script src="/res/js/index.js"></script>
+
   <script>
     const url = window.location.href;
-    console.log(url)
 
-    $(function () {
-      //Datemask dd/mm/yyyy
-      $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-      //Datemask2 mm/dd/yyyy
-      $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-      //Money Euro
-      $('[data-mask]').inputmask();
-
+    $(document).ready(function () {
       // Users Create URL
       if (url === "http://callcenterlog.local/usuarios?success=1") {
         $(".userCreated").ready(function () {
@@ -61,7 +56,7 @@
           toastr.success('ERROR, Não Foi Possível Criar Usuário.')
         });
       }
-      
+
       // Users Password Change URL
       if (url === "http://callcenterlog.local/usuarios?success=2") {
         $(".passwordChanged").ready(function () {
@@ -101,11 +96,11 @@
         });
       }
 
-      // Appintments URL
+      // Appointments URL
       if (url === "http://callcenterlog.local/marcacoes?success=1") {
         $("#appointmentSuccess").ready(function () {
           toastr.success('SUCESSO, Marcação Atualizada Com Sucesso.')
-        }); 
+        });
       }
 
       if (url === "http://callcenterlog.local/marcacoes?error=1") {
@@ -119,8 +114,94 @@
         $("#uploadSuccess").ready(function () {
           toastr.success('SUCESSO, Foto de Perfil Aterada Com Sucesso.')
         });
-      }
-    });
+      }  
+
+      //User Create Form Validation
+      $(".btn-user-create").click(function () {
+        let emptyField = false;
+
+        if ($("#input-login").val() == "") {
+          $("#input-login").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-login").css({ "border-color": "#CCC" });
+        }
+
+        if ($("#input-password").val() == "") {
+          $("#input-password").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-password").css({ "border-color": "#CCC" });
+        }
+
+        if ($("#input-name").val() == "") {
+          $("#input-name").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-name").css({ "border-color": "#CCC" });
+        }
+
+        if ($("#input-email").val() == "") {
+          $("#input-email").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-email").css({ "border-color": "#CCC" });
+        }
+
+        if (emptyField) return false;
+      });
+
+
+      //User Update Form Validation
+      $(".btn-user-update").click(function () {
+        let emptyField = false;
+
+        if ($("#input-login").val() == "") {
+          $("#input-login").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-login").css({ "border-color": "#CCC" });
+        }
+
+        if ($("#input-name").val() == "") {
+          $("#input-name").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-name").css({ "border-color": "#CCC" });
+        }
+
+        if ($("#input-email").val() == "") {
+          $("#input-email").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-email").css({ "border-color": "#CCC" });
+        }
+
+        if (emptyField) return false;
+      });
+
+      //User Password Update Form Validation
+      $(".btn-user-password-update").click(function () {
+        let emptyField = false;
+
+        if ($("#input-password").val() == "") {
+          $("#input-password").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-password").css({ "border-color": "#CCC" });
+        }
+
+        if ($("#input-confirmPassword").val() == "") {
+          $("#input-confirmPassword").css({ "border-color": "#f00" });
+          emptyField = true;
+        } else {
+          $("#input-confirmPassword").css({ "border-color": "#CCC" });
+        }
+
+        if (emptyField) return false;
+      });
+
+    })
   </script>
 </body>
 

@@ -79,7 +79,7 @@
                   <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                       <label>Status da Marcação</label>
-                      <select name="Confirmacao" class="form-control select2" style="width: 100%;">
+                      <select name="Confirmacao" id="select-confirmation" class="form-control select2" style="width: 100%;">
                         <option value="S" {if="$log.Confirmacao == 'S'"}selected="selected"{/if} >Confirmada</option>
                         <option value="N" {if="$log.Confirmacao == 'N'"}selected="selected"{/if}>Desmarcada</option>
                         <option value="" {if="$log.Confirmacao == ''"}selected="selected"{/if} >Sem Resposta</option>
@@ -206,6 +206,7 @@
                     <div class="form-group">
                       <label>Observações</label>
                       <textarea
+                        id="textarea-observation"
                         class="form-control"
                         rows="3"
                         name="observacao"
@@ -217,7 +218,7 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary toastsDefaultSuccess">
+                <button type="submit" class="btn btn-sm btn-primary btn-appointments-update">
                   Atualizar
                 </button>
               </div>

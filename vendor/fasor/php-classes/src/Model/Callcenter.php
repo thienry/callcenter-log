@@ -47,13 +47,13 @@ class Callcenter extends Model {
 
   public function update() {
     $sql = new Sql();
-    $results = $sql->query("UPDATE marcacoes_diag SET Confirmacao = :Confirmacao, observacao = :observacao WHERE id = :id", [
+    $results = $sql->select("UPDATE marcacoes_diag SET Confirmacao = :Confirmacao, observacao = :observacao WHERE id = :id", [
       ":Confirmacao" => $this->getConfirmacao(),
       ":observacao" => $this->getobservacao(),
       ":id" => $this->getid(),
     ]);
 
-    if (count($results) === 0) {
+    if (count($results) !== 0) {
       header("Location: /marcacoes?error=1");
       exit;
     }

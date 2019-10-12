@@ -37,6 +37,7 @@
                 <div class="form-group">
                   <label for="name">Nome Completo</label>
                   <input
+                    id="input-name"
                     type="text"
                     name="name"
                     value="<?php echo htmlspecialchars( $user["name"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
@@ -49,6 +50,7 @@
                 <div class="form-group">
                   <label for="login">Login</label>
                   <input
+                    id="input-login"
                     type="text"
                     name="login"
                     value="<?php echo htmlspecialchars( $user["login"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
@@ -61,6 +63,7 @@
                 <div class="form-group">
                   <label for="email">Email</label>
                   <input
+                    id="input-email"
                     type="email"
                     name="email"
                     value="<?php echo htmlspecialchars( $user["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
@@ -90,7 +93,7 @@
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary">Atualizar</button>
+                <button type="submit" class="btn btn-sm btn-primary btn-user-update">Atualizar</button>
               </div>
             </form>
           </div>

@@ -37,6 +37,7 @@
                 <div class="form-group">
                   <label for="name">Nome Completo</label>
                   <input
+                    id="input-name"
                     type="text"
                     name="name"
                     value="{$user.name}"
@@ -49,6 +50,7 @@
                 <div class="form-group">
                   <label for="login">Login</label>
                   <input
+                    id="input-login"
                     type="text"
                     name="login"
                     value="{$user.login}"
@@ -61,6 +63,7 @@
                 <div class="form-group">
                   <label for="email">Email</label>
                   <input
+                    id="input-email"
                     type="email"
                     name="email"
                     value="{$user.email}"
@@ -90,7 +93,7 @@
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary">Atualizar</button>
+                <button type="submit" class="btn btn-sm btn-primary btn-user-update">Atualizar</button>
               </div>
             </form>
           </div>
