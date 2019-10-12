@@ -12,10 +12,10 @@ class Pdf extends Mpdf {
   private $titulo = null;
 
   /*  
-    * Construtor da classe  
-    * @param $css  - Arquivo CSS  
-    * @param $titulo - Título do relatório   
-    */
+  * Construtor da classe  
+  * @param $css  - Arquivo CSS  
+  * @param $titulo - Título do relatório   
+  */
   public function __construct($css, $titulo) {
     $this->pdo  = Conexao::getInstance();
     $this->titulo = $titulo;
@@ -23,9 +23,9 @@ class Pdf extends Mpdf {
   }
 
   /*  
-    * Método para setar o conteúdo do arquivo CSS para o atributo css  
-    * @param $file - Caminho para arquivo CSS  
-    */
+  * Método para setar o conteúdo do arquivo CSS para o atributo css  
+  * @param $file - Caminho para arquivo CSS  
+  */
   public function setarCSS($file) {
     if (file_exists($file)) :
       $this->css = file_get_contents($file);
@@ -35,8 +35,8 @@ class Pdf extends Mpdf {
   }
 
   /*  
-    * Método para montar o Cabeçalho do relatório em PDF  
-    */
+  * Método para montar o Cabeçalho do relatório em PDF  
+  */
   protected function getHeader() {
     $data = date('j/m/Y');
     $retorno = "<table class=\"tbl_header\" width=\"1000\">  
@@ -49,8 +49,8 @@ class Pdf extends Mpdf {
   }
 
   /*  
-     * Método para montar o Rodapé do relatório em PDF  
-     */
+  * Método para montar o Rodapé do relatório em PDF  
+  */
   protected function getFooter() {
     $retorno = "<table class=\"tbl_footer\" width=\"1000\">  
                <tr>  
@@ -62,9 +62,9 @@ class Pdf extends Mpdf {
   }
 
   /*   
-    * Método para construir a tabela em HTML com todos os dados  
-    * Esse método também gera o conteúdo para o arquivo PDF  
-    */
+  * Método para construir a tabela em HTML com todos os dados  
+  * Esse método também gera o conteúdo para o arquivo PDF  
+  */
   private function getTabela() {
     $color  = false;
     $retorno = "";
@@ -102,8 +102,8 @@ class Pdf extends Mpdf {
   }
 
   /*   
-    * Método para construir o arquivo PDF  
-    */
+  * Método para construir o arquivo PDF  
+  */
   public function BuildPDF() {
     $this->pdf = new mPDF(["utf-8", "A4-L"]);
     $this->pdf->WriteHTML($this->css, 1);
@@ -113,9 +113,9 @@ class Pdf extends Mpdf {
   }
 
   /*   
-    * Método para exibir o arquivo PDF  
-    * @param $name - Nome do arquivo se necessário grava-lo  
-    */
+  * Método para exibir o arquivo PDF  
+  * @param $name - Nome do arquivo se necessário grava-lo  
+  */
   public function Exibir($name = null) {
     $this->pdf->Output($name, 'I');
   }

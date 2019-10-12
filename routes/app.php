@@ -3,6 +3,7 @@
 use \Fasor\Page;
 use \Fasor\Model\User;
 use \Fasor\Model\Callcenter;
+use \Fasor\Model\ImageUpload;
 
 $app -> get("/", function () {
   User::verifyLogin();
@@ -16,6 +17,8 @@ $app->get("/dashboard(/)", function () {
 
   $user = new User();
   $user = User::getFromSession();
+
+  $imageUpload = new ImageUpload();
 
   $log1 = Callcenter::listConfirmedTags();
   $log2 = Callcenter::listNoAnswerTags();
@@ -33,7 +36,7 @@ $app->get("/dashboard(/)", function () {
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
-    "username" => "Thiago Moura"
+    "image" => $imageUpload->getValues(),
   ]);
   $page->setTpl("menu", [
     "dashboard" => "Dashboard",
@@ -50,17 +53,20 @@ $app->get("/perfil(/)", function () {
   User::verifyLogin();  
   $user = new User();
   $user = User::getFromSession();
+
+  $imageUpload = new ImageUpload();
     
   $page = new Page();
   $page->setTpl("navbar"); 
   $page->setTpl("profile", [
     "pageTitle" => "Perfil",
     "breadcrumbItem" => "Dashboard",
-    "userProfile" => "Perfil do Usuário"
+    "userProfile" => "Perfil do Usuário",
+    "img" => $imageUpload->getValues()
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
-    "username" => "Thiago Moura"
+    "image" => $imageUpload->getValues(),
   ]);
   $page->setTpl("menu", [
     "dashboard" => "Dashboard",
@@ -75,11 +81,13 @@ $app->get("/perfil(/)", function () {
         
 $app->post("/perfil", function () {
   User::verifyLogin();
-   $user = new User();
-   $user->setData($_POST);
+  User::getFromSession();
+
+  $imageUpload = new ImageUpload();
+  $imageUpload->setData($_POST);
    
   if ((int)$_FILES["file"]["size"] > 0) {
-   $user->setdesphoto($_FILES["file"]);
+   $imageUpload->setPhoto($_FILES["file"]);
   }
 
   header("Location: /perfil");
@@ -89,11 +97,15 @@ $app->post("/perfil", function () {
 $app -> get("/marcacoes(/)", function () {
   User::verifyLogin();
 
+  $imageUpload = new ImageUpload();
+
   $search = (isset($_GET["search"])) ? $_GET["search"] : "";
+  $dtini = (isset($_GET["dtini"])) ? $_GET["dtini"] : '2019-07-22';
+  $dtend = (isset($_GET["dtend"])) ? $_GET["dtend"] : '2019-07-22';
   $page = (isset($_GET["page"])) ? (int) $_GET["page"] : 1;
 
   if ($search != "") {
-    $pagination = Callcenter::getPageSearch($search, $page);
+    $pagination = Callcenter::getPageSearch($search, $dtini, $dtend, $page);
   } else {
     $pagination = Callcenter::getPage($page);
   }
@@ -104,7 +116,9 @@ $app -> get("/marcacoes(/)", function () {
     array_push($pages, [
       "href" => "/marcacoes?" . http_build_query([
         "page" => $i + 1,
-        "search" => $search
+        "search" => $search,
+        "dtini" => $dtini,
+        "dtend" => $dtend,
       ]),
       "text" => $i + 1
     ]);
@@ -121,11 +135,13 @@ $app -> get("/marcacoes(/)", function () {
     "appointments" => "Marcações",
     "logs" => $pagination["data"],
     "search" => $search,
-    "pages" => $pages
+    "dtini" => $dtini,
+    "dtend" => $dtend,
+    "pages" => $pages,
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
-    "username" => "Thiago Moura"
+    "image" => $imageUpload->getValues(),
   ]);
   $page->setTpl("menu", [
     "dashboard" => "Dashboard",
@@ -144,6 +160,8 @@ $app -> get("/marcacoes/:id(/)", function ($id) {
   $user = new User();
   $user = User::getFromSession();
 
+  $imageUpload = new ImageUpload();
+
   $log = new Callcenter();
   $log->get((int)$id);
 
@@ -158,7 +176,7 @@ $app -> get("/marcacoes/:id(/)", function ($id) {
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
-    "username" => "Thiago Moura"
+    "image" => $imageUpload->getValues(),
   ]);
   $page->setTpl("menu", [
     "dashboard" => "Dashboard",

@@ -72,7 +72,7 @@ class Callcenter extends Model {
     ];
   }
 
-  public static function getPageSearch($search, $page = 1, $itemsPerPage = 10) {
+  public static function getPageSearch($search, $dtini, $dtend, $page = 1, $itemsPerPage = 10) {
     $start = ($page - 1) * $itemsPerPage;
 
     $sql = new Sql();
@@ -87,7 +87,9 @@ class Callcenter extends Model {
                               OR id_marcacao LIKE :search 
                               OR Data_hora BETWEEN :dtini AND :dtend
                               LIMIT $start, $itemsPerPage;", [
-      ":search" => "%" . $search . "%"
+      ":search" => "%" . $search . "%",
+      ":dtini" => "'" . $dtini . "'",
+      ":dtend" => "'" . $dtend . "'",
     ]);
 
     $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");

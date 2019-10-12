@@ -12,9 +12,9 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-2 d-flex">
       <div class="image">
-        <img src="/res/img/avatar/avatar.jpg" class="img-circle elevation-2 ml-2" alt="User Image" />
+        <img src="<?php echo htmlspecialchars( $image["desphoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="img-circle elevation-2 " alt="User Image" />
       </div>
       <div class="info">
-        <a href="/perfil" class="d-block "><?php echo getUserLogin(); ?></a>
+        <a href="/perfil" class="d-block"><?php echo getfirstAndLastName(); ?></a>
       </div>
     </div>

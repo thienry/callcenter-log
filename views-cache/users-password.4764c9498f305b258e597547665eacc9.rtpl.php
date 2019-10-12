@@ -64,7 +64,7 @@
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Atualizar</button>
+                <button type="submit" class="btn btn-sm btn-primary">Atualizar</button>
               </div>
             </form>
           </div>

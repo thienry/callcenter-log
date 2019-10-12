@@ -1,11 +1,14 @@
 <?php
 
 use Fasor\Page;
-use \Fasor\Model\User; 
+use \Fasor\Model\User;
+use \Fasor\Model\ImageUpload;
 
 $app->get("/usuarios(/)", function () {
   User::verifyLogin();
   User::verifyAdmin();
+
+  $imageUpload = new ImageUpload();
 
   $search = (isset($_GET["search"])) ? $_GET["search"] : "";
   $page = (isset($_GET["page"])) ? (int)$_GET["page"] : 1;
@@ -43,7 +46,7 @@ $app->get("/usuarios(/)", function () {
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
-    "username" => "Thiago Moura"
+    "image" => $imageUpload->getValues(),
   ]);
   $page->setTpl("menu", [
     "dashboard" => "Dashboard",
@@ -63,6 +66,8 @@ $app->get("/usuarios/cadastrar(/)", function () {
   $user = new User();
 	$user = User::getFromSession();
 
+  $imageUpload = new ImageUpload();
+
   $page = new Page();
   $page->setTpl("navbar");
   $page->setTpl("users-create", [
@@ -73,7 +78,7 @@ $app->get("/usuarios/cadastrar(/)", function () {
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
-    "username" => "Thiago Moura"
+    "image" => $imageUpload->getValues(),
   ]);
   $page->setTpl("menu", [
     "dashboard" => "Dashboard",
@@ -92,6 +97,8 @@ $app->get("/usuarios/:id_user/senha(/)", function($iduser) {
   $user = new User();
   $user = User::getFromSession();
   $user -> get((int)$iduser);
+  
+  $imageUpload = new ImageUpload();
 
   $page = new Page();
   $page->setTpl("navbar");
@@ -105,7 +112,7 @@ $app->get("/usuarios/:id_user/senha(/)", function($iduser) {
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
-    "username" => "Thiago Moura"
+    "image" => $imageUpload->getValues(),
   ]);
   $page->setTpl("menu", [
     "dashboard" => "Dashboard",
@@ -158,6 +165,8 @@ $app->get("/usuarios/:id_user(/)", function($iduser) {
   $user = User::getFromSession();
   $user->get((int)$iduser);
 
+  $imageUpload = new ImageUpload();
+
   $page = new Page();
   $page->setTpl("navbar");
   $page->setTpl("users-update", [
@@ -168,7 +177,7 @@ $app->get("/usuarios/:id_user(/)", function($iduser) {
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
-    "username" => "Thiago Moura"
+    "image" => $imageUpload->getValues(),
   ]);
   $page->setTpl("menu", [
     "dashboard" => "Dashboard",

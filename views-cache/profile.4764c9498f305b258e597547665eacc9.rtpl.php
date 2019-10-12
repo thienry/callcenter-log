@@ -29,12 +29,16 @@
           <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
-              <form action="/perfil" method="POST" enctype="multipart/form-data">
+              <form
+                action="/perfil"
+                method="POST"
+                enctype="multipart/form-data"
+              >
                 <div class="text-center">
                   <img
                     id="image-preview"
                     class="profile-user-img img-fluid img-circle "
-                    src="/res/img/avatar/avatar.jpg"
+                    src="<?php echo htmlspecialchars( $img["desphoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
                     class="rounded-circle z-depth-1-half avatar-pic"
                     alt="example placeholder avatar"
                   />
@@ -43,11 +47,20 @@
                   class="upload-btn-wrapper mt-2"
                   style="display: flex; justify-content: center;"
                 >
-                  <button type="submit" class="btn btn-primary text-center">
-                    Upload de foto
+                  <button class="btn btn-sm btn-primary text-center">
+                    Escolha Foto de Perfil
                   </button>
-                  <input type="file" id="file" name="profile-pic" />
+                  <input type="file" id="file" name="file" />
                 </div>
+                <button
+                  type="submit"
+                  class="btn btn-default btn-sm float-sm-right"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Enviar Foto"
+                >
+                  <i class="fas fa-file-upload"></i>
+                </button>
               </form>
               <h3 class="profile-username text-center mt-2">
                 <?php echo getUserName(); ?>

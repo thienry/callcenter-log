@@ -39,12 +39,19 @@
                     <!-- Date dd/mm/yyyy -->
                     <div class="form-group">
                       <label>Data Inicial</label>
-                    
+
                       <div class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                          <span class="input-group-text"
+                            ><i class="far fa-calendar-alt"></i
+                          ></span>
                         </div>
-                        <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                        <input
+                          type="text"
+                          name="dtini"
+                          value="<?php echo htmlspecialchars( $dtini, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                          class="form-control"
+                        />
                       </div>
                       <!-- /.input group -->
                     </div>
@@ -54,12 +61,19 @@
                     <!-- Date dd/mm/yyyy -->
                     <div class="form-group">
                       <label>Data Final</label>
-                    
+
                       <div class="input-group">
                         <div class="input-group-prepend">
-                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                          <span class="input-group-text"
+                            ><i class="far fa-calendar-alt"></i
+                          ></span>
                         </div>
-                        <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask2>
+                        <input
+                          type="text"
+                          name="dtend"
+                          value="<?php echo htmlspecialchars( $dtend, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                          class="form-control"
+                        />
                       </div>
                       <!-- /.input group -->
                     </div>
@@ -67,24 +81,28 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="search">Buscar:</label>
-                      <input
-                        type="text"
-                        name="search"
-                        class="form-control"
-                        id="search"
-                        value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
-                        placeholder="Buscar"
-                      />
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="fas fa-search"></i
+                          ></span>
+                        </div>
+                        <input
+                          type="text"
+                          name="search"
+                          class="form-control"
+                          id="search"
+                          value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                          placeholder="Digite aqui Marcação, Nome Paciente, Tipo, Médico, Telefone, Status..."
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button
-                  type="submit"
-                  class="btn btn-primary float-right"
-                >
+                <button type="submit" class="btn btn-sm btn-primary float-right">
                   Filtrar
                 </button>
               </div>
@@ -172,7 +190,9 @@
               </table>
             </div>
             <?php if( $logs == false ){ ?>
-              <strong class="text-center pt-5 pb-5">Não há dados para serem exibidos na tabela!</strong>
+            <strong class="text-center pt-5 pb-5"
+              >Não há dados para serem exibidos na tabela!</strong
+            >
             <?php } ?>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
@@ -180,7 +200,7 @@
                 <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
                 <li class="page-item">
                   <a class="page-link" href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
-                  <br>
+                  <br />
                 </li>
                 <?php } ?>
               </ul>

@@ -28,8 +28,8 @@
           <div class="card">
             <div class="card-header">
               <div class="card-title">
-                <a href="/usuarios/cadastrar" class="btn btn-primary"
-                  ><i class="fas fa-user"></i> Cadastrar Usuário</a
+                <a href="/usuarios/cadastrar" class="btn btn-sm btn-primary"
+                  ><i class="fas fa-user-plus"></i> Novo Usuário</a
                 >
               </div>
               <div class="card-tools">
