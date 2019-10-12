@@ -212,11 +212,30 @@ $app -> post("/marcacoes/:id", function($id) {
   exit;
 });
 
-$app -> get("/ausente/lock", function () {
+$app-> get("/ausente/bloqueio", function () {
   User::verifyLogin();
+  
+  if ($_SESSION[User::SESSION] && (int)$_SESSION[User::SESSION]["id_user"] > 0 &&	(bool)$_SESSION[User::SESSION]["id_user"] === true) {
+    $user = new User();
+		$user->get((int)$_SESSION[User::SESSION]["id_user"]);
 
-  $page = new Page();
-  $page->setTpl("lockscreen"); 
+    $_SESSION[User::SESSION]["ausente"] = true;
+
+    $imageUpload = new ImageUpload();
+
+    $page = new Page([
+      "header" => false,
+      "footer" => false,
+      "data" => [
+        "user" => $user->getValues()
+      ]
+    ]);
+
+    $page->setTpl("lockscreen", [
+      "image" => $imageUpload->getValues(),
+    ]); 
+
+  }
 });
 
 $app -> get("/logout", function () {

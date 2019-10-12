@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -35,7 +35,7 @@
       </div>
       <!-- User name -->
       <div class="lockscreen-name text-white">
-        {function="getfirstAndLastName()"}
+        <?php echo getfirstAndLastName(); ?>
       </div>
 
       <!-- START LOCK SCREEN ITEM -->
@@ -43,8 +43,8 @@
         <!-- lockscreen image -->
         <div class="lockscreen-image">
           <img
-            src="{$image.desphoto}"
-            alt='Imagem de {function="getfirstAndLastName()"}'
+            src="<?php echo htmlspecialchars( $image["desphoto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+            alt='Imagem de <?php echo getfirstAndLastName(); ?>'
           />
         </div>
         <!-- /.lockscreen-image -->
@@ -59,7 +59,7 @@
               class="form-control"
               placeholder="senha"
             />
-            <input type="hidden" class="form-control" name="login" value="{$user.login}">
+            <input type="hidden" class="form-control" name="login" value="<?php echo htmlspecialchars( $user["login"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
             <div class="input-group-append">
               <button type="submit" class="btn btn-screen-lock">
                 <i class="fas fa-arrow-right text-muted"></i>
