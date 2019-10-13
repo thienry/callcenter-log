@@ -53,10 +53,10 @@
                           ></span>
                         </div>
                         <input
-                          type="text"
+                          type="date"
                           name="dtini"
                           value="<?php echo htmlspecialchars( $dtini, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
-                          class="form-control"
+                          class="form-control "
                         />
                       </div>
                       <!-- /.input group -->
@@ -75,10 +75,10 @@
                           ></span>
                         </div>
                         <input
-                          type="text"
+                          type="date"
                           name="dtend"
                           value="<?php echo htmlspecialchars( $dtend, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
-                          class="form-control"
+                          class="form-control "
                         />
                       </div>
                       <!-- /.input group -->

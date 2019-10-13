@@ -105,13 +105,18 @@ $app -> get("/marcacoes(/)", function () {
 
   $imageUpload = new ImageUpload();
 
-  $search = (isset($_GET["search"])) ? $_GET["search"] : "";
-  $dtini = (isset($_GET["dtini"])) ? $_GET["dtini"] : '2019-07-22';
-  $dtend = (isset($_GET["dtend"])) ? $_GET["dtend"] : '2019-07-22';
+  $dtini = (isset($_GET["dtini"])) ? $_GET["dtini"] : date("Y-m-d");
+  $dtend = (isset($_GET["dtend"])) ? $_GET["dtend"] : date("Y-m-d");
+
+  $search = (isset($_GET["search"])) ? $_GET["search"] : NULL;
   $page = (isset($_GET["page"])) ? (int) $_GET["page"] : 1;
 
   if ($search != "") {
     $pagination = Callcenter::getPageSearch($search, $dtini, $dtend, $page);
+  } else if ($dtini != "" || $dtend != "") {
+    $pagination = Callcenter::getPageSearchByDate($dtini, $dtend, $page);
+  } else if (($dtini != "" || $dtend != "") && $search != "") {
+    $pagination = Callcenter::getPageSearchAndDate($search, $dtini, $dtend, $page);
   } else {
     $pagination = Callcenter::getPage($page);
   }
@@ -213,8 +218,11 @@ $app -> post("/marcacoes/:id", function($id) {
 });
 
 $app-> get("/ausente/bloqueio", function () {
-  User::verifyLogin();
-  
+  if (!isset($_SESSION[User::SESSION])) {
+    header("Location: /login");
+    exit;
+  }
+
   if ($_SESSION[User::SESSION] && (int)$_SESSION[User::SESSION]["id_user"] > 0 &&	(bool)$_SESSION[User::SESSION]["id_user"] === true) {
     $user = new User();
 		$user->get((int)$_SESSION[User::SESSION]["id_user"]);
@@ -234,8 +242,7 @@ $app-> get("/ausente/bloqueio", function () {
     $page->setTpl("lockscreen", [
       "image" => $imageUpload->getValues(),
     ]); 
-
-  }
+  } 
 });
 
 $app -> get("/logout", function () {

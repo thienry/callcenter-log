@@ -6,7 +6,6 @@ year.innerText = fullYear;
 $(function() {
   var donutChartCanvas = $("#donutChart")
     .get(0)
-    .getContext("2d");
   var donutData = {
     labels: [
       "Marcações Confirmadas",

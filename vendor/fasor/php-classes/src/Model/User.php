@@ -48,7 +48,7 @@ class User extends Model {
   }
 
   public static function verifyLogin() {
-    if (isset($_SESSION[User::SESSION]['ausente']) && $_SESSION[User::SESSION]['ausente'] === true) {
+    if (isset($_SESSION[User::SESSION]["ausente"]) && $_SESSION[User::SESSION]["ausente"] === true) {
       header("Location: /ausente/bloqueio");
       exit;
     } elseif (!isset($_SESSION[User::SESSION]) || !$_SESSION[User::SESSION] || !(int)$_SESSION[User::SESSION]["id_user"] > 0) {

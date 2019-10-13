@@ -29,17 +29,13 @@
   <script src="/res/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- ChartJS -->
   <script src="/res/admin-lte/plugins/chart.js/Chart.min.js"></script>
-  <!-- InputMask -->
-  <script src="/res/admin-lte/plugins/inputmask/jquery.inputmask.bundle.js"></script>
-  <!-- Moment JS -->
-  <script src="/res/admin-lte/plugins/moment/moment.min.js"></script>
   <!-- Toastr -->
   <script src="/res/admin-lte/plugins/toastr/toastr.min.js"></script>
   <!-- AdminLTE App -->
   <script src="/res/admin-lte/dist/js/adminlte.min.js"></script>
   <!-- Custom Script -->
   <script src="/res/js/index.js"></script>
-
+  <script src="/res/js/jquery.maskedinput.min.js"></script>
   <script>
     const url = window.location.href;
 
@@ -199,6 +195,20 @@
         }
 
         if (emptyField) return false;
+      });
+
+      //Datemask dd/mm/yyyy
+      $(".datemask").mask("99/99/9999", {
+        completed: function () {
+          console.log('complete')
+          var value = $(this).val().split('/');
+          var maximos = [31, 12, 2100];
+          var novoValor = value.map(function (parcela, i) {
+            if (parseInt(parcela, 10) > maximos[i]) return maximos[i];
+            return parcela;
+          });
+          if (novoValor.toString() != value.toString()) $(this).val(novoValor.join('/')).focus();
+        }
       });
     })
   </script>
