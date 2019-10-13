@@ -23,10 +23,9 @@
   <section class="content">
     <div class="container-fluid">
       <?php if( $success == 1 ){ ?>
-        <span id="appointmentSuccess"></span>
-      <?php } ?>
-      <?php if( $error == 1 ){ ?>
-        <span id="appointmentError"></span>
+      <span id="appointmentSuccess"></span>
+      <?php } ?> <?php if( $error == 1 ){ ?>
+      <span id="appointmentError"></span>
       <?php } ?>
       <div class="row">
         <!-- left column -->
@@ -108,7 +107,10 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary float-right">
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-primary float-right"
+                >
                   Filtrar
                 </button>
               </div>
@@ -132,10 +134,7 @@
               <div class="card-tools">
                 <div class="row no-print" style="width: 150px;">
                   <div class="col-12">
-                    <a
-                      href="invoice-print.html"
-                      target="_blank"
-                      class="btn btn-default"
+                    <a href="#" class="btn btn-default"
                       ><i class="fas fa-print"></i> Imprimir</a
                     >
                   </div>
@@ -172,8 +171,8 @@
                     </td>
                     <td>
                       <strong>
-                        <?php if( $value1["Confirmacao"] == '' ){ ?> 
-                          <span class="text-yellow">Sem Resposta</span>
+                        <?php if( $value1["Confirmacao"] == '' ){ ?>
+                        <span class="text-yellow">Sem Resposta</span>
                         <?php }elseif( $value1["Confirmacao"] == 'S' ){ ?>
                         <span class="text-blue">Confirmada</span>
                         <?php }else{ ?>
@@ -204,12 +203,31 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               <ul class="pagination pagination-sm m-0 float-right">
+                <li class='page-item <?php if( $firstPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $first, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-double-left"></i
+                  ></a>
+                </li>
+                <li class='page-item <?php if( $firstPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $prev, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-left"></i
+                  ></a>
+                </li>
                 <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
-                <li class="page-item">
-                  <a class="page-link" href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
-                  <br />
+                <li class='page-item <?php if( $value1["active"] ){ ?> active <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
                 </li>
                 <?php } ?>
+                <li class='page-item <?php if( $lastPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $next, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-right"></i
+                  ></a>
+                </li>
+                <li class='page-item <?php if( $lastPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $last, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></a>
+                </li>
               </ul>
             </div>
           </div>

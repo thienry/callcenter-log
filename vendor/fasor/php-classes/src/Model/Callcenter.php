@@ -59,96 +59,27 @@ class Callcenter extends Model {
     }
   }
 
-  //default
-  public static function getPage($page = 1, $itemsPerPage = 50) {
-    $start = ($page - 1) * $itemsPerPage;
-
-    $sql = new Sql();
-    
-    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM marcacoes_diag LIMIT $start, $itemsPerPage;");
-
-    $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
-
-    return [
-      "data" => $results,
-      "total" => (int) $resultsTotal[0]["nrtotal"],
-      "pages" => ceil($resultsTotal[0]["nrtotal"] / $itemsPerPage)
-    ];
+  public static function checkList($list) {
+    foreach ($list as &$row) {
+      $p = new Callcenter();
+      $p->setData($row);
+      $row = $p->getValues();
+    }
+    return $list;
   }
 
-  // GET Search
-  public static function getPageSearch($search, $dtini, $dtend, $page = 1, $itemsPerPage = 50) {
-    $start = ($page - 1) * $itemsPerPage;
+
+  public static function pagination($page = 1, $limit = 10) {
+    $start = ($page - 1) * $limit;
 
     $sql = new Sql();
-    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * 
-                             FROM marcacoes_diag
-                             WHERE nome_pac LIKE :search 
-                             OR descricao LIKE :search 
-                             OR Medico LIKE :search 
-                             OR Confirmacao LIKE :search 
-                             OR Local LIKE :search 
-                             OR fone_celular LIKE :search 
-                             OR id_marcacao LIKE :search
-                             LIMIT $start, $itemsPerPage;", [
-      ":search" => "%" . $search . "%",
-    ]);
-
-    $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM marcacoes_diag LIMIT $start, $limit");
+    $totalResult = $sql->select("SELECT FOUND_ROWS() AS nrtotal");
 
     return [
-      "data" => $results,
-      "total" => (int) $resultsTotal[0]["nrtotal"],
-      "pages" => ceil($resultsTotal[0]["nrtotal"] / $itemsPerPage)
+      "data" => Callcenter::checkList($results),
+      "total" => (int)$totalResult[0]["nrtotal"],
+      "pages" => ceil($totalResult[0]["nrtotal"] / $limit),
     ];
   }
-
-  //GET by Date
-  public static function getPageSearchByDate($dtini, $dtend, $page = 1, $itemsPerPage = 25) {
-    $start = ($page - 1) * $itemsPerPage;
-
-    $sql = new Sql();
-    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM marcacoes_diag WHERE Data_hora BETWEEN :dtini AND :dtend LIMIT $start, $itemsPerPage;", [
-      ":dtini" => $dtini,
-      ":dtend" => $dtend,
-    ]);
-
-    $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
-    return [
-      "data" => $results,
-      "total" => (int) $resultsTotal[0]["nrtotal"],
-      "pages" => ceil($resultsTotal[0]["nrtotal"] / $itemsPerPage)
-    ];
-  }
-  
-  // GET by Search AND Date
-  public static function getPageSearchAndDate($search, $dtini, $dtend, $page = 1, $itemsPerPage = 50) {
-    $start = ($page - 1) * $itemsPerPage;
-
-    $sql = new Sql();
-    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * 
-                             FROM marcacoes_diag
-                             WHERE nome_pac LIKE :search 
-                             OR descricao LIKE :search 
-                             OR Medico LIKE :search 
-                             OR Confirmacao LIKE :search 
-                             OR Local LIKE :search 
-                             OR fone_celular LIKE :search 
-                             OR id_marcacao LIKE :search 
-                             AND Data_hora BETWEEN :dtini AND :dtend
-                             LIMIT $start, $itemsPerPage;", [
-      ":search" => "%" . $search . "%",
-      ":dtini" => $dtini,
-      ":dtend" => $dtend,
-    ]);
-
-    $resultsTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
-
-    return [
-      "data" => $results,
-      "total" => (int) $resultsTotal[0]["nrtotal"],
-      "pages" => ceil($resultsTotal[0]["nrtotal"] / $itemsPerPage)
-    ];
-  }
-
 }

@@ -23,10 +23,9 @@
   <section class="content">
     <div class="container-fluid">
       {if="$success == 1"}
-        <span id="appointmentSuccess"></span>
-      {/if}
-      {if="$error == 1"}
-        <span id="appointmentError"></span>
+      <span id="appointmentSuccess"></span>
+      {/if} {if="$error == 1"}
+      <span id="appointmentError"></span>
       {/if}
       <div class="row">
         <!-- left column -->
@@ -108,7 +107,10 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary float-right">
+                <button
+                  type="submit"
+                  class="btn btn-sm btn-primary float-right"
+                >
                   Filtrar
                 </button>
               </div>
@@ -132,10 +134,7 @@
               <div class="card-tools">
                 <div class="row no-print" style="width: 150px;">
                   <div class="col-12">
-                    <a
-                      href="invoice-print.html"
-                      target="_blank"
-                      class="btn btn-default"
+                    <a href="#" class="btn btn-default"
                       ><i class="fas fa-print"></i> Imprimir</a
                     >
                   </div>
@@ -172,8 +171,8 @@
                     </td>
                     <td>
                       <strong>
-                        {if="$value.Confirmacao == ''"} 
-                          <span class="text-yellow">Sem Resposta</span>
+                        {if="$value.Confirmacao == ''"}
+                        <span class="text-yellow">Sem Resposta</span>
                         {elseif="$value.Confirmacao == 'S'"}
                         <span class="text-blue">Confirmada</span>
                         {else}
@@ -204,12 +203,31 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               <ul class="pagination pagination-sm m-0 float-right">
+                <li class='page-item {if="$firstPage == true"} disabled {/if}'>
+                  <a class="page-link" href="{$first}"
+                    ><i class="fas fa-angle-double-left"></i
+                  ></a>
+                </li>
+                <li class='page-item {if="$firstPage == true"} disabled {/if}'>
+                  <a class="page-link" href="{$prev}"
+                    ><i class="fas fa-angle-left"></i
+                  ></a>
+                </li>
                 {loop="$pages"}
-                <li class="page-item">
-                  <a class="page-link" href="{$value.href}">{$value.text}</a>
-                  <br />
+                <li class='page-item {if="$value.active"} active {/if}'>
+                  <a class="page-link" href="{$value.link}">{$value.text}</a>
                 </li>
                 {/loop}
+                <li class='page-item {if="$lastPage == true"} disabled {/if}'>
+                  <a class="page-link" href="{$next}"
+                    ><i class="fas fa-angle-right"></i
+                  ></a>
+                </li>
+                <li class='page-item {if="$lastPage == true"} disabled {/if}'>
+                  <a class="page-link" href="{$last}"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></a>
+                </li>
               </ul>
             </div>
           </div>

@@ -96,47 +96,56 @@ $app->post("/perfil", function () {
   header("Location: /perfil?success=1");
   exit;
 });
-       
-$app -> get("/marcacoes(/)", function () {
+
+$app->get("/marcacoes(/)", function () {
   User::verifyLogin();
   
   $error = isset($_GET["error"]) ? $_GET["error"] : 0;
   $success = isset($_GET["success"]) ? $_GET["success"] : 0;
+  $page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+  $search = isset($_GET["search"]) ? $_GET["search"] : "";
+  $dtini = isset($_GET["dtini"]) ? $_GET["dtini"] : date("Y-m-d");
+  $dtend = isset($_GET["dtend"]) ? $_GET["dtend"] : date("Y-m-d");
 
   $imageUpload = new ImageUpload();
+  
+  $user = new User();
+  $user = User::getFromSession();
 
-  $dtini = (isset($_GET["dtini"])) ? $_GET["dtini"] : date("Y-m-d");
-  $dtend = (isset($_GET["dtend"])) ? $_GET["dtend"] : date("Y-m-d");
+  $pagination = Callcenter::pagination($page);
 
-  $search = (isset($_GET["search"])) ? $_GET["search"] : NULL;
-  $page = (isset($_GET["page"])) ? (int) $_GET["page"] : 1;
-
-  if ($search != "") {
-    $pagination = Callcenter::getPageSearch($search, $dtini, $dtend, $page);
-  } else if ($dtini != "" || $dtend != "") {
-    $pagination = Callcenter::getPageSearchByDate($dtini, $dtend, $page);
-  } else if (($dtini != "" || $dtend != "") && $search != "") {
-    $pagination = Callcenter::getPageSearchAndDate($search, $dtini, $dtend, $page);
-  } else {
-    $pagination = Callcenter::getPage($page);
+  if ($page > $pagination["pages"] || $page < 1) {
+    header("Location: /marcacoes");
+    exit;
   }
 
   $pages = [];
+  $prev = $page - 1;
+  $next = $page + 1;
+  $first = 1;
+  $last = (int)$pagination["pages"];
 
-  for ($i = 0; $i < $pagination["pages"]; $i++) {
-    array_push($pages, [
-      "href" => "/marcacoes?" . http_build_query([
-        "page" => $i + 1,
-        "search" => $search,
-        "dtini" => $dtini,
-        "dtend" => $dtend,
-      ]),
-      "text" => $i + 1
-    ]);
+  $firstPage = (($first == $page) == true);
+  $lastPage = (($last == $page) == true);
+
+  $linksLimit = 2;
+  $start = ((($page - $linksLimit) > 1) ? $page - $linksLimit : 1);
+  $end = ((($page + $linksLimit) < $pagination["pages"]) ? $page + $linksLimit : $pagination["pages"]);
+
+  if ($pagination["pages"] > 1 && $page <= $pagination["pages"]) {
+    for ($i = $start; $i <= $end ; $i++) { 
+      array_push($pages, [
+        "link" => "/marcacoes?".http_build_query([
+          "page" => $i,
+          "search" => $search,
+          "dtini" => $dtini,
+          "dtend" => $dtend
+        ]),
+        "text" => $i,
+        "active" => $i == $page,
+      ]);
+    }
   }
-
-  $user = new User();
-  $user = User::getFromSession();
 
   $page = new Page();
   $page->setTpl("navbar");
@@ -145,10 +154,16 @@ $app -> get("/marcacoes(/)", function () {
     "breadcrumbItem" => "Dashboard",
     "appointments" => "Marcações",
     "logs" => $pagination["data"],
-    "search" => $search,
-    "dtini" => $dtini,
-    "dtend" => $dtend,
-    "pages" => $pages,    
+    "pages" => $pages,
+    "firstPage" => $firstPage,
+    "lastPage" => $lastPage,
+    "first" => "/marcacoes"."?page=".$first,
+    "last" =>  "/marcacoes"."?page=".$last,
+    "prev" => "/marcacoes"."?page=".$prev,
+    "next" => "/marcacoes"."?page=".$next,
+    "search" => $search,   
+    "dtini" => $dtini,   
+    "dtend" => $dtend,   
     "success" => $success,
     "error"=>$error,
   ]);
@@ -165,9 +180,10 @@ $app -> get("/marcacoes(/)", function () {
     "isActiveUsers" => 0,
     "isActiveAppointment" => 1
   ]);
+
 });
 
-$app -> get("/marcacoes/:id(/)", function ($id) {
+$app->get("/marcacoes/:id(/)", function ($id) {
   User::verifyLogin();
 
 
