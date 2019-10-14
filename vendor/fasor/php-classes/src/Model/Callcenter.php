@@ -46,10 +46,13 @@ class Callcenter extends Model {
   }
 
   public function update() {
+    $user = User::getFromSession();
+
     $sql = new Sql();
-    $results = $sql->select("UPDATE marcacoes_diag SET Confirmacao = :Confirmacao, observacao = :observacao WHERE id = :id", [
+    $results = $sql->select("UPDATE marcacoes_diag SET Confirmacao = :Confirmacao, observacao = :observacao, id_user = :id_user WHERE id = :id", [
       ":Confirmacao" => $this->getConfirmacao(),
       ":observacao" => $this->getobservacao(),
+      ":id_user" => $user->getid_user(),
       ":id" => $this->getid(),
     ]);
 
@@ -141,5 +144,21 @@ class Callcenter extends Model {
 			'total'=>(int)$resultTotal[0]["nrtotal"],
 			'pages'=>ceil($resultTotal[0]["nrtotal"] / $limit)
 		];
+  }
+
+  public static function getPageId($id, $page = 1, $limit = 10) {
+    $start = ($page - 1) * $limit;
+
+    $sql = new Sql();
+    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM marcacoes_diag WHERE id = :id LIMIT $start, $limit", [
+      ":id" => $id
+    ]);
+    $totalResult = $sql->select("SELECT FOUND_ROWS() AS nrtotal");
+
+    return [
+      "data" => $results,
+      "total" => (int)$totalResult[0]["nrtotal"],
+      "pages" => ceil($totalResult[0]["nrtotal"] / $limit),
+    ];
   }
 }

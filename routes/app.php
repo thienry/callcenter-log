@@ -106,6 +106,7 @@ $app->get("/marcacoes(/)", function () {
   $search = isset($_GET["search"]) ? $_GET["search"] : "";
   $hrini = isset($_GET["hrini"]) ? $_GET["hrini"] : "";
   $hrend = isset($_GET["hrend"]) ? $_GET["hrend"] : "";
+  $id = isset($_GET["id"]) ? $_GET["id"] : "";
 
   $iniDate = new DateTime("00:00:00");
   $iniDate = $iniDate->format("Y-m-d H:i:s");
@@ -161,6 +162,8 @@ $app->get("/marcacoes(/)", function () {
     $pagination = Callcenter::getPageByDate($dtini, $dtend, $page);
   } else if ($search != "") {
     $pagination = Callcenter::getPageSearch($search, $page);
+  } else if ($id != "") {
+    $pagination = Callcenter::getPageId($id, $page);
   } else {
     $pagination = Callcenter::getPageByDate($dtini, $dtend, $page);
   }
@@ -170,31 +173,41 @@ $app->get("/marcacoes(/)", function () {
     exit;
   }
 
-  $pages = [];
-  $prev = $page - 1;
-  $next = $page + 1;
-  $first = 1;
-  $last = (int)$pagination["pages"];
+  $one = 1;
 
-  $firstPage = (($first == $page) == true);
-  $lastPage = (($last == $page) == true);
+  $pages = [];
+
+  $first = "/marcacoes"."?page=".$one."&search=".$search."&dtini=".$dtini."&dtend=".$dtend;
+  $last = "/marcacoes"."?page=".(int)$pagination["pages"]."&search=".$search."&dtini=".$dtini."&dtend=".$dtend;
+  $prev = "";
+  $next = "";
+
+  $a = explode("&", $first);
+  $a = substr($a[0], 16, strlen($a[0]));
+
+  $b = explode("&", $last);
+  $b = substr($b[0], 16, strlen($b[0]));
+
+  $firstPage = (($a == $page) == true);
+  $lastPage = (($b == $page) == true);
 
   $linksLimit = 2;
   $start = ((($page - $linksLimit) > 1) ? $page - $linksLimit : 1);
   $end = ((($page + $linksLimit) < $pagination["pages"]) ? $page + $linksLimit : $pagination["pages"]);
-
+  
   if ($pagination["pages"] > 1 && $page <= $pagination["pages"]) {
+    $cont = 1;
     for ($i = $start; $i <= $end ; $i++) { 
       array_push($pages, [
         "link" => "/marcacoes?".http_build_query([
           "page" => $i,
           "search" => $search,
           "dtini" => $dtini,
-          "dtend" => $dtend
+          "dtend" => $dtend,
         ]),
         "text" => $i,
         "active" => $i == $page,
-      ]);
+       ]);
     }
   }
 
@@ -208,15 +221,13 @@ $app->get("/marcacoes(/)", function () {
     "pages" => $pages,
     "firstPage" => $firstPage,
     "lastPage" => $lastPage,
-    "first" => "/marcacoes"."?page=".$first,
-    "last" =>  "/marcacoes"."?page=".$last,
-    "prev" => "/marcacoes"."?page=".$prev,
-    "next" => "/marcacoes"."?page=".$next,
+    "first" => $first,
+    "last" => $last,
     "search" => $search,   
     "dtini" => $dtini,   
     "dtend" => $dtend,
-    "hrini" => "",
-    "hrend" => "",
+    "hrini" => $hrini,
+    "hrend" => $hrend,
     "success" => $success,
     "error"=>$error,
   ]);
@@ -271,7 +282,7 @@ $app->get("/marcacoes/:id(/)", function ($id) {
 
 });
 
-$app -> post("/marcacoes/:id", function($id) {
+$app->post("/marcacoes/:id", function($id) {
   User::verifyLogin();
 
   $_POST["Confirmacao"] = (isset($_POST["Confirmacao"]) ) ? $_POST["Confirmacao"] : NULL;
@@ -281,7 +292,7 @@ $app -> post("/marcacoes/:id", function($id) {
   $log->setData($_POST);
   $log->update();
 
-  header("Location: /marcacoes?success=1");
+  header("Location: /marcacoes?id={$id}&success=1");
   exit;
 });
 

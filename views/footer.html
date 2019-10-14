@@ -39,6 +39,8 @@
   <script>
     const url = window.location.href;
 
+    let urlModified = url.substring(0, 39);
+
     $(document).ready(function () {
       // Users Create URL
       if (url === "http://callcenterlog.local/usuarios?success=1") {
@@ -93,7 +95,7 @@
       }
 
       // Appointments URL
-      if (url === "http://callcenterlog.local/marcacoes?success=1") {
+      if (urlModified === "http://callcenterlog.local/marcacoes?id") {
         $("#appointmentSuccess").ready(function () {
           toastr.success('SUCESSO, Marcação Atualizada Com Sucesso.')
         });
