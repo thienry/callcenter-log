@@ -132,7 +132,7 @@ class User extends Model {
       ":id_user"=>$this->getid_user()
     ]);
 
-    if ($results === 0) {
+    if ($results == 0) {
       header("Location: /usuarios?error=3");
       exit;
     }

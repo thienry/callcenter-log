@@ -4,6 +4,7 @@ use \Fasor\Page;
 use \Fasor\Model\User;
 use \Fasor\Model\Callcenter;
 use \Fasor\Model\ImageUpload;
+use \Fasor\Model\Paginator;
 
 $app -> get("/", function () {
   User::verifyLogin();
@@ -143,7 +144,7 @@ $app->get("/marcacoes(/)", function () {
     $dtini = $dtini." ".$hrini;
     $dtend = $dtend." ".$hrend;
     
-    $pagination = Callcenter::getPageSearchAndDateRange($search, $dtini, $dtend,  $page);
+    $pagination = Paginator::getPageSearchAndDateRange($search, $dtini, $dtend,  $page);
 
   } else if ($dtini != "" && $hrini != "" && $dtend != "" && $hrend != "") {
     if ($_GET["dtini"] > $_GET["dtend"]) {
@@ -159,13 +160,13 @@ $app->get("/marcacoes(/)", function () {
     $dtini = $dtini." ".$hrini;
     $dtend = $dtend." ".$hrend;
 
-    $pagination = Callcenter::getPageByDate($dtini, $dtend, $page);
+    $pagination = Paginator::getPageByDate($dtini, $dtend, $page);
   } else if ($search != "") {
-    $pagination = Callcenter::getPageSearch($search, $page);
+    $pagination = Paginator::getPageSearch($search, $page);
   } else if ($id != "") {
-    $pagination = Callcenter::getPageId($id, $page);
+    $pagination = Paginator::getPageId($id, $page);
   } else {
-    $pagination = Callcenter::getPageByDate($dtini, $dtend, $page);
+    $pagination = Paginator::getPageByDate($dtini, $dtend, $page);
   }
 
   if ($page > $pagination["pages"] || $page < 1) {
@@ -285,7 +286,7 @@ $app->get("/marcacoes/:id(/)", function ($id) {
 $app->post("/marcacoes/:id", function($id) {
   User::verifyLogin();
 
-  $_POST["Confirmacao"] = (isset($_POST["Confirmacao"]) ) ? $_POST["Confirmacao"] : NULL;
+  $_POST["Confirmacao"] = (isset($_POST["Confirmacao"]) ) ? $_POST["Confirmacao"] : "";
   
   $log = new Callcenter();
   $log->get((int)$id);
