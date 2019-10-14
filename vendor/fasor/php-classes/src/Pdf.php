@@ -70,16 +70,21 @@ class Pdf extends Mpdf {
     $retorno = "";
 
     $retorno .= "<h2 style=\"text-align:center\">{$this->titulo}</h2>";
-    $retorno .= "<table border='1' width='1000' align='center'>  
+    $retorno .= "<table style='font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; border-collapse: collapse; width: 100%;'>  
            <tr class='header'>  
-             <th>Nome</td>  
-             <th>Telefone</td>  
-             <th>Idade</td>  
-             <th>Profissão</td>  
-             <th>E-mail</td>  
-             <th>Endereço</td>  
-             <th>Cidade</td>  
-             <th>Estado</td>  
+             <th style='border: 1px solid #ddd; padding: 8px; padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;'>Marcação</th> 
+
+             <th style='border: 1px solid #ddd; padding: 8px;  padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;'>Nome Paciente</th>  
+             
+             <th style='border: 1px solid #ddd; padding: 8px;  padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;'>Tipo</th>  
+             
+             <th style='border: 1px solid #ddd; padding: 8px;  padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;'>Médico</th>  
+             
+             <th style='border: 1px solid #ddd; padding: 8px;  padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;'>Data</th>  
+             
+             <th style='border: 1px solid #ddd; padding: 8px;  padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;'>Telefone</th>  
+             
+             <th style='border: 1px solid #ddd; padding: 8px;  padding-top: 12px; padding-bottom: 12px; text-align: left; background-color: #4CAF50; color: white;'>Status</th>  
            </tr>";
 
     $sql = "SELECT * FROM TAB_CLIENTE";
@@ -101,7 +106,32 @@ class Pdf extends Mpdf {
     return $retorno;
   }
 
+/*
+  '<style>
+
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+*/
+  
   /*   
+
+
   * Método para construir o arquivo PDF  
   */
   public function BuildPDF() {

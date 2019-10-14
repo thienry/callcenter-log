@@ -49,9 +49,6 @@ class Paginator {
     ];
   }
 
-  /**
-   * Ajustar Query Abaixo
-   */
   public static function getPageSearchAndDateRange($search, $dtini, $dtend, $page = 1, $limit = 10) {
     $start = ($page - 1) * $limit;
 
@@ -59,15 +56,18 @@ class Paginator {
     $results = $sql->select("
 			SELECT SQL_CALC_FOUND_ROWS *
 			FROM marcacoes_diag 
-      WHERE id_marcacao LIKE :search 
+      WHERE (id_marcacao LIKE :search 
       OR nome_pac LIKE :search 
       OR descricao LIKE :search
       OR Medico LIKE :search
       OR fone_celular LIKE :search
-      OR Confirmacao LIKE :search
+      OR Confirmacao LIKE :search)
+      AND Data_hora BETWEEN :dtini AND :dtend
 			LIMIT $start, $limit;
 		", [
-      ':search' => '%' . $search . '%'
+      ':search' => '%' . $search . '%',
+      ":dtini" => $dtini,
+      ":dtend" => $dtend
     ]);
 
     $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
