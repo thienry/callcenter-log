@@ -104,6 +104,8 @@ $app->get("/marcacoes(/)", function () {
   $success = isset($_GET["success"]) ? $_GET["success"] : 0;
   $page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
   $search = isset($_GET["search"]) ? $_GET["search"] : "";
+  $hrini = isset($_GET["hrini"]) ? $_GET["hrini"] : "";
+  $hrend = isset($_GET["hrend"]) ? $_GET["hrend"] : "";
 
   $iniDate = new DateTime("00:00:00");
   $iniDate = $iniDate->format("Y-m-d H:i:s");
@@ -126,7 +128,42 @@ $app->get("/marcacoes(/)", function () {
    * 3- getPageDateRange();
    * 4- getPageSearchAndDateRange();
    */
-  $pagination = Callcenter::getPageActualDay($dtini, $dtend, $page);
+  if ($search != "" && $dtini != "" && $hrini != "" && $dtend != "" && $hrend != "") {
+    if ($_GET["dtini"] > $_GET["dtend"]) {
+      header("Location: /marcacoes?error=5");
+      exit;
+    }
+
+    if ($_GET["dtini"] == $_GET["dtend"] && $_GET["hrini"] > $_GET["hrend"]) {
+      header("Location: /marcacoes?error=6");
+      exit;
+    }
+
+    $dtini = $dtini." ".$hrini;
+    $dtend = $dtend." ".$hrend;
+    
+    $pagination = Callcenter::getPageSearchAndDateRange($search, $dtini, $dtend,  $page);
+
+  } else if ($dtini != "" && $hrini != "" && $dtend != "" && $hrend != "") {
+    if ($_GET["dtini"] > $_GET["dtend"]) {
+      header("Location: /marcacoes?error=5");
+      exit;
+    }
+
+    if ($_GET["dtini"] == $_GET["dtend"] && $_GET["hrini"] > $_GET["hrend"]) {
+      header("Location: /marcacoes?error=6");
+      exit;
+    }
+
+    $dtini = $dtini." ".$hrini;
+    $dtend = $dtend." ".$hrend;
+
+    $pagination = Callcenter::getPageByDate($dtini, $dtend, $page);
+  } else if ($search != "") {
+    $pagination = Callcenter::getPageSearch($search, $page);
+  } else {
+    $pagination = Callcenter::getPageByDate($dtini, $dtend, $page);
+  }
 
   if ($page > $pagination["pages"] || $page < 1) {
     header("Location: /marcacoes");
@@ -177,7 +214,9 @@ $app->get("/marcacoes(/)", function () {
     "next" => "/marcacoes"."?page=".$next,
     "search" => $search,   
     "dtini" => $dtini,   
-    "dtend" => $dtend,   
+    "dtend" => $dtend,
+    "hrini" => "",
+    "hrend" => "",
     "success" => $success,
     "error"=>$error,
   ]);

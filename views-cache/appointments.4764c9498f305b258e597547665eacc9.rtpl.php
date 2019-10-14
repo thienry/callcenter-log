@@ -40,7 +40,7 @@
             <form role="form" action="/marcacoes" method="GET">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-md-3">
                     <!-- Date dd/mm/yyyy -->
                     <div class="form-group">
                       <label>Data Inicial</label>
@@ -61,8 +61,31 @@
                       <!-- /.input group -->
                     </div>
                   </div>
+                  <div class="col-md-2">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group">
+                      <label>Hora Inicial</label>
 
-                  <div class="col-6">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="far fa-clock"></i
+                          ></span>
+                        </div>
+                        <input
+                          type="time"
+                          name="hrini"
+                          value="<?php echo htmlspecialchars( $hrini, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                          class="form-control "
+                        />
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                  </div>
+
+                  <div class="col-md-1"></div>
+
+                  <div class="col-md-3">
                     <!-- Date dd/mm/yyyy -->
                     <div class="form-group">
                       <label>Data Final</label>
@@ -83,6 +106,30 @@
                       <!-- /.input group -->
                     </div>
                   </div>
+
+                  <div class="col-md-2">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group">
+                      <label>Hora Final</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="far fa-clock"></i
+                          ></span>
+                        </div>
+                        <input
+                          type="time"
+                          name="hrend"
+                          value="<?php echo htmlspecialchars( $hrend, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                          class="form-control "
+                        />
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col">
                     <div class="form-group">
                       <label for="search">Buscar:</label>
@@ -150,7 +197,7 @@
                     <th>Nome Paciente</th>
                     <th>Tipo</th>
                     <th>Médico</th>
-                    <th>Data</th>
+                    <th style="width: 160px;">Data</th>
                     <th>Telefone</th>
                     <th>Status</th>
                     <th>Ações</th>
@@ -163,7 +210,7 @@
                     <td><?php echo htmlspecialchars( $value1["nome_pac"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["descricao"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["Medico"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                    <td><?php echo formatDate($value1["Data_hora"]); ?></td>
+                    <td><?php echo formatDate($value1["Data_hora"]); ?>h</td>
                     <td>
                       <?php if( $value1["fone_celular"] == '' ){ ?>
                       <span class="text-red">Sem Número Cadastrado</span>
@@ -203,33 +250,33 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               <?php if( count($pages) > 1 ){ ?>
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class='page-item <?php if( $firstPage == true ){ ?> disabled <?php } ?>'>
-                    <a class="page-link" href="<?php echo htmlspecialchars( $first, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
-                      ><i class="fas fa-angle-double-left"></i
-                    ></a>
-                  </li>
-                  <li class='page-item <?php if( $firstPage == true ){ ?> disabled <?php } ?>'>
-                    <a class="page-link" href="<?php echo htmlspecialchars( $prev, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
-                      ><i class="fas fa-angle-left"></i
-                    ></a>
-                  </li>
-                  <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
-                  <li class='page-item <?php if( $value1["active"] ){ ?> active <?php } ?>'>
-                    <a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
-                  </li>
-                  <?php } ?>
-                  <li class='page-item <?php if( $lastPage == true ){ ?> disabled <?php } ?>'>
-                    <a class="page-link" href="<?php echo htmlspecialchars( $next, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
-                      ><i class="fas fa-angle-right"></i
-                    ></a>
-                  </li>
-                  <li class='page-item <?php if( $lastPage == true ){ ?> disabled <?php } ?>'>
-                    <a class="page-link" href="<?php echo htmlspecialchars( $last, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
-                      ><i class="fas fa-angle-double-right"></i
-                    ></a>
-                  </li>
-                </ul>
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class='page-item <?php if( $firstPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $first, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-double-left"></i
+                  ></a>
+                </li>
+                <li class='page-item <?php if( $firstPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $prev, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-left"></i
+                  ></a>
+                </li>
+                <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+                <li class='page-item <?php if( $value1["active"] ){ ?> active <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                </li>
+                <?php } ?>
+                <li class='page-item <?php if( $lastPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $next, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-right"></i
+                  ></a>
+                </li>
+                <li class='page-item <?php if( $lastPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $last, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></a>
+                </li>
+              </ul>
               <?php } ?>
             </div>
           </div>

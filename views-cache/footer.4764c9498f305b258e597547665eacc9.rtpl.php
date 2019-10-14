@@ -110,7 +110,19 @@
         $("#uploadSuccess").ready(function () {
           toastr.success('SUCESSO, Foto de Perfil Aterada Com Sucesso.')
         });
-      }  
+      }
+
+      if (url === "http://callcenterlog.local/marcacoes?error=5") {
+        $("#appointmentError").ready(function () {
+          toastr.error('ERROR, Data Final Não Pode Ser Maior Que a Data Inicial.')
+        });
+      }
+
+      if (url === "http://callcenterlog.local/marcacoes?error=6") {
+        $("#appointmentError").ready(function () {
+          toastr.error('ERROR, Datas Iguais Com Hora Final Menor Que a Hora Inicial.')
+        });
+      }
 
       //User Create Form Validation
       $(".btn-user-create").click(function () {
@@ -197,19 +209,7 @@
         if (emptyField) return false;
       });
 
-      //Datemask dd/mm/yyyy
-      $(".datemask").mask("99/99/9999", {
-        completed: function () {
-          console.log('complete')
-          var value = $(this).val().split('/');
-          var maximos = [31, 12, 2100];
-          var novoValor = value.map(function (parcela, i) {
-            if (parseInt(parcela, 10) > maximos[i]) return maximos[i];
-            return parcela;
-          });
-          if (novoValor.toString() != value.toString()) $(this).val(novoValor.join('/')).focus();
-        }
-      });
+  
     })
   </script>
 </body>

@@ -40,7 +40,7 @@
             <form role="form" action="/marcacoes" method="GET">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-md-3">
                     <!-- Date dd/mm/yyyy -->
                     <div class="form-group">
                       <label>Data Inicial</label>
@@ -61,8 +61,31 @@
                       <!-- /.input group -->
                     </div>
                   </div>
+                  <div class="col-md-2">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group">
+                      <label>Hora Inicial</label>
 
-                  <div class="col-6">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="far fa-clock"></i
+                          ></span>
+                        </div>
+                        <input
+                          type="time"
+                          name="hrini"
+                          value="{$hrini}"
+                          class="form-control "
+                        />
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                  </div>
+
+                  <div class="col-md-1"></div>
+
+                  <div class="col-md-3">
                     <!-- Date dd/mm/yyyy -->
                     <div class="form-group">
                       <label>Data Final</label>
@@ -83,6 +106,30 @@
                       <!-- /.input group -->
                     </div>
                   </div>
+
+                  <div class="col-md-2">
+                    <!-- Date dd/mm/yyyy -->
+                    <div class="form-group">
+                      <label>Hora Final</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            ><i class="far fa-clock"></i
+                          ></span>
+                        </div>
+                        <input
+                          type="time"
+                          name="hrend"
+                          value="{$hrend}"
+                          class="form-control "
+                        />
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col">
                     <div class="form-group">
                       <label for="search">Buscar:</label>
@@ -150,7 +197,7 @@
                     <th>Nome Paciente</th>
                     <th>Tipo</th>
                     <th>Médico</th>
-                    <th>Data</th>
+                    <th style="width: 160px;">Data</th>
                     <th>Telefone</th>
                     <th>Status</th>
                     <th>Ações</th>
@@ -163,7 +210,7 @@
                     <td>{$value.nome_pac}</td>
                     <td>{$value.descricao}</td>
                     <td>{$value.Medico}</td>
-                    <td>{function="formatDate($value.Data_hora)"}</td>
+                    <td>{function="formatDate($value.Data_hora)"}h</td>
                     <td>
                       {if="$value.fone_celular == ''"}
                       <span class="text-red">Sem Número Cadastrado</span>
@@ -203,33 +250,33 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               {if="count($pages) > 1"}
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class='page-item {if="$firstPage == true"} disabled {/if}'>
-                    <a class="page-link" href="{$first}"
-                      ><i class="fas fa-angle-double-left"></i
-                    ></a>
-                  </li>
-                  <li class='page-item {if="$firstPage == true"} disabled {/if}'>
-                    <a class="page-link" href="{$prev}"
-                      ><i class="fas fa-angle-left"></i
-                    ></a>
-                  </li>
-                  {loop="$pages"}
-                  <li class='page-item {if="$value.active"} active {/if}'>
-                    <a class="page-link" href="{$value.link}">{$value.text}</a>
-                  </li>
-                  {/loop}
-                  <li class='page-item {if="$lastPage == true"} disabled {/if}'>
-                    <a class="page-link" href="{$next}"
-                      ><i class="fas fa-angle-right"></i
-                    ></a>
-                  </li>
-                  <li class='page-item {if="$lastPage == true"} disabled {/if}'>
-                    <a class="page-link" href="{$last}"
-                      ><i class="fas fa-angle-double-right"></i
-                    ></a>
-                  </li>
-                </ul>
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class='page-item {if="$firstPage == true"} disabled {/if}'>
+                  <a class="page-link" href="{$first}"
+                    ><i class="fas fa-angle-double-left"></i
+                  ></a>
+                </li>
+                <li class='page-item {if="$firstPage == true"} disabled {/if}'>
+                  <a class="page-link" href="{$prev}"
+                    ><i class="fas fa-angle-left"></i
+                  ></a>
+                </li>
+                {loop="$pages"}
+                <li class='page-item {if="$value.active"} active {/if}'>
+                  <a class="page-link" href="{$value.link}">{$value.text}</a>
+                </li>
+                {/loop}
+                <li class='page-item {if="$lastPage == true"} disabled {/if}'>
+                  <a class="page-link" href="{$next}"
+                    ><i class="fas fa-angle-right"></i
+                  ></a>
+                </li>
+                <li class='page-item {if="$lastPage == true"} disabled {/if}'>
+                  <a class="page-link" href="{$last}"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></a>
+                </li>
+              </ul>
               {/if}
             </div>
           </div>

@@ -4,7 +4,7 @@ use \Fasor\Model;
 use \Fasor\Model\User;
 
 function formatDate($date) {
-  return date('d/m/Y', strtotime($date));
+  return date('d/m/Y H:m:i', strtotime($date));
 }
 
 function getUserId() {
