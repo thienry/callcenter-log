@@ -69,15 +69,18 @@ class Callcenter extends Model {
   }
 
 
-  public static function pagination($page = 1, $limit = 10) {
+  public static function getPageActualDay($dtini, $dtend, $page = 1, $limit = 10) {
     $start = ($page - 1) * $limit;
 
     $sql = new Sql();
-    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM marcacoes_diag LIMIT $start, $limit");
+    $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM marcacoes_diag WHERE Data_hora BETWEEN :dtini AND :dtend  LIMIT $start, $limit", [
+      ":dtini" => $dtini,
+      ":dtend" => $dtend
+    ]);
     $totalResult = $sql->select("SELECT FOUND_ROWS() AS nrtotal");
 
     return [
-      "data" => Callcenter::checkList($results),
+      "data" => $results,
       "total" => (int)$totalResult[0]["nrtotal"],
       "pages" => ceil($totalResult[0]["nrtotal"] / $limit),
     ];

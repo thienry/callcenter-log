@@ -104,15 +104,29 @@ $app->get("/marcacoes(/)", function () {
   $success = isset($_GET["success"]) ? $_GET["success"] : 0;
   $page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
   $search = isset($_GET["search"]) ? $_GET["search"] : "";
-  $dtini = isset($_GET["dtini"]) ? $_GET["dtini"] : date("Y-m-d");
-  $dtend = isset($_GET["dtend"]) ? $_GET["dtend"] : date("Y-m-d");
+
+  $iniDate = new DateTime("00:00:00");
+  $iniDate = $iniDate->format("Y-m-d H:i:s");
+  
+  $endDate = new DateTime("23:59:59");
+  $endDate = $endDate->format("Y-m-d H:i:s");
+
+  $dtini = isset($_GET["dtini"]) ? $_GET["dtini"] : $iniDate;
+  $dtend = isset($_GET["dtend"]) ? $_GET["dtend"] : $endDate;
 
   $imageUpload = new ImageUpload();
   
   $user = new User();
   $user = User::getFromSession();
 
-  $pagination = Callcenter::pagination($page);
+  /**
+   * Fazer Verificação das queries para renderização da tabela
+   * 1- getPageActualDay();
+   * 2- getPageSearch();
+   * 3- getPageDateRange();
+   * 4- getPageSearchAndDateRange();
+   */
+  $pagination = Callcenter::getPageActualDay($dtini, $dtend, $page);
 
   if ($page > $pagination["pages"] || $page < 1) {
     header("Location: /marcacoes");
@@ -180,7 +194,6 @@ $app->get("/marcacoes(/)", function () {
     "isActiveUsers" => 0,
     "isActiveAppointment" => 1
   ]);
-
 });
 
 $app->get("/marcacoes/:id(/)", function ($id) {
@@ -234,6 +247,8 @@ $app -> post("/marcacoes/:id", function($id) {
 });
 
 $app-> get("/ausente/bloqueio", function () {
+  User::verifyLogin();
+
   if (!isset($_SESSION[User::SESSION])) {
     header("Location: /login");
     exit;
