@@ -11,7 +11,7 @@
             <li class="breadcrumb-item">
               <a href="/dashboard">{$breadcrumbItem}</a>
             </li>
-            <li class="breadcrumb-item active">{$appointments}</li>
+            <li class="breadcrumb-item active">{$pageTitle}</li>
           </ol>
         </div>
       </div>
@@ -35,7 +35,7 @@
             <!-- /.card-header -->
             <!-- form start -->
             <div class="card-header">
-              <h3 class="card-title">Filtrar Marcações</h3>
+              <h3 class="card-title">{$pageTitle}</h3>
             </div>
             <form role="form" action="/marcacoes" method="GET">
               <div class="card-body">
@@ -54,7 +54,7 @@
                         <input
                           type="date"
                           name="dtini"
-                          value="{$dtini}"
+                          value=""
                           class="form-control "
                         />
                       </div>
@@ -75,7 +75,7 @@
                         <input
                           type="time"
                           name="hrini"
-                          value="{$hrini}"
+                          value=""
                           class="form-control "
                         />
                       </div>
@@ -99,7 +99,7 @@
                         <input
                           type="date"
                           name="dtend"
-                          value="{$dtend}"
+                          value=""
                           class="form-control "
                         />
                       </div>
@@ -121,7 +121,7 @@
                         <input
                           type="time"
                           name="hrend"
-                          value="{$hrend}"
+                          value=""
                           class="form-control "
                         />
                       </div>
@@ -144,7 +144,7 @@
                           name="search"
                           class="form-control"
                           id="search"
-                          value="{$search}"
+                          value=""
                           placeholder="Digite aqui Marcação, Nome Paciente, Tipo, Médico, Telefone, Status..."
                         />
                       </div>
@@ -154,115 +154,19 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button
-                  type="submit"
-                  class="btn btn-sm btn-primary float-right"
-                >
-                  Filtrar
-                </button>
+                <div class="card-tools  float-sm-right">
+                  <div class="row no-print">
+                    <div class="col-12">
+                      <a href="#" class="btn btn-sm btn-primary"
+                        ><i class="fas fa-print"></i> Gerar Relatório</a
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="content mt-3">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header text-center">
-              <h1 class="card-title ">
-                <strong>Lista de Marcações</strong>
-              </h1>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Marcação</th>
-                    <th>Nome Paciente</th>
-                    <th>Tipo</th>
-                    <th>Médico</th>
-                    <th style="width: 160px;">Data</th>
-                    <th>Telefone</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {loop="$logs"}
-                  <tr>
-                    <td>{$value.id_marcacao}</td>
-                    <td>{$value.nome_pac}</td>
-                    <td>{$value.descricao}</td>
-                    <td>{$value.Medico}</td>
-                    <td>{function="formatDate($value.Data_hora)"}h</td>
-                    <td>
-                      {if="$value.fone_celular == ''"}
-                      <span class="text-red">Sem Número Cadastrado</span>
-                      {else} {$value.fone_celular} {/if}
-                    </td>
-                    <td>
-                      <strong>
-                        {if="$value.Confirmacao == ''"}
-                        <span class="text-yellow">Sem Resposta</span>
-                        {elseif="$value.Confirmacao == 'S'"}
-                        <span class="text-blue">Confirmada</span>
-                        {else}
-                        <span class="text-red">Desmarcada</span>
-                        {/if}
-                      </strong>
-                    </td>
-                    <td>
-                      <a
-                        href="/marcacoes/{$value.id}"
-                        class="btn btn-primary btn-sm"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Atualizar Marcação"
-                        ><i class="fa fa-edit"></i
-                      ></a>
-                    </td>
-                  </tr>
-                  {/loop}
-                </tbody>
-              </table>
-            </div>
-            {if="$logs == false"}
-            <strong class="text-center pt-5 pb-5"
-              >Não há dados para serem exibidos na tabela!</strong
-            >
-            {/if}
-            <!-- /.card-body -->
-            <div class="card-footer clearfix">
-              {if="count($pages) > 1"}
-              <ul class="pagination pagination-sm m-0 float-right">
-                <li class='page-item {if="$firstPage == true"} disabled {/if}'>
-                  <a class="page-link" href="{$first}"
-                    ><i class="fas fa-angle-double-left"></i
-                  ></a>
-                </li>
-                {loop="$pages"}
-                <li class='page-item {if="$value.active"} active {/if}'>
-                  <a class="page-link" href="{$value.link}">{$value.text}</a>
-                </li>
-                {/loop}
-                <li class='page-item {if="$lastPage == true"} disabled {/if}'>
-                  <a class="page-link" href="{$last}"
-                    ><i class="fas fa-angle-double-right"></i
-                  ></a>
-                </li>
-              </ul>
-              {/if}
-            </div>
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.card -->
       </div>
     </div>
   </section>

@@ -173,20 +173,10 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
-              <h1 class="card-title">
+            <div class="card-header text-center">
+              <h1 class="card-title ">
                 <strong>Lista de Marcações</strong>
               </h1>
-
-              <div class="card-tools">
-                <div class="row no-print" style="width: 150px;">
-                  <div class="col-12">
-                    <a href="#" class="btn btn-default"
-                      ><i class="fas fa-print"></i> Imprimir</a
-                    >
-                  </div>
-                </div>
-              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">

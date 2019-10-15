@@ -131,13 +131,25 @@
             <?php } ?>
             <!-- /.card-body -->
             <div class="card-footer clearfix">
+              <?php if( count($pages) > 1 ){ ?>
               <ul class="pagination pagination-sm m-0 float-right">
-                <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
-                <li class="page-item">
-                  <a class="page-link" href="<?php echo htmlspecialchars( $value1["href"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                <li class='page-item <?php if( $firstPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $first, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-double-left"></i
+                  ></a>
                 </li>
+                <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+                  <li class='page-item <?php if( $value1["active"] ){ ?> active <?php } ?>'>
+                    <a class="page-link" href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["text"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a>
+                  </li>
                 <?php } ?>
+                <li class='page-item <?php if( $lastPage == true ){ ?> disabled <?php } ?>'>
+                  <a class="page-link" href="<?php echo htmlspecialchars( $last, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                    ><i class="fas fa-angle-double-right"></i
+                  ></a>
+                </li>
               </ul>
+              <?php } ?>
             </div>
           </div>
           <!-- /.card -->

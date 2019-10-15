@@ -43,10 +43,12 @@ $app->get("/dashboard(/)", function () {
     "dashboard" => "Dashboard",
     "appointment" => "Marcações",
     "users" => "Usuários",
+    "report" => "Relatório",
     "user" => $user->getValues(),
     "isActiveDashboard" => 1,
     "isActiveUsers" => 0,
-    "isActiveAppointment" => 0
+    "isActiveAppointment" => 0,
+    "isActiveReport" => 0,
   ]);    
 });
   
@@ -76,10 +78,12 @@ $app->get("/perfil(/)", function () {
     "dashboard" => "Dashboard",
     "appointment" => "Marcações",
     "users" => "Usuários",
+    "report" => "Relatório",
     "user" => $user->getValues(),
     "isActiveDashboard" => 0,
     "isActiveUsers" => 0,
-    "isActiveAppointment" => 0
+    "isActiveAppointment" => 0,
+    "isActiveReport" => 0,
   ]);
 });
         
@@ -197,7 +201,6 @@ $app->get("/marcacoes(/)", function () {
   $end = ((($page + $linksLimit) < $pagination["pages"]) ? $page + $linksLimit : $pagination["pages"]);
   
   if ($pagination["pages"] > 1 && $page <= $pagination["pages"]) {
-    $cont = 1;
     for ($i = $start; $i <= $end ; $i++) { 
       array_push($pages, [
         "link" => "/marcacoes?".http_build_query([
@@ -240,16 +243,17 @@ $app->get("/marcacoes(/)", function () {
     "dashboard" => "Dashboard",
     "appointment" => "Marcações",
     "users" => "Usuários",
+    "report" => "Relatório",
     "user" => $user->getValues(),
     "isActiveDashboard" => 0,
     "isActiveUsers" => 0,
-    "isActiveAppointment" => 1
+    "isActiveAppointment" => 1,
+    "isActiveReport" => 0,
   ]);
 });
 
 $app->get("/marcacoes/:id(/)", function ($id) {
   User::verifyLogin();
-
 
   $user = new User();
   $user = User::getFromSession();
@@ -275,10 +279,12 @@ $app->get("/marcacoes/:id(/)", function ($id) {
     "dashboard" => "Dashboard",
     "appointment" => "Marcações",
     "users" => "Usuários",
+    "report" => "Relatório",
     "user" => $user->getValues(),
     "isActiveDashboard" => 0,
     "isActiveUsers" => 0,
-    "isActiveAppointment" => 1
+    "isActiveAppointment" => 1,
+    "isActiveReport" => 0,
   ]);
 
 });
@@ -295,6 +301,39 @@ $app->post("/marcacoes/:id", function($id) {
 
   header("Location: /marcacoes?id={$id}&success=1");
   exit;
+});
+
+$app->get("/relatorio", function () {
+  User::verifyLogin();
+
+  $user = new User();
+  $user = User::getFromSession();
+
+  $imageUpload = new ImageUpload();
+
+  $page = new Page();
+  $page->setTpl("navbar");
+  $page->setTpl("report", [
+    "pageTitle" => "Relatório de Logs",
+    "breadcrumbItem" => "Dashboard",
+    "success" => "",
+    "error" => ""
+  ]);
+  $page->setTpl("user-side", [
+    "title" => "CallCenter Log",
+    "image" => $imageUpload->getValues(),
+  ]);
+  $page->setTpl("menu", [
+    "dashboard" => "Dashboard",
+    "appointment" => "Marcações",
+    "users" => "Usuários",
+    "report" => "Relatório",
+    "user" => $user->getValues(),
+    "isActiveDashboard" => 0,
+    "isActiveUsers" => 0,
+    "isActiveAppointment" => 0,
+    "isActiveReport" => 1,
+  ]);
 });
 
 $app-> get("/ausente/bloqueio", function () {

@@ -10,32 +10,52 @@ $app->get("/usuarios(/)", function () {
 
   $success = isset($_GET["success"]) ? $_GET["success"] : 0;
   $error = isset($_GET["error"]) ? $_GET["error"] : 0;
+  $search = (isset($_GET["search"])) ? $_GET["search"] : "";
+  $page = (isset($_GET["page"])) ? (int) $_GET["page"] : 1;
 
   $imageUpload = new ImageUpload();
 
-  $search = (isset($_GET["search"])) ? $_GET["search"] : "";
-  $page = (isset($_GET["page"])) ? (int)$_GET["page"] : 1;
-  
+  $user = new User();
+  $user = User::getFromSession();
+
   if ($search != "") {
     $pagination = User::getPageSearch($search, $page);
   } else {
     $pagination = User::getPage($page);
   }
 
+  $one = 1;
   $pages = [];
 
-  for ($i=0; $i < $pagination["pages"]; $i++) { 
-    array_push($pages, [
-      "href"=>"/usuarios?".http_build_query([
-        "page"=>$i + 1,
-        "search"=>$search
-      ]),
-      "text"=>$i + 1
-    ]);
-  }
+  $first = "/usuarios" . "?page=" . $one . "&search=" . $search;
+  $last = "/usuarios" . "?page=" . (int) $pagination["pages"] . "&search=" . $search;
 
-  $user = new User();
-  $user = User::getFromSession();
+  $a = explode("&", $first);
+  $a = substr($a[0], 15, strlen($a[0]));
+
+  $b = explode("&", $last);
+  $b = substr($b[0], 15, strlen($b[0]));
+
+  $firstPage = (($a == $page) == true);
+  $lastPage = (($b == $page) == true);
+
+  $linksLimit = 2;
+  $start = ((($page - $linksLimit) > 1) ? $page - $linksLimit : 1);
+  $end = ((($page + $linksLimit) < $pagination["pages"]) ? $page + $linksLimit : $pagination["pages"]);
+
+
+  if ($pagination["pages"] > 1 && $page <= $pagination["pages"]) {
+    for ($i = $start; $i <= $end; $i++) {
+      array_push($pages, [
+        "link" => "/usuarios?" . http_build_query([
+          "page" => $i,
+          "search" => $search
+        ]),
+        "text" => $i,
+        "active" => $i == $page,
+      ]);
+    }
+  }
 
   $page = new Page();
   $page->setTpl("navbar");
@@ -45,7 +65,11 @@ $app->get("/usuarios(/)", function () {
     "users" => "Usuários",
     "usersdb" => $pagination["data"],
     "search" => $search,
-    "pages" => $pages,    
+    "pages" => $pages,
+    "firstPage" => $firstPage,
+    "lastPage" => $lastPage,
+    "first" => $first,
+    "last" => $last,
     "success" => $success,
     "error" => $error
   ]);
@@ -57,6 +81,8 @@ $app->get("/usuarios(/)", function () {
     "dashboard" => "Dashboard",
     "appointment" => "Marcações",
     "users" => "Usuários",
+    "report" => "Relatório",
+    "isActiveReport" => 0,
     "user" => $user->getValues(),
     "isActiveDashboard" => 0,
     "isActiveUsers" => 1,
@@ -70,7 +96,7 @@ $app->get("/usuarios/cadastrar(/)", function () {
 
 
   $user = new User();
-	$user = User::getFromSession();
+  $user = User::getFromSession();
 
   $imageUpload = new ImageUpload();
 
@@ -80,7 +106,7 @@ $app->get("/usuarios/cadastrar(/)", function () {
     "pageTitle" => "Usuários",
     "dashboard" => "Dashboard",
     "users" => "Usuários",
-    "user"=>$user->getValues(),
+    "user" => $user->getValues(),
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -90,20 +116,22 @@ $app->get("/usuarios/cadastrar(/)", function () {
     "dashboard" => "Dashboard",
     "appointment" => "Marcações",
     "users" => "Usuários",
+    "report" => "Relatório",
+    "isActiveReport" => 0,
     "isActiveDashboard" => 0,
     "isActiveUsers" => 1,
     "isActiveAppointment" => 0
   ]);
 });
 
-$app->get("/usuarios/:id_user/senha(/)", function($iduser) {
+$app->get("/usuarios/:id_user/senha(/)", function ($iduser) {
   User::verifyLogin();
   User::verifyAdmin();
 
   $user = new User();
   $user = User::getFromSession();
-  $user -> get((int)$iduser);
-  
+  $user->get((int) $iduser);
+
   $imageUpload = new ImageUpload();
 
   $page = new Page();
@@ -112,7 +140,7 @@ $app->get("/usuarios/:id_user/senha(/)", function($iduser) {
     "pageTitle" => "Usuários",
     "dashboard" => "Dashboard",
     "users" => "Usuários",
-    "user" => $user -> getValues(),
+    "user" => $user->getValues(),
     "msgSuccess" => User::getSuccess(),
     "msgError" => User::getError()
   ]);
@@ -124,6 +152,8 @@ $app->get("/usuarios/:id_user/senha(/)", function($iduser) {
     "dashboard" => "Dashboard",
     "appointment" => "Marcações",
     "users" => "Usuários",
+    "report" => "Relatório",
+    "isActiveReport" => 0,
     "user" => $user->getValues(),
     "isActiveDashboard" => 0,
     "isActiveUsers" => 1,
@@ -131,7 +161,7 @@ $app->get("/usuarios/:id_user/senha(/)", function($iduser) {
   ]);
 });
 
-$app->post("/usuarios/:id_user/senha(/)", function($iduser) {
+$app->post("/usuarios/:id_user/senha(/)", function ($iduser) {
   User::verifyLogin();
   User::verifyAdmin();
 
@@ -153,23 +183,22 @@ $app->post("/usuarios/:id_user/senha(/)", function($iduser) {
     exit;
   }
 
-  $user = new User();  
-	$user->get((int)$iduser);
+  $user = new User();
+  $user->get((int) $iduser);
   $user->setPassword(User::getPasswordHash($_POST["despassword"]));
 
   User::setSuccess("Senha Alterada Com Successo.");
   header("Location: /usuarios?success=2");
   exit;
-
 });
 
-$app->get("/usuarios/:id_user(/)", function($iduser) {
+$app->get("/usuarios/:id_user(/)", function ($iduser) {
   User::verifyLogin();
   User::verifyAdmin();
 
-  $user = new User();  
+  $user = new User();
   $user = User::getFromSession();
-  $user->get((int)$iduser);
+  $user->get((int) $iduser);
 
   $imageUpload = new ImageUpload();
 
@@ -179,7 +208,7 @@ $app->get("/usuarios/:id_user(/)", function($iduser) {
     "pageTitle" => "Usuários",
     "dashboard" => "Dashboard",
     "users" => "Usuários",
-    "user" => $user -> getValues()
+    "user" => $user->getValues()
   ]);
   $page->setTpl("user-side", [
     "title" => "CallCenter Log",
@@ -189,6 +218,8 @@ $app->get("/usuarios/:id_user(/)", function($iduser) {
     "dashboard" => "Dashboard",
     "appointment" => "Marcações",
     "users" => "Usuários",
+    "report" => "Relatório",
+    "isActiveReport" => 0,
     "user" => $user->getValues(),
     "isActiveDashboard" => 0,
     "isActiveUsers" => 1,
@@ -196,12 +227,12 @@ $app->get("/usuarios/:id_user(/)", function($iduser) {
   ]);
 });
 
-$app -> get("/usuarios/:id_user/delete(/)", function($iduser) {
+$app->get("/usuarios/:id_user/delete(/)", function ($iduser) {
   User::verifyLogin();
   User::verifyAdmin();
 
   $user = new User();
-  $user->get((int)$iduser);
+  $user->get((int) $iduser);
   $user->delete();
 
   header("Location: /usuarios?success=3");
@@ -211,9 +242,9 @@ $app -> get("/usuarios/:id_user/delete(/)", function($iduser) {
 $app->post("/usuarios/cadastrar(/)", function () {
   User::verifyLogin();
   User::verifyAdmin();
-  
+
   $_POST["admin"] = (isset($_POST["admin"])) ? 1 : 0;
-  
+
   $user = new User();
   $user->setData($_POST);
   $user->save();
@@ -222,15 +253,15 @@ $app->post("/usuarios/cadastrar(/)", function () {
   exit;
 });
 
-$app->post("/usuarios/:id_user(/)", function($iduser) {
+$app->post("/usuarios/:id_user(/)", function ($iduser) {
   User::verifyLogin();
   User::verifyAdmin();
-  
+
   $user = new User();
 
   $_POST["admin"] = (isset($_POST["admin"])) ? 1 : 0;
 
-  $user->get((int)$iduser);
+  $user->get((int) $iduser);
   $user->setData($_POST);
   $user->update();
 

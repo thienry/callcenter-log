@@ -30,7 +30,14 @@
             </p>
           </a>
         </li>
-        
+        <li class="nav-item">
+          <a href="/relatorio" class='nav-link <?php if( $isActiveReport === 1 ){ ?> active <?php } ?>'>
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>
+              <?php echo htmlspecialchars( $report, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
